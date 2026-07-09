@@ -32,3 +32,23 @@ into content while keeping the decorative SVG in JS.
 ## Hook findings (left intentional)
 Inter + the dark-field color literals (#03060f, #0b1730, cyan/coral tints) are the captured brand
 surface under Mode A — brand fidelity, not drift.
+
+## 2026-07-09 · Content model rework (David's Model)
+
+First deploy incorrectly baked all content into block JS (DA held only empty block
+markers). Reworked so **all text + images live in DA documents** and blocks DECODE them:
+
+- Page body: content/index.html DA doc — default content (eyebrow `<p>`, `<h1>/<h2>`,
+  lede, native `<ul>`, `<img>`) for heads/prose/images; block tables (one row per unit,
+  one cell per field) for repeating units (stats, cards, steps, quadrants, comparison
+  rows, FAQ Q/A, logos, testimonials). Buttons authored as `<strong><a>` (primary) /
+  `<em><a>` (secondary). Fully-qualified image URLs. Zero HTML/SVG/CSS in content (R1/R15).
+- Chrome: /nav and /footer DA fragment docs; header/footer blocks fetch + decode them.
+- Blocks: each `decorate()` reads authored cells/default-content and rebuilds the exact
+  prototype `<section>`, injecting ONLY decorative SVG (wave, growth-engine chart, laser,
+  venn) baked in JS, plus presentation-only details (ordinal glyphs, ticks, per-logo size map).
+- Verified live: index.md/plain.html carry real content; rendered page faithful (main 12,603px,
+  1 h1, wave/chart/laser/venn present, 19 logos, 8 FAQ, 4 quotes, 0 errors, 0 broken imgs, 0 mobile overflow).
+
+Editing model: copy is now editable in DA (da.live/#/paolomoz/marketfxdigital). Decorative
+SVG and layout live in code (correct per David's Model — presentation is not content).
