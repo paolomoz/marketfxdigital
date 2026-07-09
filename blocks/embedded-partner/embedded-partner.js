@@ -1,8 +1,10 @@
-/* stardust generated block — recreates the prototype section verbatim so all lifted CSS matches. */
+/* stardust block embedded-partner — template-slotted (markup baked so the DA pipeline can't strip inline SVG). */
+const HTML = "\n    <div class=\"wrap\">\n      <div class=\"head\" data-reveal>\n        <h2>An Embedded Growth Partner</h2>\n        <p class=\"lede\">We function as an extension of your internal team, not a vendor you manage.</p>\n        <h3>What You Get</h3>\n      </div>\n      <ul class=\"get-list\" data-reveal>\n        <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Dedicated strategists</li>\n        <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Full execution team</li>\n        <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Paid media, SEO, creative, and CRM support</li>\n        <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Monthly strategy calls</li>\n        <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>AI-powered optimization tools</li>\n        <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Custom real-time reporting dashboards</li>\n        <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Full-funnel KPI mapping</li>\n        <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>CRO (Conversion Rate Optimization)</li>\n      </ul>\n      <div class=\"creed\" data-reveal>\n        <blockquote>\n          <p>\"Marketing's job is to create revenue certainty, not just awareness.\"</p>\n        </blockquote>\n        <p class=\"follow\">Every dollar your organization invests in marketing should be traceable to leads, sales, customer lifetime value, brand awareness, sentiment, and long term equity. Performance and brand building are not separate disciplines. They are complementary forces that drive sustainable market positioning and revenue growth.</p>\n      </div>\n    </div>\n  ";
 export default function decorate(block) {
-  const cell = block.querySelector(':scope > div > div') || block.querySelector(':scope > div');
-  const el = document.createElement('section'); el.className = "partner-band"; el.setAttribute('data-section', "embedded-partner");
-  if (cell) { while (cell.firstChild) el.appendChild(cell.firstChild); }
+  const el = document.createElement('section');
+  el.className = "partner-band";
+  el.setAttribute('data-section', "embedded-partner");
+  el.innerHTML = HTML;
   block.replaceChildren(el);
   block.classList.remove("embedded-partner");
 }

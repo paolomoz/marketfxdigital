@@ -1,8 +1,10 @@
-/* stardust generated block — recreates the prototype section verbatim so all lifted CSS matches. */
+/* stardust block embedded-strategy — template-slotted (markup baked so the DA pipeline can't strip inline SVG). */
+const HTML = "\n    <div class=\"wrap\">\n      <div class=\"ledger-head\" data-reveal>\n        <h2>Embedded in Strategy. Aligned to Growth.</h2>\n        <p class=\"lede\">marketFX is agnostic and collaborates seamlessly with existing internal teams, agency partners, and client resources. We integrate growth initiatives into a unified, performance-driven framework rather than replacing what is already working.</p>\n      </div>\n      <div class=\"ledger-grid\">\n        <div class=\"ledger-row\" data-reveal>\n          <span class=\"ord\" aria-hidden=\"true\">01</span>\n          <div>\n            <h3>Omni-Channel Execution</h3>\n            <p>We unify website, paid search, paid social, local search, SEO, email and SMS, influencers, affiliates, reputation management, and CRM automation. Every channel supports the same growth roadmap.</p>\n          </div>\n        </div>\n        <div class=\"ledger-row\" data-reveal>\n          <span class=\"ord\" aria-hidden=\"true\">02</span>\n          <div>\n            <h3>Revenue Accountability</h3>\n            <p>We measure performance by business impact: leads, sales, store visits, calls, bookings, customer lifetime value, and margin impact. Not vanity metrics.</p>\n          </div>\n        </div>\n        <div class=\"ledger-row\" data-reveal>\n          <span class=\"ord\" aria-hidden=\"true\">03</span>\n          <div>\n            <h3>Integrated Team Structure</h3>\n            <p>Strategy, media, SEO, creative, CRM, CRO and analytics operate as one unified approach. No silos. No fragmented reporting. No channel-level tunnel vision.</p>\n          </div>\n        </div>\n        <div class=\"ledger-row\" data-reveal>\n          <span class=\"ord\" aria-hidden=\"true\">04</span>\n          <div>\n            <h3>AI-Enhanced Marketing</h3>\n            <p>AI-enhanced marketing that integrates search strategy, generative engine optimization, content visibility, and performance media into a unified approach for output, precision, and search visibility.</p>\n          </div>\n        </div>\n      </div>\n    </div>\n  ";
 export default function decorate(block) {
-  const cell = block.querySelector(':scope > div > div') || block.querySelector(':scope > div');
-  const el = document.createElement('section');  el.setAttribute('data-section', "embedded-strategy");
-  if (cell) { while (cell.firstChild) el.appendChild(cell.firstChild); }
+  const el = document.createElement('section');
+  
+  el.setAttribute('data-section', "embedded-strategy");
+  el.innerHTML = HTML;
   block.replaceChildren(el);
   block.classList.remove("embedded-strategy");
 }
