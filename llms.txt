@@ -1,0 +1,64 @@
+# marketFX Digital
+> Full-stack omni-channel marketing agency replacing fragmented vendors with one accountable growth partner. Scottsdale, AZ and Vancouver, BC.
+
+## What We Do
+marketFX Digital is an integrated marketing agency founded by Abby Di Niro that unifies strategy, paid media, SEO, content, social, and CRM into one accountable team -- eliminating the Integration Gap(TM) that erodes ROI when brands use disconnected vendors.
+
+## Core Frameworks
+- Integration Gap(TM) -- four dimensions: strategic misalignment, data silos, messaging inconsistency, accountability diffusion
+- Fragmentation Tax(TM) -- accumulated hidden cost of disconnected vendors
+- Retail Activation Framework(TM) -- five-phase sequenced omnichannel model for multi-location retail
+- AI Enablement Ladder(TM) -- four stages of AI marketing maturity: Experimentation, Adoption, Integration, Optimisation
+- Signal vs Noise(TM) -- separating decision-grade metrics from vanity metrics
+
+## Client Results
+- Spence Diamonds: +61% online sales, +30% product views, +41% USA sales, +68% Canadian sales
+- Stonz Wear: +35% walk-in traffic, +26% online sales, +64% location calls, +48% online bookings
+- 7-Eleven Canada: 10+ year partnership, multimillion-dollar program built without headcount increase
+- Samsung: +45% digital campaign engagement, +38% paid media efficiency
+
+## Pages
+- [Homepage](/): Full-stack omni-channel marketing agency landing page.
+- [About](/about): Who we are, founded 2004 by Abby Di Niro, Scottsdale AZ / Vancouver BC.
+- [Services](/services): Strategic Planning, Performance Media, SEO & Content, Creative, Social, CRM, Analytics.
+- [Contact](/contact-us): Book a strategy call.
+- [Blog](/blog): Insights on integrated strategy, omnichannel, AI marketing, attribution, GEO.
+- [Resources](/resources): Free frameworks, templates, and assessments.
+- [FAQs](/faqs): Frequently asked questions about full-stack marketing.
+- [Testimonials](/testimonials): Client results and case studies.
+- [Glossary](/glossary): Marketing terminology and frameworks.
+
+## Services
+- [Digital Marketing Strategy](/digital-marketing-strategy): Strategic planning and growth roadmaps.
+- [Paid Media Services](/paid-media-services): Performance media across Google, Meta, TikTok, LinkedIn.
+- [Content Strategy Services](/content-strategy-services): Editorial, SEO, and brand content systems.
+- [Marketing Analytics & Reporting](/marketing-analytics-reporting): GA4, PowerBI, attribution, dashboards.
+- [AI Marketing Agency](/ai-marketing-agency): AI Enablement Ladder™, GEO, AI-augmented paid and content.
+- [GEO Agency](/geo-agency): Generative Engine Optimization to get cited by ChatGPT, Perplexity, Gemini.
+- [AI Enablement Ladder](/ai-enablement-ladder): Four-stage AI marketing maturity model with assessment PDF.
+- [Google Ads Agency](/google-ads-agency): Audits, Performance Max, Search rebuilds, Shopping feed work.
+- [Scottsdale Marketing Agency](/scottsdale-marketing-agency): Full-stack marketing for Scottsdale and Phoenix.
+- [Vancouver Marketing Agency](/vancouver-marketing-agency): Full-stack marketing for Metro Vancouver, BC.
+
+## Blog Articles
+- [How Much Does a Marketing Agency Cost in 2026](/blog/marketing-agency-cost-2026): Retainers, fee models, hidden costs, and how to size your investment.
+- [Why Fragmented Marketing Agencies Are Costing You More](/blog/fragmented-marketing-agencies-roi): The Fragmentation Tax™ and Integration Gap™ explained.
+- [Omnichannel Marketing for Multi-Location Retail](/blog/omnichannel-marketing-multi-location-retail): The Retail Activation Framework™.
+- [AI in Marketing: What Actually Changes](/blog/ai-in-marketing-what-actually-changes): The AI Enablement Ladder™ across the campaign lifecycle.
+- [GEO vs SEO: What Actually Changes](/blog/geo-vs-seo-what-actually-changes): The GEO Visibility Stack™ for AI search.
+- [Why Your Google Analytics Dashboard Is Lying to You](/blog/why-your-google-analytics-dashboard-is-lying-to-you): Signal vs Noise™ for revenue-grade measurement.
+- [How to Build a Full-Funnel Marketing Strategy](/blog/full-funnel-marketing-strategy): Connected funnel framework, sequenced channels.
+- [Local SEO for Multi-Location Brands](/blog/local-seo-multi-location-brands): The 2026 playbook for AI Overviews and local visibility.
+
+## Optional
+- [Privacy Policy](/privacy-policy): Site privacy practices.
+- [Terms](/terms): Terms of service.
+
+## About the Founder
+Abby Di Niro is Founder and Lead Strategist at marketFX Digital. She has led integrated marketing programs for enterprise clients including Samsung, 7-Eleven Canada, Spence Diamonds, and Stonz Wear across North American markets for over 20 years.
+
+## Contact
+info@marketfxdigital.com - Scottsdale, AZ / Vancouver, BC
+
+## Pricing
+Engagements are scoped to your business. Standalone service audits and paid media management also available, scoped on complexity. Specific pricing shared in writing after a brief scoping call.
