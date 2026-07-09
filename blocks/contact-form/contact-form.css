@@ -1,0 +1,128 @@
+/* contact-form — dark card, cyan focus rings, AA labels, 44px inputs.
+   Reuses foundation tokens/classes (.btn, --signal, --field, --ink…).
+   Scoped to the rebuilt section (decorate() removes the .contact-form class). */
+
+section[data-section='contact-form'] {
+  background: var(--field);
+}
+
+[data-section='contact-form'] .cf-card {
+  max-width: 640px;
+  margin-inline: auto;
+  background: var(--card-grad);
+  border: 1px solid var(--hairline-dark);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card-dark);
+  padding: var(--spacing-2xl);
+}
+
+[data-section='contact-form'] .cf-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+[data-section='contact-form'] .cf-field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+[data-section='contact-form'] .cf-label {
+  font-size: var(--body-sm);
+  font-weight: 700;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--text-on-dark);
+}
+
+[data-section='contact-form'] .cf-req {
+  color: var(--signal);
+  margin-left: 4px;
+}
+
+[data-section='contact-form'] .cf-control {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px 14px;
+  font: 400 16px/1.4 var(--body-font-family);
+  color: var(--text-on-dark);
+  background: var(--field);
+  border: 1px solid var(--hairline-dark);
+  border-radius: var(--radius);
+  transition: border-color .18s ease, box-shadow .18s ease;
+}
+
+[data-section='contact-form'] textarea.cf-control {
+  min-height: 120px;
+  resize: vertical;
+}
+
+[data-section='contact-form'] select.cf-control {
+  appearance: none;
+  cursor: pointer;
+  background-image:
+    linear-gradient(45deg, transparent 50%, var(--signal) 50%),
+    linear-gradient(135deg, var(--signal) 50%, transparent 50%);
+  background-position:
+    calc(100% - 20px) center,
+    calc(100% - 15px) center;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+}
+
+[data-section='contact-form'] .cf-control::placeholder { color: var(--text-muted-dark); }
+
+[data-section='contact-form'] .cf-control:focus,
+[data-section='contact-form'] .cf-control:focus-visible {
+  outline: none;
+  border-color: var(--signal);
+  box-shadow: 0 0 0 3px rgba(0, 178, 236, .35);
+}
+
+[data-section='contact-form'] .cf-control[aria-invalid='true'] {
+  border-color: var(--ember);
+}
+
+[data-section='contact-form'] .cf-error {
+  margin: 0;
+  min-height: 1em;
+  font-size: var(--body-sm);
+  color: var(--ember);
+}
+
+[data-section='contact-form'] .cf-error:empty {
+  min-height: 0;
+}
+
+[data-section='contact-form'] .cf-submit {
+  align-self: flex-start;
+  min-height: 48px;
+}
+
+/* success state */
+[data-section='contact-form'] .cf-success {
+  text-align: left;
+}
+
+[data-section='contact-form'] .cf-success h3 {
+  color: var(--text-on-dark);
+  font-size: var(--heading-md);
+  margin: 0 0 var(--spacing-sm);
+}
+
+[data-section='contact-form'] .cf-success p {
+  color: var(--text-muted-dark);
+  margin: 0 0 var(--spacing-lg);
+}
+
+[data-section='contact-form'] .cf-scheduler {
+  min-height: 48px;
+}
+
+@media (max-width: 600px) {
+  [data-section='contact-form'] .cf-card { padding: var(--spacing-lg); }
+  [data-section='contact-form'] .cf-submit,
+  [data-section='contact-form'] .cf-scheduler { width: 100%; }
+}

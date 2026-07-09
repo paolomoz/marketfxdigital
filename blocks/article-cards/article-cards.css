@@ -1,0 +1,125 @@
+/* article-cards — dark-first blog grid, native to the marketFX brand.
+   Reuses foundation tokens from styles/styles.css (--signal/--field/--ink/…).
+   Scoped to the rebuilt section (decorate() removes the .article-cards class). */
+
+section[data-section='article-cards'] {
+  background: var(--field);
+}
+
+[data-section='article-cards'] .ac-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+[data-section='article-cards'] .ac-card {
+  display: flex;
+  flex-direction: column;
+}
+
+[data-section='article-cards'] .ac-link {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  color: inherit;
+  background: var(--card-grad);
+  border: 1px solid var(--hairline-dark);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card-dark);
+  overflow: hidden;
+  transition: border-color .18s ease, transform .18s var(--ease-entrance);
+}
+
+[data-section='article-cards'] .ac-link:hover {
+  border-color: rgba(0, 178, 236, .5);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-section='article-cards'] .ac-link:hover { transform: translateY(-4px); }
+}
+
+[data-section='article-cards'] .ac-media {
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-bottom: 1px solid var(--hairline-dark);
+  background: var(--field-navy);
+}
+
+[data-section='article-cards'] .ac-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+[data-section='article-cards'] .ac-media--placeholder {
+  background: linear-gradient(140deg, var(--signal) 0%, var(--signal-deep) 42%, var(--field-navy) 100%);
+  position: relative;
+}
+
+[data-section='article-cards'] .ac-media--placeholder::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, .12) 1px, transparent 1px);
+  background-size: 22px 22px;
+  mask-image: linear-gradient(160deg, rgba(0, 0, 0, .9), transparent 75%);
+  -webkit-mask-image: linear-gradient(160deg, rgba(0, 0, 0, .9), transparent 75%);
+}
+
+[data-section='article-cards'] .ac-body {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  padding: var(--spacing-lg);
+}
+
+[data-section='article-cards'] .ac-eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin: 0 0 var(--spacing-sm);
+}
+
+[data-section='article-cards'] .ac-title {
+  font-size: 20px;
+  line-height: 1.25;
+  color: var(--text-on-dark);
+  margin: 0 0 var(--spacing-sm);
+}
+
+[data-section='article-cards'] .ac-link:hover .ac-title {
+  color: var(--signal);
+}
+
+[data-section='article-cards'] .ac-desc {
+  color: var(--text-muted-dark);
+  margin: 0 0 var(--spacing-md);
+  flex-grow: 1;
+}
+
+[data-section='article-cards'] .ac-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  min-height: 44px;
+  margin: 0;
+  padding-top: var(--spacing-sm);
+  border-top: 1px solid var(--hairline-dark);
+  font-size: var(--body-sm);
+  color: var(--text-muted-dark);
+}
+
+[data-section='article-cards'] .ac-arr {
+  font-weight: 600;
+  color: var(--signal);
+  white-space: nowrap;
+}
+
+@media (max-width: 600px) {
+  [data-section='article-cards'] .ac-grid { grid-template-columns: 1fr; }
+}

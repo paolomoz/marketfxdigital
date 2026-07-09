@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>verify: resource-cards</title>
+<link rel="stylesheet" href="/styles/styles.css">
+<link rel="stylesheet" href="/blocks/resource-cards/resource-cards.css">
+<style>body{display:block!important}</style>
+</head>
+<body class="appear">
+<main>
+  <div class="section"><div class="resource-cards-wrapper"><div class="resource-cards block" data-block-name="resource-cards">
+    <div><div>The Full-Funnel Growth Playbook</div><div>A 40-page framework for aligning paid, organic, and lifecycle into one revenue engine.</div></div>
+    <div><div>2026 Marketing Budget Benchmark Report</div><div>How high-growth brands allocate spend across channels — with median CAC and ROAS ranges.</div></div>
+    <div><div>AI Search Readiness Checklist</div><div>27 checks to make sure LLMs and answer engines can find, parse, and cite your brand.</div></div>
+    <div><div>Multi-Location Attribution Guide</div><div>Connect store-level performance to central strategy without drowning in dashboards.</div></div>
+  </div></div></div>
+</main>
+<script type="module">
+  import decorate from '/blocks/resource-cards/resource-cards.js';
+  const block = document.querySelector('.resource-cards.block');
+  decorate(block);
+  window.__ready = true;
+</script>
+</body>
+</html>

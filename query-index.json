@@ -1,0 +1,47 @@
+{
+  "total": 5,
+  "offset": 0,
+  "limit": 5,
+  "data": [
+    {
+      "path": "/blog/marketing-agency-cost-2026",
+      "title": "How Much Does a Marketing Agency Cost in 2026?",
+      "description": "What full-service marketing agencies cost in 2026 — pricing models, retainer ranges, project fees, and what drives the spread between cheap and premium shops.",
+      "image": "",
+      "category": "Operations",
+      "lastModified": "1747440000"
+    },
+    {
+      "path": "/blog/fragmented-marketing-agencies-roi",
+      "title": "Why Fragmented Marketing Agencies Are Costing You More Than You Think",
+      "description": "The hidden cost of juggling multiple vendors isn't just budget waste. It's the strategic gaps between them that silently erode your growth.",
+      "image": "https://marketfxdigital.com/assets/fragmented-agencies-preview-wbvfrokt.webp",
+      "category": "Strategy",
+      "lastModified": "1749513600"
+    },
+    {
+      "path": "/blog/omnichannel-marketing-multi-location-retail",
+      "title": "Omnichannel Marketing for Multi-Location Retail",
+      "description": "What actually works when you're coordinating marketing across dozens of locations with different competitive landscapes.",
+      "image": "",
+      "category": "Retail",
+      "lastModified": "1746230400"
+    },
+    {
+      "path": "/blog/ai-search-visibility-2026",
+      "title": "AI Search Visibility: Getting Cited by LLMs in 2026",
+      "description": "How to structure content so answer engines and AI assistants surface your brand — the new front line of organic discovery.",
+      "image": "",
+      "category": "SEO & AI",
+      "lastModified": "1751328000"
+    },
+    {
+      "path": "/services",
+      "title": "Services — not a blog post, should be filtered out",
+      "description": "This entry is under /services and must not appear in the article grid.",
+      "image": "",
+      "category": "Page",
+      "lastModified": "1751500000"
+    }
+  ]
+}

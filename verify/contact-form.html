@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>verify: contact-form</title>
+<link rel="stylesheet" href="/styles/styles.css">
+<link rel="stylesheet" href="/blocks/contact-form/contact-form.css">
+<style>body{display:block!important}</style>
+</head>
+<body class="appear">
+<main>
+  <div class="section"><div class="contact-form-wrapper"><div class="contact-form block" data-block-name="contact-form"></div></div></div>
+</main>
+<script type="module">
+  import decorate from '/blocks/contact-form/contact-form.js';
+  const block = document.querySelector('.contact-form.block');
+  decorate(block);
+  window.__ready = true;
+</script>
+</body>
+</html>
