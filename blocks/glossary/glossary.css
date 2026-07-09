@@ -1,0 +1,110 @@
+/* glossary — dark-first definition list, readable measure, sticky A–Z nav.
+   Scoped to the rebuilt section (decorate() removes the .glossary class). */
+
+section[data-section='glossary'] {
+  background: var(--field);
+}
+
+/* A–Z quick-nav */
+[data-section='glossary'] .gl-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  margin-bottom: var(--spacing-2xl);
+  padding: var(--spacing-sm);
+  background: var(--surface-dark);
+  border: 1px solid var(--hairline-dark);
+  border-radius: var(--radius-card);
+}
+
+[data-section='glossary'] .gl-nav-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px;
+  font-size: var(--body-sm);
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--signal);
+  border-radius: var(--radius);
+  transition: background-color .18s ease, color .18s ease;
+}
+
+[data-section='glossary'] a.gl-nav-link:hover {
+  background: rgba(0, 178, 236, .12);
+}
+
+[data-section='glossary'] a.gl-nav-link:focus-visible {
+  outline: 2px solid var(--signal);
+  outline-offset: 2px;
+}
+
+[data-section='glossary'] .gl-nav-link.is-disabled {
+  color: var(--text-muted-dark);
+  opacity: .4;
+}
+
+/* grouped definition lists */
+[data-section='glossary'] .gl-group {
+  scroll-margin-top: 88px;
+}
+
+[data-section='glossary'] .gl-group + .gl-group {
+  margin-top: var(--spacing-2xl);
+}
+
+[data-section='glossary'] .gl-letter {
+  font-size: var(--heading-md);
+  font-weight: 800;
+  color: var(--signal);
+  letter-spacing: -0.01em;
+  margin: 0 0 var(--spacing-md);
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 1px solid var(--hairline-dark);
+}
+
+[data-section='glossary'] dl {
+  margin: 0;
+  display: grid;
+  gap: var(--spacing-lg);
+}
+
+[data-section='glossary'] dt {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-on-dark);
+  margin-bottom: 4px;
+}
+
+[data-section='glossary'] dd {
+  margin: 0;
+  max-width: 70ch;
+  color: var(--text-muted-dark);
+  line-height: var(--line-height-body);
+}
+
+[data-section='glossary'] dd p {
+  margin: 0;
+}
+
+@media (min-width: 700px) {
+  [data-section='glossary'] dl {
+    grid-template-columns: minmax(200px, 1fr) 2fr;
+    column-gap: var(--spacing-2xl);
+    row-gap: var(--spacing-lg);
+  }
+
+  [data-section='glossary'] dt {
+    grid-column: 1;
+    margin-bottom: 0;
+  }
+
+  [data-section='glossary'] dd {
+    grid-column: 2;
+  }
+}

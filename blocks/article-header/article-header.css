@@ -1,0 +1,28 @@
+/* article-header — compact dark article band. Foundation tokens (--signal,
+   --hairline-dark, --text-*, spacing) live in styles/styles.css. Lifted verbatim
+   from the article-template prototype; recreated exact section class so it matches. */
+.article-header{
+  position:relative;overflow:hidden;
+  background:radial-gradient(80% 100% at 50% 0%,#0b1730 0%,#060c1c 58%,#03060f 100%);
+  border-bottom:1px solid var(--hairline-dark);
+  padding-block:var(--spacing-md) var(--spacing-2xl);
+}
+.article-header::before{
+  content:"";position:absolute;inset:0;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(255,255,255,.05) 1px,transparent 1px);
+  background-size:26px 26px;
+  mask-image:linear-gradient(180deg,rgba(0,0,0,.8),transparent 80%);
+  -webkit-mask-image:linear-gradient(180deg,rgba(0,0,0,.8),transparent 80%);
+}
+.article-header .wrap{position:relative}
+.article-header .breadcrumb ol{display:flex;flex-wrap:wrap;align-items:center;font-size:14px;margin-bottom:var(--spacing-lg);list-style:none;padding:0}
+.article-header .breadcrumb li{display:inline-flex;align-items:center;color:var(--text-muted-dark)}
+.article-header .breadcrumb li+li::before{content:"/";margin-inline:10px;opacity:.55}
+.article-header .breadcrumb a{display:inline-flex;align-items:center;min-height:44px;color:var(--text-muted-dark);font-weight:500}
+.article-header .breadcrumb a:hover{color:var(--text-on-dark);text-decoration:none}
+.article-header .breadcrumb [aria-current="page"]{color:var(--text-on-dark)}
+.article-header h1{font-size:clamp(33px,4.6vw,52px);max-width:26ch}
+.article-header .lede{max-width:66ch}
+.article-byline{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px var(--spacing-md);margin:var(--spacing-lg) 0 0;font-size:15px;color:var(--text-muted-dark)}
+.article-byline .who{font-weight:700;color:var(--text-on-dark)}
+.article-meta{display:flex;flex-wrap:wrap;gap:6px var(--spacing-md);margin:8px 0 0;font-size:14px;color:var(--text-muted-dark)}

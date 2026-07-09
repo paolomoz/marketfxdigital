@@ -1,0 +1,5 @@
+/* what-we-do — white reading band. .band-light surface + base p (max-width:72ch)
+   are foundation (styles/styles.css). Only the heading spacing for the prose
+   register is added here. */
+
+.prose-band h2 { margin-bottom: var(--spacing-lg); }

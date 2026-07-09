@@ -11,3 +11,11 @@ helix-importer-ui
 # Ensure these files are tracked
 !CLAUDE.md
 !AGENTS.md
+
+# stardust scratch
+_*.mjs
+_home-proto.html
+_inter.woff2
+qa/
+_qa-shot.mjs
+.env

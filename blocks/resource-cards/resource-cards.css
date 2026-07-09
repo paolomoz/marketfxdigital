@@ -1,0 +1,80 @@
+/* resource-cards — dark cards, cyan accent, hover lift, 44px targets.
+   Scoped to the rebuilt section (decorate() removes the .resource-cards class). */
+
+section[data-section='resource-cards'] {
+  background: var(--field);
+}
+
+[data-section='resource-cards'] .rc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+[data-section='resource-cards'] .rc-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-height: 44px;
+  padding: var(--spacing-lg);
+  text-decoration: none;
+  color: inherit;
+  background: var(--card-grad);
+  border: 1px solid var(--hairline-dark);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card-dark);
+  overflow: hidden;
+  transition: border-color .18s ease, transform .18s var(--ease-entrance);
+}
+
+/* cyan accent as a clipped top bar so it follows the rounded corners */
+[data-section='resource-cards'] .rc-card::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 3px;
+  background: var(--signal);
+}
+
+[data-section='resource-cards'] .rc-card:hover {
+  border-color: var(--signal);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-section='resource-cards'] .rc-card:hover { transform: translateY(-4px); }
+}
+
+[data-section='resource-cards'] .rc-title {
+  font-size: 20px;
+  line-height: 1.25;
+  color: var(--text-on-dark);
+  margin: 0 0 var(--spacing-sm);
+}
+
+[data-section='resource-cards'] .rc-desc {
+  color: var(--text-muted-dark);
+  margin: 0 0 var(--spacing-md);
+  flex-grow: 1;
+}
+
+[data-section='resource-cards'] .rc-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 24px;
+  font-weight: 600;
+  color: var(--signal);
+}
+
+[data-section='resource-cards'] .rc-arr {
+  display: inline-block;
+  transition: transform .18s var(--ease-entrance);
+}
+
+[data-section='resource-cards'] .rc-card:hover .rc-arr {
+  transform: translateX(3px);
+}
+
+@media (max-width: 600px) {
+  [data-section='resource-cards'] .rc-grid { grid-template-columns: 1fr; }
+}

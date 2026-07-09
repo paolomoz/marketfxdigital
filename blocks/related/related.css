@@ -1,0 +1,14 @@
+/* related — dark editorial link rows. Tokens (--hairline-dark, --signal,
+   --text-*, spacing) come from styles/styles.css. */
+[data-section="related"]{padding-block:var(--section-padding)}
+[data-section="related"] .wrap > div p{max-width:72ch;color:var(--text-muted-dark)}
+.related-rows{margin-top:var(--spacing-md);list-style:none;padding:0}
+.related-rows li{border-top:1px solid var(--hairline-dark)}
+.related-rows li:last-child{border-bottom:1px solid var(--hairline-dark)}
+.related-rows a{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--spacing-md);
+  min-height:64px;padding:14px 4px;color:var(--text-on-dark);font-weight:600;font-size:17px;
+}
+.related-rows a:hover{color:var(--signal);text-decoration:none}
+.related-rows .note{display:block;font-size:14px;font-weight:400;color:var(--text-muted-dark);margin-top:2px}
+.related-rows .arr{flex-shrink:0;color:var(--signal)}

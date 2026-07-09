@@ -216,3 +216,57 @@ async function loadPage() {
 }
 
 loadPage();
+
+/* stardust-behavior */
+(function stardustBehavior() {
+  const d = document;
+  // Per-page-type JSON-LD (Organization + WebSite are server-rendered in head.html).
+  // This adds BreadcrumbList + the page-type entity (Article / Service / FAQPage).
+  try {
+    const ORIGIN = 'https://marketfxdigital.com';
+    const path = location.pathname.replace(/\/$/, '') || '/';
+    const graph = [];
+    // BreadcrumbList
+    if (path !== '/') {
+      const segs = path.split('/').filter(Boolean);
+      const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN + '/' }];
+      let acc = '';
+      segs.forEach((s, i) => { acc += '/' + s; items.push({ '@type': 'ListItem', position: i + 2, name: (i === segs.length - 1 ? (d.querySelector('h1')?.textContent.trim() || s) : s.replace(/-/g, ' ')), item: ORIGIN + acc }); });
+      graph.push({ '@type': 'BreadcrumbList', itemListElement: items });
+    }
+    // Article on /blog/*
+    if (path.startsWith('/blog/')) {
+      graph.push({ '@type': 'Article', headline: d.querySelector('h1')?.textContent.trim() || d.title, description: d.querySelector('meta[name=description]')?.content || '', author: { '@type': 'Person', name: 'Abby Di Niro', url: ORIGIN + '/about-us', jobTitle: 'Founder & Lead Strategist' }, publisher: { '@id': ORIGIN + '/#organization' }, mainEntityOfPage: { '@type': 'WebPage', '@id': ORIGIN + path } });
+    } else if (path !== '/' && !['/about-us', '/contact-us', '/faqs', '/privacy-policy', '/terms', '/blog', '/resources', '/glossary', '/testimonials', '/services'].includes(path)) {
+      // service/solution detail pages
+      graph.push({ '@type': 'Service', name: d.querySelector('h1')?.textContent.trim() || d.title, description: d.querySelector('meta[name=description]')?.content || '', provider: { '@id': ORIGIN + '/#organization' }, areaServed: ['United States', 'Canada'], serviceType: 'Digital Marketing', url: ORIGIN + path });
+    }
+    // FAQPage when the page renders an accordion
+    const dets = [...d.querySelectorAll('main details')];
+    if (dets.length >= 2) {
+      graph.push({ '@type': 'FAQPage', mainEntity: dets.map((x) => ({ '@type': 'Question', name: (x.querySelector('summary')?.textContent || '').replace(/\s*\+\s*$/, '').trim(), acceptedAnswer: { '@type': 'Answer', text: (x.querySelector('p, div:not(:has(summary))')?.textContent || '').trim() } })).filter((q) => q.name) });
+    }
+    if (graph.length) {
+      const ld = d.createElement('script'); ld.type = 'application/ld+json';
+      ld.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+      d.head.appendChild(ld);
+    }
+  } catch (e) { /* noop */ }
+  function enhance() {
+    d.documentElement.classList.add('js-anim');
+    if (!('IntersectionObserver' in window)) return;
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in-view'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' });
+    d.querySelectorAll('[data-reveal]').forEach((el) => io.observe(el));
+    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const co = new IntersectionObserver((es) => es.forEach((e) => {
+      if (!e.isIntersecting) return; co.unobserve(e.target); if (reduce) return;
+      const el = e.target; const fin = el.textContent; const m = fin.match(/^([^0-9]*)([0-9.]+)(.*)$/); if (!m) return;
+      const num = parseFloat(m[2]); const dec = (m[2].split('.')[1] || '').length; let t0 = null;
+      const step = (t) => { if (!t0) t0 = t; const p = Math.min((t - t0) / 1200, 1); const ease = 1 - (1 - p) ** 3; el.textContent = m[1] + (num * ease).toFixed(dec) + m[3]; if (p < 1) requestAnimationFrame(step); else el.textContent = fin; };
+      requestAnimationFrame(step);
+    }), { threshold: 0.6 });
+    d.querySelectorAll('[data-countup]').forEach((el) => co.observe(el));
+  }
+  if (d.readyState === 'complete') setTimeout(enhance, 400);
+  else addEventListener('load', () => setTimeout(enhance, 400));
+})();
