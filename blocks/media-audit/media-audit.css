@@ -1,0 +1,17 @@
+/* media-audit — dark split: prose left, evaluate card + proof exhibit right.
+   .cap-card / .checklist / .exhibit and the dark body field are foundation
+   (styles/styles.css). Only the detail-template split layout is added here. */
+
+.audit-split {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: var(--spacing-2xl);
+  align-items: start;
+}
+
+.audit-rail .exhibit { margin-top: var(--spacing-md); }
+.audit-rail .cap-card h3 { margin-bottom: var(--spacing-md); }
+
+@media (max-width: 1080px) {
+  .audit-split { grid-template-columns: 1fr; gap: var(--spacing-xl); }
+}

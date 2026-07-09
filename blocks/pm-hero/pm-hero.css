@@ -1,0 +1,25 @@
+/* pm-hero — paid-media detail hero split. Base .hero / .hero-content /
+   .hero-lede / .hero-actions / .trust-label / .trust-row / .trust-row li tiles
+   live in styles/styles.css (foundation, reused). These rules add only the
+   detail-template split + left-aligned trust column not present site-wide. */
+
+.hero-detail h1 { font-size: clamp(34px, 4.6vw, var(--heading-xl)); }
+
+.hero-split {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: var(--spacing-2xl);
+  align-items: center;
+}
+
+.hero-trust .trust-label { text-align: left; }
+.hero-trust .trust-row { justify-content: flex-start; }
+.hero-trust .trust-row li { min-width: 0; flex: 1 1 40%; }
+
+@media (max-width: 1080px) {
+  .hero-split { grid-template-columns: 1fr; gap: var(--spacing-xl); }
+}
+
+@media (max-width: 640px) {
+  .hero-trust .trust-row li { min-width: 132px; flex: 1 1 40%; }
+}

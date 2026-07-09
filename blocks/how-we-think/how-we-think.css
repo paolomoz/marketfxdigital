@@ -1,0 +1,7 @@
+/* how-we-think: DARK band with a centered measure. About-page addition. */
+.center-measure {
+  max-width: 800px;
+  margin-inline: auto;
+  text-align: center;
+}
+.center-measure p { margin-inline: auto; }
