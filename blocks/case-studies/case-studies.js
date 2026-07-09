@@ -8,6 +8,16 @@ export default function decorate(block) {
   section.setAttribute('data-section', 'case-studies');
   const wrap = document.createElement('div');
   wrap.className = 'wrap';
+  // Reabsorb the authored section head (default content in the same section, before
+  // the block) as a centered intro on the white band.
+  const introDC = block.parentElement?.previousElementSibling;
+  if (introDC && introDC.classList.contains('default-content-wrapper')) {
+    const intro = document.createElement('div');
+    intro.className = 'cs-intro';
+    while (introDC.firstChild) intro.appendChild(introDC.firstChild);
+    wrap.appendChild(intro);
+    introDC.remove();
+  }
   const list = document.createElement('ol');
   list.className = 'cs-list';
   const cell = (r, i) => r.children[i]?.textContent.trim() || '';
