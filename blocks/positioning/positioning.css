@@ -23,15 +23,15 @@
   font-weight: 800;
   letter-spacing: -0.01em;
   line-height: 1.35;
-  color: var(--text-on-dark);
   margin-bottom: var(--spacing-md);
 }
-.band-light .quote-card .q { color: var(--text-on-dark); }
 .quote-card .follow {
   margin: 0;
   font-size: 15px;
-  color: var(--text-muted-dark);
 }
+/* dark card inside the white band: force white text over the band-light default */
+.band-light .quote-card .q,
+.band-light .quote-card .follow { color: #fff; }
 @media (max-width: 1080px) {
   .pos-split { grid-template-columns: 1fr; gap: var(--spacing-xl); }
   .quote-card { position: static; }
