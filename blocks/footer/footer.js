@@ -1,20 +1,6 @@
-import { getMetadata } from '../../scripts/aem.js';
-import { loadFragment } from '../fragment/fragment.js';
-
-/**
- * loads and decorates the footer
- * @param {Element} block The footer block element
- */
-export default async function decorate(block) {
-  // load footer as fragment
-  const footerMeta = getMetadata('footer');
-  const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
-  const fragment = await loadFragment(footerPath);
-
-  // decorate footer DOM
-  block.textContent = '';
-  const footer = document.createElement('div');
-  while (fragment.firstElementChild) footer.append(fragment.firstElementChild);
-
-  block.append(footer);
+/* stardust footer — lifted prototype chrome. */
+export default function decorate(block) {
+  const host = block.closest('footer') || block;
+  host.className = "site-footer";
+  host.innerHTML = "\n  <div class=\"wrap\">\n    <div class=\"footer-grid\">\n      <div class=\"footer-brand\">\n        <a class=\"brand-lockup\" href=\"/\" aria-label=\"marketFX digital — home\">\n          <img src=\"/img/logo.png\" alt=\"\" width=\"30\" height=\"28\">\n          <span>marketFX</span>\n        </a>\n        <p>A unified, full stack marketing team built for revenue accountability. Strategy, paid, SEO, content, social, and CRM operating as one integrated growth engine powered by AI and proactive consumer and platform shifts.</p>\n      </div>\n      <nav aria-label=\"Pages\">\n        <h3>Pages</h3>\n        <ul class=\"footer-links\">\n          <li><a href=\"/services\">Services</a></li>\n          <li><a href=\"/performance-marketing-agency\">Performance Marketing Agency</a></li>\n          <li><a href=\"/about-us\">About</a></li>\n          <li><a href=\"/blog\">Blog</a></li>\n          <li><a href=\"/testimonials\">Testimonials</a></li>\n          <li><a href=\"/contact-us\">Contact</a></li>\n        </ul>\n      </nav>\n      <nav aria-label=\"Resources\">\n        <h3>Resources</h3>\n        <ul class=\"footer-links\">\n          <li><a href=\"/glossary\">Marketing Glossary</a></li>\n          <li><a href=\"/best-omnichannel-marketing-agencies\">Best Omnichannel Agencies 2026</a></li>\n          <li><a href=\"/marketing-agencies-vs-in-house-team\">Agency vs In-House Team</a></li>\n          <li><a href=\"/integrated-vs-fragmented-marketing-agency\">Integrated vs Fragmented</a></li>\n          <li><a href=\"/blog/fragmented-marketing-agencies-roi\">Why Fragmented Agencies Cost More</a></li>\n        </ul>\n      </nav>\n      <div>\n        <h3>Connect</h3>\n        <ul class=\"footer-links\">\n          <li><a href=\"/scottsdale-marketing-agency\">Scottsdale Office</a></li>\n          <li><a href=\"/vancouver-marketing-agency\">Vancouver Office</a></li>\n          <li><a href=\"mailto:info@marketfxdigital.com\">info@marketfxdigital.com</a></li>\n          <li><a href=\"tel:+16027576683\">602-757-6683</a></li>\n          <li><a href=\"/contact-us\">Book a Strategy Call</a></li>\n          <li><a href=\"https://www.linkedin.com/company/marketfxdigitalus\" rel=\"noopener\">LinkedIn</a></li>\n        </ul>\n      </div>\n    </div>\n    <div class=\"footer-certs\">\n      <h3>Certifications</h3>\n      <a href=\"https://www.google.com/partners/agency?id=7213346870\" rel=\"noopener\">Google Partner &middot; verified agency directory</a>\n    </div>\n    <div class=\"footer-legal\">\n      <span>&copy; 2026 marketFX digital</span>\n      <a href=\"/privacy-policy\">Privacy Policy</a>\n      <a href=\"/terms\">Terms</a>\n    </div>\n  </div>\n";
 }
