@@ -694,3 +694,51 @@ section{padding-block:var(--section-padding)}
   .header-cta .btn{padding:10px 12px;font-size:12.5px;min-height:44px}
   .brand-lockup{font-size:15px;gap:8px}
 }
+
+/* ============================================================
+   SERVICES (listing) — appended services-specific rules only.
+   Foundation (.hero/.band-light/.compare/.faq/.closing/.exhibit)
+   is already present above; below adds the compact hero register
+   and the §3 service-walk (01-07 editorial walk) treatment.
+   ============================================================ */
+/* ---- services hero (compact listing register, no wave) ---- */
+.hero[data-layout="compact"]{padding-block:calc(var(--section-padding) * 1.25)}
+.hero[data-layout="compact"] h1{font-size:clamp(33px,4.6vw,var(--heading-xl));max-width:24ch}
+/* ---- §3 service walk — 01-07 two-column editorial, on white ---- */
+.walk .wrap{display:flex;flex-direction:column}
+.svc{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:var(--spacing-lg) var(--spacing-2xl);padding-block:var(--spacing-2xl)}
+.svc:first-child{padding-top:0}
+.svc:last-child{padding-bottom:0}
+.svc + .svc{border-top:1px solid var(--hairline-light)}
+.svc .ord{
+  display:block;font-size:clamp(49px,5.4vw,var(--heading-xxl));font-weight:800;line-height:1;
+  color:var(--ember-deep);font-variant-numeric:tabular-nums;letter-spacing:-0.02em;
+  margin-bottom:var(--spacing-md);
+}
+.svc h2{margin-bottom:0;max-width:16ch}
+.svc-intro{margin-bottom:var(--spacing-lg)}
+.svc-list{margin-bottom:var(--spacing-lg)}
+.svc-list li{display:grid;grid-template-columns:20px 1fr;gap:10px;padding-block:6px;font-size:15px;color:var(--text-muted-light)}
+.svc-list .tick{color:var(--signal-deep);font-weight:700;line-height:1.5}
+.svc-exhibit{
+  border:1px solid rgba(184,72,31,.35);
+  background:rgba(242,125,90,.07);
+  border-radius:var(--radius-card);
+  padding:var(--spacing-md) var(--spacing-lg);
+}
+.svc-exhibit p{margin:0;font-size:15px;font-weight:500;color:var(--text-on-light);max-width:60ch}
+.svc-exhibit strong{color:var(--ember-deep);font-weight:800}
+.read-row{
+  display:flex;align-items:center;justify-content:space-between;gap:var(--spacing-md);
+  width:100%;min-height:48px;margin-top:var(--spacing-lg);
+  border-top:1px solid var(--hairline-light);
+  padding:14px 4px 2px;font-weight:600;font-size:15px;color:var(--signal-deep);
+}
+.read-row .arr{flex-shrink:0;transition:transform .18s var(--ease-entrance)}
+.read-row:hover{text-decoration:none}
+.read-row:hover .rlabel{text-decoration:underline;text-underline-offset:4px;text-decoration-thickness:2px}
+.read-row:hover .arr{transform:translateX(3px)}
+@media (max-width:900px){
+  .svc{grid-template-columns:1fr;gap:var(--spacing-md);padding-block:var(--spacing-xl)}
+  .svc h2{max-width:none}
+}
