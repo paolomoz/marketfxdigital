@@ -1,10 +1,34 @@
-/* stardust block stat-band — template-slotted (markup baked so the DA pipeline can't strip inline SVG). */
-const HTML = "\n    <div class=\"wrap\">\n      <div class=\"stat-grid\">\n        <div class=\"stat\" data-reveal>\n          <span class=\"num\" data-countup>94%</span>\n          <span class=\"cap\">Client retention</span>\n          <span class=\"attr\">Avg. client partnership 10+ years</span>\n        </div>\n        <div class=\"stat\" data-reveal>\n          <span class=\"num\" data-countup>4.2x</span>\n          <span class=\"cap\">Avg. ROAS improvement</span>\n          <span class=\"attr\">Managed paid-media portfolios, 2025</span>\n        </div>\n        <div class=\"stat\" data-reveal>\n          <span class=\"num\" data-countup>20+</span>\n          <span class=\"cap\">Years driving growth</span>\n          <span class=\"attr\">Founded 2004 &middot; Scottsdale + Vancouver</span>\n        </div>\n        <div class=\"stat\" data-reveal>\n          <span class=\"num\" data-countup>$20M+</span>\n          <span class=\"cap\">Revenue tracked for clients</span>\n          <span class=\"attr\">Cross-channel attribution reporting</span>\n        </div>\n      </div>\n    </div>\n  ";
+/* stat-band — David's Model decode: one authored block row per stat, cells in
+   order [number, caption, attribution]. Rebuilds the prototype 4-up stat grid.
+   No decorative SVG in this section. */
+
 export default function decorate(block) {
-  const el = document.createElement('section');
-  el.className = "stat-band";
-  el.setAttribute('data-section', "stat-band");
-  el.innerHTML = HTML;
-  block.replaceChildren(el);
-  block.classList.remove("stat-band");
+  const rows = [...block.children];
+  const stats = rows.map((row) => {
+    const cells = [...row.children];
+    const num = cells[0]?.textContent.trim() || '';
+    const cap = cells[1]?.textContent.trim() || '';
+    const attr = cells[2]?.textContent.trim() || '';
+    return `<div class="stat" data-reveal>
+          <span class="num" data-countup>${num}</span>
+          <span class="cap">${cap}</span>
+          <span class="attr">${attr}</span>
+        </div>`;
+  }).join('\n        ');
+
+  const section = document.createElement('section');
+  section.className = 'stat-band';
+  section.setAttribute('data-section', 'stat-band');
+  section.setAttribute('data-intent', 'evidence');
+  section.setAttribute('data-layout', 'contained-4up');
+  section.setAttribute('data-items', String(rows.length));
+  section.innerHTML = `
+    <div class="wrap">
+      <div class="stat-grid">
+        ${stats}
+      </div>
+    </div>`;
+
+  block.replaceChildren(section);
+  block.classList.remove('stat-band');
 }

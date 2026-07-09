@@ -1,10 +1,50 @@
-/* stardust block trust-logo-bar — template-slotted (markup baked so the DA pipeline can't strip inline SVG). */
-const HTML = "\n    <div class=\"wrap\">\n      <p class=\"trust-label\">Trusted by category leaders</p>\n      <ul class=\"trust-row\" data-reveal>\n        <li><img src=\"https://marketfxdigital.com/assets/hp-DkVbsNNc.png\" alt=\"HP logo\" width=\"512\" height=\"512\" loading=\"lazy\" style=\"max-height:34px\"></li>\n        <li><img src=\"https://marketfxdigital.com/assets/samsung-1hMQWdQo.png\" alt=\"Samsung logo\" width=\"820\" height=\"291\" loading=\"lazy\" style=\"max-height:26px\"></li>\n        <li><img src=\"https://marketfxdigital.com/assets/7-eleven-CklDHIwG.png\" alt=\"7-Eleven logo\" width=\"741\" height=\"724\" loading=\"lazy\" style=\"max-height:36px\"></li>\n        <li><img src=\"https://marketfxdigital.com/assets/spence-diamonds-rK6esc_k.png\" alt=\"Spence Diamonds logo\" width=\"302\" height=\"85\" loading=\"lazy\" style=\"max-height:24px\"></li>\n        <li><img src=\"https://marketfxdigital.com/assets/cactus-club-cafe-4jS2anqk.png\" alt=\"Cactus Club Cafe logo\" width=\"263\" height=\"21\" loading=\"lazy\" style=\"max-height:12px\"></li>\n        <li><img src=\"https://marketfxdigital.com/assets/sap-DFXCEQF9.png\" alt=\"SAP logo\" width=\"542\" height=\"269\" loading=\"lazy\" style=\"max-height:30px\"></li>\n      </ul>\n    </div>\n  ";
+/* trust-logo-bar — David's Model decode: reads the authored label (default
+   content) and one block row per client logo, then rebuilds the prototype
+   trust row. No decorative SVG in this section. */
+
+// per-logo display heights normalise the mixed-aspect brand marks into one row
+// (decorative sizing; the prototype carried these as inline max-height styles).
+const LOGO_HEIGHTS = [
+  ['hp-', 34], ['samsung', 26], ['7-eleven', 36],
+  ['spence', 24], ['cactus', 12], ['sap', 30],
+];
+
+function heightFor(src) {
+  const hit = LOGO_HEIGHTS.find(([key]) => src.includes(key));
+  return hit ? hit[1] : null;
+}
+
 export default function decorate(block) {
-  const el = document.createElement('section');
-  el.className = "trust";
-  el.setAttribute('data-section', "trust-logo-bar");
-  el.innerHTML = HTML;
-  block.replaceChildren(el);
-  block.classList.remove("trust-logo-bar");
+  const head = block.closest('.trust-logo-bar-wrapper')?.previousElementSibling;
+  const label = head?.querySelector('p')?.textContent.trim() || '';
+
+  const imgs = [...block.querySelectorAll('img')];
+  const items = imgs.map((img) => {
+    const src = img.getAttribute('src') || '';
+    const alt = img.getAttribute('alt') || '';
+    const w = img.getAttribute('width');
+    const h = img.getAttribute('height');
+    const mh = heightFor(src);
+    const dims = `${w ? ` width="${w}"` : ''}${h ? ` height="${h}"` : ''}`;
+    const style = mh ? ` style="max-height:${mh}px"` : '';
+    return `<li><img src="${src}" alt="${alt}"${dims} loading="lazy"${style}></li>`;
+  }).join('\n        ');
+
+  const section = document.createElement('section');
+  section.className = 'trust';
+  section.setAttribute('data-section', 'trust-logo-bar');
+  section.setAttribute('data-intent', 'social-proof');
+  section.setAttribute('data-layout', 'contained-row');
+  section.setAttribute('data-items', String(imgs.length));
+  section.innerHTML = `
+    <div class="wrap">
+      <p class="trust-label">${label}</p>
+      <ul class="trust-row" data-reveal>
+        ${items}
+      </ul>
+    </div>`;
+
+  block.replaceChildren(section);
+  block.classList.remove('trust-logo-bar');
+  head?.remove();
 }

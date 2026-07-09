@@ -1,10 +1,71 @@
-/* stardust block faq — template-slotted (markup baked so the DA pipeline can't strip inline SVG). */
-const HTML = "\n    <div class=\"wrap faq-cols\">\n      <div data-reveal>\n        <h2>Frequently Asked Questions</h2>\n      </div>\n      <div>\n        <div class=\"faq-group\" data-reveal>\n          <h3>About marketFX</h3>\n          <details>\n            <summary>What is a full-stack marketing agency?<span class=\"ind\" aria-hidden=\"true\">+</span></summary>\n            <p>A full-stack marketing agency provides every marketing capability under one roof: strategy, paid media, SEO, content, creative, social media, CRM, and analytics. Instead of hiring five or six separate vendors who do not communicate with each other, a full-stack agency operates as a single integrated team. marketFX digital built this model specifically to eliminate the coordination gaps, data silos, and accountability problems that fragment most companies' marketing.</p>\n          </details>\n          <details>\n            <summary>How is marketFX different from hiring multiple specialized agencies?<span class=\"ind\" aria-hidden=\"true\">+</span></summary>\n            <p>When you hire separate agencies for SEO, paid media, creative, and social, each one optimizes for their own channel without seeing the full picture. Strategy gets diluted across competing priorities, data lives in disconnected dashboards, and nobody owns the overall outcome. marketFX replaces that fragmented model with one team that shares one strategy, one dataset, and one P&amp;L.</p>\n          </details>\n          <details>\n            <summary>What industries do you work with?<span class=\"ind\" aria-hidden=\"true\">+</span></summary>\n            <p>We work across industries including luxury retail, franchise, consumer goods, DTC e-commerce, technology, and professional services. Our client portfolio includes Samsung, Spence Diamonds, 7-Eleven Canada, and Stonz Wear.</p>\n          </details>\n        </div>\n        <div class=\"faq-group\" data-reveal>\n          <h3>Working Together</h3>\n          <details>\n            <summary>Do you work with companies outside of Scottsdale and Vancouver?<span class=\"ind\" aria-hidden=\"true\">+</span></summary>\n            <p>Yes. While our offices are in Scottsdale, Arizona and Vancouver, British Columbia, we serve clients across North America and internationally.</p>\n          </details>\n          <details>\n            <summary>What does the onboarding process look like?<span class=\"ind\" aria-hidden=\"true\">+</span></summary>\n            <p>Onboarding starts with a strategy assessment where we audit your current marketing, identify the biggest gaps, and build a prioritized roadmap. Most clients see their first measurable improvements within 60 to 90 days.</p>\n          </details>\n          <details>\n            <summary>Do you offer month-to-month contracts?<span class=\"ind\" aria-hidden=\"true\">+</span></summary>\n            <p>We offer flexible engagement structures, but our best results come from strategic partnerships built over time. Our average client relationship is over ten years.</p>\n          </details>\n        </div>\n        <div class=\"faq-group\" data-reveal>\n          <h3>Results &amp; ROI</h3>\n          <details>\n            <summary>How do you measure marketing ROI?<span class=\"ind\" aria-hidden=\"true\">+</span></summary>\n            <p>We use our Signal vs Noise framework to separate decision-grade metrics from vanity metrics. That means we track pipeline contribution, customer acquisition cost, lifetime value, and revenue attribution across every channel.</p>\n          </details>\n          <details>\n            <summary>How quickly can I expect to see results?<span class=\"ind\" aria-hidden=\"true\">+</span></summary>\n            <p>Paid media campaigns can deliver measurable results within the first 30 days. SEO and content typically show meaningful traction within 90 to 120 days.</p>\n          </details>\n        </div>\n      </div>\n    </div>\n  ";
+/* faq — David's-Model decode: authored default-content head (h2) + block rows. A single-cell
+   row is a group label (starts a new .faq-group); a two-cell row is a Q/A rendered as a
+   details/summary accordion item. The "+" indicator is decorative, baked here. */
+
+const NAME = 'faq';
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function defaultContentBefore(block) {
+  const wrapper = block.closest(`.${NAME}-wrapper`) || block.parentElement;
+  const prev = wrapper && wrapper.previousElementSibling;
+  return prev && prev.classList.contains('default-content-wrapper') ? prev : null;
+}
+
 export default function decorate(block) {
-  const el = document.createElement('section');
-  el.className = "faq";
-  el.setAttribute('data-section', "faq");
-  el.innerHTML = HTML;
-  block.replaceChildren(el);
-  block.classList.remove("faq");
+  const rows = [...block.children];
+  const dc = defaultContentBefore(block);
+  const head = dc ? [...dc.children] : [];
+
+  const section = document.createElement('section');
+  section.className = 'faq';
+  section.setAttribute('data-section', 'faq');
+  section.setAttribute('data-intent', 'objection-handling');
+  section.setAttribute('data-layout', 'grouped-accordion');
+  section.setAttribute('data-items', '8');
+
+  const wrap = el('div', 'wrap faq-cols');
+  const titleCol = document.createElement('div');
+  titleCol.setAttribute('data-reveal', '');
+  const h2 = head.find((n) => n.tagName === 'H2');
+  if (h2) titleCol.append(el('h2', null, h2.textContent));
+  wrap.append(titleCol);
+
+  const groupsCol = document.createElement('div');
+  let group = null;
+  rows.forEach((row) => {
+    const cells = [...row.children];
+    if (cells.length === 1) {
+      group = el('div', 'faq-group');
+      group.setAttribute('data-reveal', '');
+      group.append(el('h3', null, cells[0].textContent.trim()));
+      groupsCol.append(group);
+      return;
+    }
+    if (!group) {
+      group = el('div', 'faq-group');
+      group.setAttribute('data-reveal', '');
+      groupsCol.append(group);
+    }
+    const details = document.createElement('details');
+    const summary = document.createElement('summary');
+    summary.append(document.createTextNode(cells[0].textContent.trim()));
+    const ind = el('span', 'ind');
+    ind.setAttribute('aria-hidden', 'true');
+    ind.textContent = '+';
+    summary.append(ind);
+    details.append(summary, el('p', null, cells[1] ? cells[1].textContent.trim() : ''));
+    group.append(details);
+  });
+  wrap.append(groupsCol);
+
+  section.append(wrap);
+  block.replaceChildren(section);
+  block.classList.remove(NAME);
+  if (dc) dc.remove();
 }

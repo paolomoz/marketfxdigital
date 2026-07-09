@@ -1,10 +1,170 @@
-/* stardust block band-light — template-slotted (markup baked so the DA pipeline can't strip inline SVG). */
-const HTML = "\n\n    <!-- 9 · platform-band -->\n    <section class=\"platforms\" data-section=\"platform-band\" data-intent=\"credibility\" data-layout=\"contained-logo-grid\" data-items=\"13\" data-media=\"logos\">\n      <div class=\"wrap\">\n        <div class=\"head\" data-reveal>\n          <h2>Enterprise marketing across every major platform and AI engine</h2>\n          <p>MarketFX Digital manages paid media, organic search, and AI visibility for enterprise brands across Google, Meta, TikTok, Amazon, Microsoft, and LinkedIn, plus the leading AI engines.</p>\n        </div>\n        <div class=\"logo-group\" data-reveal>\n          <p class=\"glabel\">Paid and organic platforms</p>\n          <ul class=\"logo-flow\">\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/ed9a438f-2470-4942-b054-22f9f3a54a1f/google.png\" alt=\"Google\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/a52fdd23-00c8-4019-b26e-912abae7fc0d/meta.png\" alt=\"Meta\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/346acc7a-aa1c-407e-aeda-83fb5fe1dcc3/tiktok.png\" alt=\"TikTok\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/95f6780e-5d54-486b-bc9b-99703db99ca3/amazon.png\" alt=\"Amazon\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/245aa7a5-21ec-41d6-9772-09a5b60984db/microsoft.png\" alt=\"Microsoft\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/f6e00055-15a4-41a1-8149-358fb587bccb/linkedin.png\" alt=\"LinkedIn\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/a4355a74-5bf1-423a-9c7a-2fd3b07d666d/pinterest.png\" alt=\"Pinterest\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/c8e80a2b-80af-4754-98fc-2a8aa5cdd033/youtube.png\" alt=\"YouTube\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/443a6952-cb0e-42f9-b430-761c1f263a03/reddit.png\" alt=\"Reddit\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n          </ul>\n        </div>\n        <div class=\"logo-group\" data-reveal>\n          <p class=\"glabel\">AI search engines</p>\n          <ul class=\"logo-flow\">\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/6a7e43d5-ab99-4d97-9c17-99b1df8baa3f/chatgpt.png\" alt=\"ChatGPT\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/95418a57-5bee-4b2e-a948-33d6d07d0bc5/perplexity.png\" alt=\"Perplexity\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/f04012d0-0e22-4278-ad11-b3a48f379a67/gemini.png\" alt=\"Google Gemini\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n            <li><img src=\"https://marketfxdigital.com/__l5e/assets-v1/e130eabd-3d62-4f46-adca-8d26be799e12/claude.png\" alt=\"Claude\" width=\"480\" height=\"200\" loading=\"lazy\"></li>\n          </ul>\n        </div>\n      </div>\n    </section>\n\n    <!-- 10 · performance-testimonials — split copy + editorial quote pair (the page's human evidence) -->\n    <section data-section=\"performance-testimonials\" data-intent=\"evidence\" data-layout=\"split-quote-pair\" data-items=\"2\">\n      <div class=\"wrap\">\n        <div class=\"perf-cols\">\n          <div data-reveal>\n            <h2>Performance Marketing Built Around Revenue, Not Just Clicks</h2>\n            <a class=\"btn btn-primary perf-btn\" href=\"/performance-marketing-agency\">Explore Performance Marketing Services</a>\n          </div>\n          <div data-reveal>\n            <p>marketFX helps growth brands connect paid media, SEO, CRM, CRO, analytics, and conversion strategy into one measurable revenue system. Our performance marketing approach is designed for teams that need more than channel execution. We help identify what is driving revenue, where growth is leaking, and which opportunities are worth scaling.</p>\n            <ul class=\"chip-list\" aria-label=\"Performance marketing system\">\n              <li>Paid Media</li><li>SEO</li><li>CRM</li><li>CRO</li><li>Analytics</li><li>Revenue</li>\n            </ul>\n            <div class=\"perf-actions\">\n              <a class=\"text-link\" href=\"/marketing-audit-services\">Request a Marketing Audit <span class=\"arr\" aria-hidden=\"true\">&rarr;</span></a>\n            </div>\n          </div>\n        </div>\n        <div class=\"quote-pair\">\n          <figure data-reveal>\n            <blockquote>\n              <span class=\"qmark\" aria-hidden=\"true\">&ldquo;</span>\n              <p>Partnering with the team at marketFX led by Abby has been an absolute privilege. The team's ability to combine a clear, inspiring vision with tactical execution is rare and powerful.</p>\n            </blockquote>\n            <figcaption><span class=\"who\">Jennifer Bawa</span><span class=\"role\">VP of Marketing, Spence Diamonds</span></figcaption>\n          </figure>\n          <figure data-reveal>\n            <blockquote>\n              <span class=\"qmark\" aria-hidden=\"true\">&ldquo;</span>\n              <p>marketFX were instrumental in enabling our lean internal marketing team to punch well above its weight. They gave us the strategic architecture and channel expertise to drive incremental digital revenue for over a decade. Revenue that would have been impossible to generate with internal resources alone.</p>\n            </blockquote>\n            <figcaption><span class=\"who\">Laurie Smith</span><span class=\"role\">Director, Marketing, Digital &amp; Communications, 7-Eleven</span></figcaption>\n          </figure>\n        </div>\n      </div>\n    </section>\n\n  ";
+/* band-light — David's-Model decode: reads authored default-content head + block rows
+   (logo rows + quote rows) and rebuilds the exact prototype light band wrapping the
+   platform-band and performance-testimonials sections. Only decorative marks are baked. */
+
+const NAME = 'band-light';
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function defaultContentBefore(block) {
+  const wrapper = block.closest(`.${NAME}-wrapper`) || block.parentElement;
+  const prev = wrapper && wrapper.previousElementSibling;
+  return prev && prev.classList.contains('default-content-wrapper') ? prev : null;
+}
+
 export default function decorate(block) {
-  const el = document.createElement('div');
-  el.className = "band-light";
-  
-  el.innerHTML = HTML;
-  block.replaceChildren(el);
-  block.classList.remove("band-light");
+  const rows = [...block.children];
+
+  // ---- authored head (default content, before the block) ----
+  const dc = defaultContentBefore(block);
+  const head = dc ? [...dc.children] : [];
+  const take = (i, tag) => (head[i] && head[i].tagName === tag ? head[i] : null);
+  const platH2 = take(0, 'H2');
+  const platP = take(1, 'P');
+  const perfH2 = take(2, 'H2');
+  let idx = 3;
+  let primaryLink;
+  let secondaryLink;
+  let chips;
+  let perfIntro;
+  for (; idx < head.length; idx += 1) {
+    const node = head[idx];
+    const prim = node.querySelector && node.querySelector('a.button.primary, strong a');
+    const sec = node.querySelector && node.querySelector('a.button.secondary, em a');
+    if (prim) primaryLink = prim;
+    else if (sec) secondaryLink = sec;
+    else if (node.tagName === 'UL') chips = node;
+    else if (node.tagName === 'P') perfIntro = node;
+  }
+
+  // ---- authored rows: logos + quotes ----
+  const logos = [];
+  const quotes = [];
+  rows.forEach((row) => {
+    const cells = [...row.children];
+    const img = row.querySelector('img');
+    if (img) {
+      logos.push({ img, label: cells[1] ? cells[1].textContent.trim() : '' });
+    } else {
+      quotes.push({
+        quote: cells[0] ? cells[0].textContent.trim() : '',
+        who: cells[1] ? cells[1].textContent.trim() : '',
+        role: cells[2] ? cells[2].textContent.trim() : '',
+      });
+    }
+  });
+  const groups = [];
+  logos.forEach(({ img, label }) => {
+    if (label || groups.length === 0) groups.push({ label, items: [] });
+    groups[groups.length - 1].items.push(img);
+  });
+
+  // ---- rebuild ----
+  const band = el('div', 'band-light');
+
+  // platform-band
+  const platform = document.createElement('section');
+  platform.className = 'platforms';
+  platform.setAttribute('data-section', 'platform-band');
+  platform.setAttribute('data-intent', 'credibility');
+  platform.setAttribute('data-layout', 'contained-logo-grid');
+  platform.setAttribute('data-items', '13');
+  platform.setAttribute('data-media', 'logos');
+  const pWrap = el('div', 'wrap');
+  const pHead = el('div', 'head');
+  pHead.setAttribute('data-reveal', '');
+  if (platH2) pHead.append(el('h2', null, platH2.textContent));
+  if (platP) pHead.append(el('p', null, platP.textContent));
+  pWrap.append(pHead);
+  groups.forEach((g) => {
+    const grp = el('div', 'logo-group');
+    grp.setAttribute('data-reveal', '');
+    grp.append(el('p', 'glabel', g.label));
+    const ul = el('ul', 'logo-flow');
+    g.items.forEach((src) => {
+      const li = document.createElement('li');
+      const im = document.createElement('img');
+      im.src = src.getAttribute('src');
+      im.alt = src.getAttribute('alt') || '';
+      im.width = 480;
+      im.height = 200;
+      im.loading = 'lazy';
+      li.append(im);
+      ul.append(li);
+    });
+    grp.append(ul);
+    pWrap.append(grp);
+  });
+  platform.append(pWrap);
+  band.append(platform);
+
+  // performance-testimonials
+  const perf = document.createElement('section');
+  perf.setAttribute('data-section', 'performance-testimonials');
+  perf.setAttribute('data-intent', 'evidence');
+  perf.setAttribute('data-layout', 'split-quote-pair');
+  perf.setAttribute('data-items', '2');
+  const perfWrap = el('div', 'wrap');
+  const perfCols = el('div', 'perf-cols');
+
+  const colL = document.createElement('div');
+  colL.setAttribute('data-reveal', '');
+  if (perfH2) colL.append(el('h2', null, perfH2.textContent));
+  if (primaryLink) {
+    const a = el('a', 'btn btn-primary perf-btn', primaryLink.textContent);
+    a.href = primaryLink.getAttribute('href');
+    colL.append(a);
+  }
+  perfCols.append(colL);
+
+  const colR = document.createElement('div');
+  colR.setAttribute('data-reveal', '');
+  if (perfIntro) colR.append(el('p', null, perfIntro.textContent));
+  if (chips) {
+    const ul = el('ul', 'chip-list');
+    ul.setAttribute('aria-label', 'Performance marketing system');
+    [...chips.querySelectorAll('li')].forEach((li) => ul.append(el('li', null, li.textContent)));
+    colR.append(ul);
+  }
+  if (secondaryLink) {
+    const actions = el('div', 'perf-actions');
+    const a = el('a', 'text-link');
+    a.href = secondaryLink.getAttribute('href');
+    a.append(document.createTextNode(`${secondaryLink.textContent} `));
+    const arr = el('span', 'arr');
+    arr.setAttribute('aria-hidden', 'true');
+    arr.innerHTML = '&rarr;';
+    a.append(arr);
+    actions.append(a);
+    colR.append(actions);
+  }
+  perfCols.append(colR);
+  perfWrap.append(perfCols);
+
+  const pair = el('div', 'quote-pair');
+  quotes.forEach((q) => {
+    const fig = document.createElement('figure');
+    fig.setAttribute('data-reveal', '');
+    const bq = document.createElement('blockquote');
+    const qm = el('span', 'qmark');
+    qm.setAttribute('aria-hidden', 'true');
+    qm.innerHTML = '&ldquo;';
+    bq.append(qm, el('p', null, q.quote));
+    const cap = document.createElement('figcaption');
+    cap.append(el('span', 'who', q.who), el('span', 'role', q.role));
+    fig.append(bq, cap);
+    pair.append(fig);
+  });
+  perfWrap.append(pair);
+  perf.append(perfWrap);
+  band.append(perf);
+
+  block.replaceChildren(band);
+  block.classList.remove(NAME);
+  if (dc) dc.remove();
 }

@@ -1,10 +1,98 @@
-/* stardust block unified-quadrants — template-slotted (markup baked so the DA pipeline can't strip inline SVG). */
-const HTML = "\n    <div class=\"wrap\">\n      <div class=\"quad-head\" data-reveal>\n        <h2>Strategy, Execution, and Measurement: Unified</h2>\n        <p class=\"lede\">We unify strategy, paid media, SEO, creative, social, website optimization, and CRM into one measurable framework designed to increase leads, bookings, store visits, lifetime value, and revenue.</p>\n      </div>\n      <div class=\"quad-table\" data-reveal>\n        <div class=\"quad\">\n          <h3>Digital Performance and Optimization</h3>\n          <ul class=\"checklist\">\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Search engine optimization including technical SEO and local SEO</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Paid search and paid social</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>AI-enhanced search optimization</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Conversion rate optimization</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Cross-channel analytics dashboards</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Website optimization</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Google and Maps visibility</li>\n          </ul>\n          <p class=\"closer\">We increase visibility where intent exists and convert demand into revenue.</p>\n        </div>\n        <div class=\"quad\">\n          <h3>Strategy, Content, and Social</h3>\n          <ul class=\"checklist\">\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Cross-channel campaign planning</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Full-funnel messaging strategy</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Social media management</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Video and user-generated content strategy</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Influencer and ambassador programs</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Reputation growth and review management</li>\n          </ul>\n          <p class=\"closer\">We align brand storytelling with measurable demand generation.</p>\n        </div>\n        <div class=\"quad\">\n          <h3>Relationship and Lifecycle Marketing</h3>\n          <ul class=\"checklist\">\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Membership and loyalty growth strategies</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Automated CRM sequences</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Lead nurturing campaigns</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Segmentation and personalization</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>HubSpot, Salesforce, Klaviyo, Mailchimp integrations</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Customer lifecycle mapping</li>\n          </ul>\n          <p class=\"closer\">We increase retention, frequency, and lifetime value.</p>\n        </div>\n        <div class=\"quad\">\n          <h3>Paid Media That Delivers ROI</h3>\n          <ul class=\"checklist\">\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Paid social and paid search</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Programmatic and affiliates</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Retargeting and audience segmentation</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Test-and-learn optimization framework</li>\n            <li><span class=\"tick\" aria-hidden=\"true\">&#10003;</span>Financial efficiency modeling</li>\n          </ul>\n          <p class=\"closer\">We track contribution to revenue, not just traffic.</p>\n        </div>\n      </div>\n      <div class=\"quad-foot\" data-reveal>\n        <p>Explore specific engagements: <a href=\"/marketing-audit-services\">marketing audit services</a>, <a href=\"/seo-and-ai-visibility-consulting\">SEO and AI visibility consulting</a>, <a href=\"/paid-media-audit-and-strategy\">paid media audit and strategy</a>, <a href=\"/marketing-analytics-consulting\">marketing analytics and reporting</a>, and <a href=\"/multi-location-franchise-marketing-agency\">multi-location and franchise marketing</a>.</p>\n        <a class=\"text-link\" href=\"/services\">View All Capabilities <span class=\"arr\" aria-hidden=\"true\">&rarr;</span></a>\n      </div>\n    </div>\n  ";
+/* unified-quadrants — David's-Model decode: authored default-content head (h2 + lede),
+   4 quadrant block rows [title, checklist <ul>, closer], and a default-content foot
+   (links paragraph + secondary link). Decorative ticks/arrow baked here. */
+
+const NAME = 'unified-quadrants';
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text != null) e.textContent = text;
+  return e;
+}
+
+function siblingContent(block) {
+  const wrapper = block.closest(`.${NAME}-wrapper`) || block.parentElement;
+  const isDC = (n) => n && n.classList && n.classList.contains('default-content-wrapper');
+  return {
+    prev: isDC(wrapper && wrapper.previousElementSibling) ? wrapper.previousElementSibling : null,
+    next: isDC(wrapper && wrapper.nextElementSibling) ? wrapper.nextElementSibling : null,
+  };
+}
+
 export default function decorate(block) {
-  const el = document.createElement('section');
-  
-  el.setAttribute('data-section', "unified-quadrants");
-  el.innerHTML = HTML;
-  block.replaceChildren(el);
-  block.classList.remove("unified-quadrants");
+  const rows = [...block.children];
+  const { prev, next } = siblingContent(block);
+
+  const section = document.createElement('section');
+  section.setAttribute('data-section', NAME);
+  section.setAttribute('data-intent', 'capability-detail');
+  section.setAttribute('data-layout', 'quadrant-ledger-table');
+  section.setAttribute('data-items', '4');
+  const wrap = el('div', 'wrap');
+
+  // head
+  const head = prev ? [...prev.children] : [];
+  const qHead = el('div', 'quad-head');
+  qHead.setAttribute('data-reveal', '');
+  const h2 = head.find((n) => n.tagName === 'H2');
+  const lede = head.find((n) => n.tagName === 'P');
+  if (h2) qHead.append(el('h2', null, h2.textContent));
+  if (lede) qHead.append(el('p', 'lede', lede.textContent));
+  wrap.append(qHead);
+
+  // quadrants
+  const table = el('div', 'quad-table');
+  table.setAttribute('data-reveal', '');
+  rows.forEach((row) => {
+    const cells = [...row.children];
+    const quad = el('div', 'quad');
+    const title = cells[0] ? (cells[0].querySelector('h3') || cells[0]).textContent.trim() : '';
+    quad.append(el('h3', null, title));
+    const ul = el('ul', 'checklist');
+    const items = cells[1] ? [...cells[1].querySelectorAll('li')] : [];
+    items.forEach((li) => {
+      const item = document.createElement('li');
+      const tick = el('span', 'tick');
+      tick.setAttribute('aria-hidden', 'true');
+      tick.innerHTML = '&#10003;';
+      item.append(tick, document.createTextNode(li.textContent));
+      ul.append(item);
+    });
+    quad.append(ul);
+    if (cells[2]) quad.append(el('p', 'closer', cells[2].textContent.trim()));
+    table.append(quad);
+  });
+  wrap.append(table);
+
+  // foot
+  const foot = next ? [...next.children] : [];
+  if (foot.length) {
+    const qFoot = el('div', 'quad-foot');
+    qFoot.setAttribute('data-reveal', '');
+    foot.forEach((node) => {
+      const secondary = node.querySelector && node.querySelector('a.button.secondary, em a');
+      if (secondary) {
+        const a = el('a', 'text-link');
+        a.href = secondary.getAttribute('href');
+        a.append(document.createTextNode(`${secondary.textContent} `));
+        const arr = el('span', 'arr');
+        arr.setAttribute('aria-hidden', 'true');
+        arr.innerHTML = '&rarr;';
+        a.append(arr);
+        qFoot.append(a);
+      } else if (node.tagName === 'P') {
+        const p = document.createElement('p');
+        p.append(...node.childNodes);
+        qFoot.append(p);
+      }
+    });
+    wrap.append(qFoot);
+  }
+
+  section.append(wrap);
+  block.replaceChildren(section);
+  block.classList.remove(NAME);
+  if (prev) prev.remove();
+  if (next) next.remove();
 }

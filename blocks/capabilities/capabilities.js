@@ -1,10 +1,114 @@
-/* stardust block capabilities — template-slotted (markup baked so the DA pipeline can't strip inline SVG). */
-const HTML = "\n    <div class=\"wrap cap-split\">\n      <div class=\"cap-rail\" data-reveal>\n        <h2>One Integrated Team. Every Channel. Full Accountability.</h2>\n        <p class=\"lede\">Every capability your growth needs, operated under one strategy, one team, and one accountable plan. Explore the <a href=\"/services\">full service offering</a> or browse the core capabilities below.</p>\n        <a class=\"text-link\" href=\"/services\">Explore all services <span class=\"arr\" aria-hidden=\"true\">&rarr;</span></a>\n        <div class=\"exhibit\">\n          <span class=\"val\">Spence Diamonds: +61% online sales</span>\n          <span class=\"src\">Client outcome &middot; marketFX client results</span>\n        </div>\n      </div>\n      <div class=\"cap-grid\">\n        <div class=\"cap-card\" data-reveal>\n          <h3><a href=\"/digital-marketing-strategy\">Strategic Planning <span class=\"arr\" aria-hidden=\"true\">&rarr;</span></a></h3>\n          <p>Market intelligence, customer journey mapping, and commercial strategy aligned to revenue goals.</p>\n        </div>\n        <div class=\"cap-card\" data-reveal>\n          <h3><a href=\"/paid-media-services\">Performance Media <span class=\"arr\" aria-hidden=\"true\">&rarr;</span></a></h3>\n          <p>Paid search, social advertising, and programmatic buying optimized for ROAS.</p>\n        </div>\n        <div class=\"cap-card\" data-reveal>\n          <h3><a href=\"/seo-and-ai-visibility-consulting\">SEO &amp; Content <span class=\"arr\" aria-hidden=\"true\">&rarr;</span></a></h3>\n          <p>Technical SEO, content strategy, and authority building for sustainable organic growth.</p>\n        </div>\n        <div class=\"cap-card\" data-reveal>\n          <h3><a href=\"/content-strategy-services\">Creative Production <span class=\"arr\" aria-hidden=\"true\">&rarr;</span></a></h3>\n          <p>Campaign creative, brand assets, and content that converts across every channel.</p>\n        </div>\n        <div class=\"cap-card\" data-reveal>\n          <h3><a href=\"/services\">Social &amp; Community <span class=\"arr\" aria-hidden=\"true\">&rarr;</span></a></h3>\n          <p>Strategic social management, community building, and sentiment-driven engagement.</p>\n        </div>\n        <div class=\"cap-card\" data-reveal>\n          <h3><a href=\"/services\">CRM &amp; Retention <span class=\"arr\" aria-hidden=\"true\">&rarr;</span></a></h3>\n          <p>Email, SMS, loyalty programs, and lifecycle marketing that maximizes customer value.</p>\n        </div>\n      </div>\n    </div>\n  ";
+/* capabilities — decodes authored content (DA / David's Model) and rebuilds the prototype section.
+   Head default content: heading, lede (inline links), a secondary button link (link-alone),
+   and two plain exhibit lines (value + source). Cards are block rows (linked title + prose). */
+const ARROW = '→';
+
+function buildTextLink(href, text) {
+  const a = document.createElement('a');
+  a.className = 'text-link';
+  a.href = href;
+  a.append(document.createTextNode(`${text} `));
+  const arr = document.createElement('span');
+  arr.className = 'arr';
+  arr.setAttribute('aria-hidden', 'true');
+  arr.textContent = ARROW;
+  a.append(arr);
+  return a;
+}
+
 export default function decorate(block) {
-  const el = document.createElement('section');
-  
-  el.setAttribute('data-section', "capabilities");
-  el.innerHTML = HTML;
-  block.replaceChildren(el);
-  block.classList.remove("capabilities");
+  const head = block.closest('.capabilities-wrapper')?.previousElementSibling;
+
+  let h2Text = '';
+  let ledeEl = null;
+  let btnHref = '/services';
+  let btnText = 'Explore all services';
+  const exhibit = [];
+  [...(head?.children || [])].forEach((el) => {
+    if (el.tagName === 'H2') { h2Text = el.textContent.trim(); return; }
+    if (el.tagName !== 'P') return;
+    const a = el.querySelector('a');
+    if (a && el.textContent.trim() === a.textContent.trim()) {
+      btnHref = a.getAttribute('href');
+      btnText = a.textContent.trim();
+    } else if (a) {
+      ledeEl = el;
+    } else {
+      exhibit.push(el.textContent.trim());
+    }
+  });
+
+  const cards = [...block.children].map((row) => {
+    const cells = [...row.children];
+    const a = cells[0]?.querySelector('a');
+    return {
+      href: a?.getAttribute('href') || '#',
+      title: (a?.textContent || cells[0]?.textContent || '').trim(),
+      prose: cells[1]?.querySelector('p') || cells[1] || null,
+    };
+  });
+
+  const section = document.createElement('section');
+  section.setAttribute('data-section', 'capabilities');
+  section.setAttribute('data-intent', 'service-catalog');
+  section.setAttribute('data-layout', 'split-rail-grid');
+  section.setAttribute('data-items', String(cards.length));
+
+  const wrap = document.createElement('div');
+  wrap.className = 'wrap cap-split';
+
+  const rail = document.createElement('div');
+  rail.className = 'cap-rail';
+  rail.setAttribute('data-reveal', '');
+  const h2 = document.createElement('h2');
+  h2.textContent = h2Text;
+  rail.append(h2);
+  if (ledeEl) {
+    const lede = document.createElement('p');
+    lede.className = 'lede';
+    lede.append(...ledeEl.childNodes);
+    rail.append(lede);
+  }
+  rail.append(buildTextLink(btnHref, btnText));
+  if (exhibit.length) {
+    const ex = document.createElement('div');
+    ex.className = 'exhibit';
+    const val = document.createElement('span');
+    val.className = 'val';
+    val.textContent = exhibit[0] || '';
+    const src = document.createElement('span');
+    src.className = 'src';
+    src.textContent = exhibit[1] || '';
+    ex.append(val, src);
+    rail.append(ex);
+  }
+
+  const grid = document.createElement('div');
+  grid.className = 'cap-grid';
+  cards.forEach(({ href, title, prose }) => {
+    const card = document.createElement('div');
+    card.className = 'cap-card';
+    card.setAttribute('data-reveal', '');
+    const h3 = document.createElement('h3');
+    const a = document.createElement('a');
+    a.href = href;
+    a.append(document.createTextNode(`${title} `));
+    const arr = document.createElement('span');
+    arr.className = 'arr';
+    arr.setAttribute('aria-hidden', 'true');
+    arr.textContent = ARROW;
+    a.append(arr);
+    h3.append(a);
+    const p = document.createElement('p');
+    if (prose) p.append(...prose.childNodes);
+    card.append(h3, p);
+    grid.append(card);
+  });
+
+  wrap.append(rail, grid);
+  section.append(wrap);
+
+  head?.remove();
+  block.replaceChildren(section);
+  block.classList.remove('capabilities');
 }
