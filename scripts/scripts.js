@@ -220,11 +220,37 @@ loadPage();
 /* stardust-behavior */
 (function stardustBehavior() {
   const d = document;
-  // JSON-LD (server-rendered content can't carry <script>; inject at runtime)
+  // Per-page-type JSON-LD (Organization + WebSite are server-rendered in head.html).
+  // This adds BreadcrumbList + the page-type entity (Article / Service / FAQPage).
   try {
-    const ld = d.createElement('script'); ld.type = 'application/ld+json';
-    ld.textContent = "{\n  \"@context\": \"https://schema.org\",\n  \"@graph\": [\n    {\n      \"@type\": \"Organization\",\n      \"@id\": \"https://marketfxdigital.com/#organization\",\n      \"name\": \"marketFX digital\",\n      \"url\": \"https://marketfxdigital.com\",\n      \"logo\": \"https://marketfxdigital.com/assets/marketfx-icon-DSWDddq4.png\",\n      \"foundingDate\": \"2004\",\n      \"founder\": { \"@type\": \"Person\", \"name\": \"Abby Di Niro\" },\n      \"sameAs\": [\"https://www.linkedin.com/company/marketfxdigitalus\"]\n    },\n    {\n      \"@type\": \"FAQPage\",\n      \"mainEntity\": [\n        { \"@type\": \"Question\", \"name\": \"What is a full-stack marketing agency?\", \"acceptedAnswer\": { \"@type\": \"Answer\", \"text\": \"A full-stack marketing agency provides every marketing capability under one roof: strategy, paid media, SEO, content, creative, social media, CRM, and analytics. Instead of hiring five or six separate vendors who do not communicate with each other, a full-stack agency operates as a single integrated team. marketFX digital built this model specifically to eliminate the coordination gaps, data silos, and accountability problems that fragment most companies' marketing.\" } },\n        { \"@type\": \"Question\", \"name\": \"How is marketFX different from hiring multiple specialized agencies?\", \"acceptedAnswer\": { \"@type\": \"Answer\", \"text\": \"When you hire separate agencies for SEO, paid media, creative, and social, each one optimizes for their own channel without seeing the full picture. Strategy gets diluted across competing priorities, data lives in disconnected dashboards, and nobody owns the overall outcome. marketFX replaces that fragmented model with one team that shares one strategy, one dataset, and one P&L.\" } },\n        { \"@type\": \"Question\", \"name\": \"What industries do you work with?\", \"acceptedAnswer\": { \"@type\": \"Answer\", \"text\": \"We work across industries including luxury retail, franchise, consumer goods, DTC e-commerce, technology, and professional services. Our client portfolio includes Samsung, Spence Diamonds, 7-Eleven Canada, and Stonz Wear.\" } },\n        { \"@type\": \"Question\", \"name\": \"Do you work with companies outside of Scottsdale and Vancouver?\", \"acceptedAnswer\": { \"@type\": \"Answer\", \"text\": \"Yes. While our offices are in Scottsdale, Arizona and Vancouver, British Columbia, we serve clients across North America and internationally.\" } },\n        { \"@type\": \"Question\", \"name\": \"What does the onboarding process look like?\", \"acceptedAnswer\": { \"@type\": \"Answer\", \"text\": \"Onboarding starts with a strategy assessment where we audit your current marketing, identify the biggest gaps, and build a prioritized roadmap. Most clients see their first measurable improvements within 60 to 90 days.\" } },\n        { \"@type\": \"Question\", \"name\": \"Do you offer month-to-month contracts?\", \"acceptedAnswer\": { \"@type\": \"Answer\", \"text\": \"We offer flexible engagement structures, but our best results come from strategic partnerships built over time. Our average client relationship is over ten years.\" } },\n        { \"@type\": \"Question\", \"name\": \"How do you measure marketing ROI?\", \"acceptedAnswer\": { \"@type\": \"Answer\", \"text\": \"We use our Signal vs Noise framework to separate decision-grade metrics from vanity metrics. That means we track pipeline contribution, customer acquisition cost, lifetime value, and revenue attribution across every channel.\" } },\n        { \"@type\": \"Question\", \"name\": \"How quickly can I expect to see results?\", \"acceptedAnswer\": { \"@type\": \"Answer\", \"text\": \"Paid media campaigns can deliver measurable results within the first 30 days. SEO and content typically show meaningful traction within 90 to 120 days.\" } }\n      ]\n    }\n  ]\n}";
-    d.head.appendChild(ld);
+    const ORIGIN = 'https://marketfxdigital.com';
+    const path = location.pathname.replace(/\/$/, '') || '/';
+    const graph = [];
+    // BreadcrumbList
+    if (path !== '/') {
+      const segs = path.split('/').filter(Boolean);
+      const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN + '/' }];
+      let acc = '';
+      segs.forEach((s, i) => { acc += '/' + s; items.push({ '@type': 'ListItem', position: i + 2, name: (i === segs.length - 1 ? (d.querySelector('h1')?.textContent.trim() || s) : s.replace(/-/g, ' ')), item: ORIGIN + acc }); });
+      graph.push({ '@type': 'BreadcrumbList', itemListElement: items });
+    }
+    // Article on /blog/*
+    if (path.startsWith('/blog/')) {
+      graph.push({ '@type': 'Article', headline: d.querySelector('h1')?.textContent.trim() || d.title, description: d.querySelector('meta[name=description]')?.content || '', author: { '@type': 'Person', name: 'Abby Di Niro', url: ORIGIN + '/about-us', jobTitle: 'Founder & Lead Strategist' }, publisher: { '@id': ORIGIN + '/#organization' }, mainEntityOfPage: { '@type': 'WebPage', '@id': ORIGIN + path } });
+    } else if (path !== '/' && !['/about-us', '/contact-us', '/faqs', '/privacy-policy', '/terms', '/blog', '/resources', '/glossary', '/testimonials', '/services'].includes(path)) {
+      // service/solution detail pages
+      graph.push({ '@type': 'Service', name: d.querySelector('h1')?.textContent.trim() || d.title, description: d.querySelector('meta[name=description]')?.content || '', provider: { '@id': ORIGIN + '/#organization' }, areaServed: ['United States', 'Canada'], serviceType: 'Digital Marketing', url: ORIGIN + path });
+    }
+    // FAQPage when the page renders an accordion
+    const dets = [...d.querySelectorAll('main details')];
+    if (dets.length >= 2) {
+      graph.push({ '@type': 'FAQPage', mainEntity: dets.map((x) => ({ '@type': 'Question', name: (x.querySelector('summary')?.textContent || '').replace(/\s*\+\s*$/, '').trim(), acceptedAnswer: { '@type': 'Answer', text: (x.querySelector('p, div:not(:has(summary))')?.textContent || '').trim() } })).filter((q) => q.name) });
+    }
+    if (graph.length) {
+      const ld = d.createElement('script'); ld.type = 'application/ld+json';
+      ld.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
+      d.head.appendChild(ld);
+    }
   } catch (e) { /* noop */ }
   function enhance() {
     d.documentElement.classList.add('js-anim');
