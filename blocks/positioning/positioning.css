@@ -29,9 +29,9 @@
   margin: 0;
   font-size: 15px;
 }
-/* dark card inside the white band: force white text over the band-light default */
-.band-light .quote-card .q,
-.band-light .quote-card .follow { color: #fff; }
+/* dark card inside the white band: force white on every paragraph in the card
+   (the pipeline wraps cell text in a nested <p>, which .band-light p would grey) */
+.band-light .quote-card p { color: #fff; }
 @media (max-width: 1080px) {
   .pos-split { grid-template-columns: 1fr; gap: var(--spacing-xl); }
   .quote-card { position: static; }
