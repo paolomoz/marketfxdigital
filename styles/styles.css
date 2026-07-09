@@ -10,6 +10,16 @@ main .section[data-section-status="loading"] { display: none; }
 img { display: block; max-width: 100%; height: auto; }
 /* the EDS block wrapper is transparent; blocks recreate the real <section> inside */
 main .section .block > section, main .section .block > div.band-light { display: block; }
+/* migrated prose pages: default-content body = centered reading column with section padding.
+   (bespoke template pages consume their default-content heads into blocks, so this only
+   affects the scripted-migration prose bodies.) */
+main .section > .default-content-wrapper { max-width: 780px; margin-inline: auto; padding: var(--section-padding) 24px; }
+main .section > .default-content-wrapper > *:first-child { margin-top: 0; }
+main .section > .default-content-wrapper h2 { font-size: clamp(26px, 3vw, 34px); margin-top: var(--spacing-xl); }
+main .section > .default-content-wrapper h3 { font-size: 21px; margin-top: var(--spacing-lg); }
+main .section > .default-content-wrapper ul, main .section > .default-content-wrapper ol { list-style: revert; padding-left: 1.2em; margin-bottom: var(--spacing-md); }
+main .section > .default-content-wrapper table { width: 100%; border-collapse: collapse; margin: var(--spacing-lg) 0; font-variant-numeric: tabular-nums; }
+main .section > .default-content-wrapper th, main .section > .default-content-wrapper td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--hairline-dark); }
 
 
 /* ============================================================
