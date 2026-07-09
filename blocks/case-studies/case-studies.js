@@ -20,7 +20,13 @@ export default function decorate(block) {
   }
   const list = document.createElement('ol');
   list.className = 'cs-list';
-  const cell = (r, i) => r.children[i]?.textContent.trim() || '';
+  // DA wraps each cell's text in a <p>; unwrap it so we emit one clean styled
+  // paragraph instead of nesting <p> (which the browser splits, dropping the class).
+  const inner = (c) => {
+    if (!c) return '';
+    const p = c.children.length === 1 && c.firstElementChild?.tagName === 'P' ? c.firstElementChild : c;
+    return p.innerHTML.trim();
+  };
   rows.forEach((r) => {
     const [num, title, subtitle, situation, did, result, reviewed, takeaway] = [...r.children].map((c) => c);
     const ul = reviewed?.querySelector('ul');
@@ -33,11 +39,11 @@ export default function decorate(block) {
         <p class="cs-sub">${subtitle?.textContent.trim() || ''}</p>
       </div>
       <div class="cs-body">
-        <p>${situation?.innerHTML.trim() || ''}</p>
-        <p>${did?.innerHTML.trim() || ''}</p>
-        ${result ? `<p class="cs-result">${result.innerHTML.trim()}</p>` : ''}
+        <p>${inner(situation)}</p>
+        <p>${inner(did)}</p>
+        ${result ? `<p class="cs-result">${inner(result)}</p>` : ''}
         ${ul ? `<div class="cs-reviewed"><span class="cs-reviewed-label">What we reviewed first</span>${ul.outerHTML}</div>` : ''}
-        ${takeaway ? `<p class="cs-takeaway">${takeaway.innerHTML.trim()}</p>` : ''}
+        ${takeaway ? `<p class="cs-takeaway">${inner(takeaway)}</p>` : ''}
       </div>`;
     list.appendChild(li);
   });
