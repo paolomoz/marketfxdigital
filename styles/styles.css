@@ -5,7 +5,7 @@ body.appear { display: block; }
 /* EDS section scaffold — blocks own their own padding/background; neutralize boilerplate section padding */
 main .section { padding: 0; margin: 0; max-width: none; }
 main .section > div { max-width: none; }
-main > div[data-section-status] { display: none; }
+main .section[data-section-status="loading"] { display: none; }
 /* image reset (EDS pipeline emits width/height attrs) */
 img { display: block; max-width: 100%; height: auto; }
 /* the EDS block wrapper is transparent; blocks recreate the real <section> inside */
