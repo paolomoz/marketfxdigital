@@ -2,6 +2,9 @@
 /* body.appear gate (boilerplate scripts.js adds .appear in loadEager) */
 body { display: none; }
 body.appear { display: block; }
+/* reserve header height so the late fragment injection does not shift the hero (CLS #81) */
+header{min-height:68px;background:#03060f}
+@media(max-width:767px){header{min-height:64px}}
 /* EDS section scaffold — blocks own their own padding/background; neutralize boilerplate section padding */
 main .section { padding: 0; margin: 0; max-width: none; }
 main .section > div { max-width: none; }
