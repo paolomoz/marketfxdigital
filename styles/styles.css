@@ -153,6 +153,7 @@ section{padding-block:var(--section-padding)}
 .header-bar{display:flex;align-items:center;gap:var(--spacing-lg);min-height:68px}
 .brand-lockup{display:inline-flex;align-items:center;gap:10px;min-height:44px;color:var(--text-on-dark);font-weight:800;font-size:18px;letter-spacing:-0.01em}
 .brand-lockup:hover{text-decoration:none}
+.brand-lockup picture,.brand-lockup img{width:30px;height:28px;object-fit:contain;flex:0 0 auto}
 .site-nav{margin-left:auto}
 .site-nav ul{display:flex;align-items:center;gap:6px}
 .site-nav a{
