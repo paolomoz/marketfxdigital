@@ -6,6 +6,11 @@ section[data-section='contact-form'] {
   background: var(--field);
 }
 
+/* the [hidden] attr must win over the display rules below (form<->success toggle) */
+[data-section='contact-form'] [hidden] {
+  display: none !important;
+}
+
 [data-section='contact-form'] .cf-card {
   max-width: 640px;
   margin-inline: auto;

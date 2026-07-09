@@ -101,10 +101,7 @@ function buildField(field) {
   control.id = id;
   control.name = field.name;
   control.className = 'cf-control';
-  if (field.required) {
-    control.required = true;
-    label.append(document.createTextNode(''));
-  }
+  if (field.required) control.required = true;
   control.setAttribute('aria-required', field.required ? 'true' : 'false');
 
   const error = document.createElement('p');
