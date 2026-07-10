@@ -28,7 +28,7 @@ export default function decorate(block) {
     return p.innerHTML.trim();
   };
   rows.forEach((r) => {
-    const [num, title, subtitle, situation, did, result, reviewed, takeaway] = [...r.children].map((c) => c);
+    const [num, title, subtitle, situation, did, result, reviewed, takeaway] = [...r.children];
     const ul = reviewed?.querySelector('ul');
     const li = document.createElement('li');
     li.className = 'cs-item';

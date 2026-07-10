@@ -75,6 +75,6 @@ section[data-section='resource-cards'] {
   transform: translateX(3px);
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
   [data-section='resource-cards'] .rc-grid { grid-template-columns: 1fr; }
 }

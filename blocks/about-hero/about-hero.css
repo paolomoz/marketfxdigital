@@ -7,6 +7,6 @@
    about-hero is always present on this page, so this rule loads with it. */
 .stat-band[data-items="3"] .stat-grid { grid-template-columns: repeat(3, 1fr); }
 
-@media (max-width: 900px) {
+@media (width <= 900px) {
   .stat-band[data-items="3"] .stat-grid { grid-template-columns: 1fr 1fr; }
 }

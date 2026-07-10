@@ -18,5 +18,7 @@ export default async function decorate(block) {
     t.addEventListener('click', () => { const o = host.classList.toggle('nav-open'); t.setAttribute('aria-expanded', o ? 'true' : 'false'); });
     document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && host.classList.contains('nav-open')) { host.classList.remove('nav-open'); t.setAttribute('aria-expanded', 'false'); t.focus(); } });
   }
-  addEventListener('scroll', () => host.classList.toggle('scrolled', scrollY > 8), { passive: true });
+  window.addEventListener('scroll', () => {
+    host.classList.toggle('scrolled', window.scrollY > 8);
+  }, { passive: true });
 }

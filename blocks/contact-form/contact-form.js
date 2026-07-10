@@ -17,10 +17,18 @@ const FORM_ENDPOINT = 'REPLACE_WITH_FORM_ENDPOINT';
 const SCHEDULER_URL = 'https://calendly.com/justin-marketfxdigital/30min';
 
 const DEFAULT_FIELDS = [
-  { name: 'name', label: 'Name', type: 'text', required: true },
-  { name: 'email', label: 'Work email', type: 'email', required: true },
-  { name: 'company', label: 'Company', type: 'text', required: false },
-  { name: 'phone', label: 'Phone', type: 'tel', required: false },
+  {
+    name: 'name', label: 'Name', type: 'text', required: true,
+  },
+  {
+    name: 'email', label: 'Work email', type: 'email', required: true,
+  },
+  {
+    name: 'company', label: 'Company', type: 'text', required: false,
+  },
+  {
+    name: 'phone', label: 'Phone', type: 'tel', required: false,
+  },
   {
     name: 'help',
     label: 'What do you need help with?',

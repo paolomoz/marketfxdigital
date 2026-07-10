@@ -8,9 +8,10 @@
   align-items: start;
 }
 .pos-copy p { color: var(--text-muted-light); }
+
 .quote-card {
   background: var(--card-grad);
-  border: 1px solid rgba(0, 178, 236, .4);
+  border: 1px solid rgb(0 178 236 / 40%);
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-card-dark);
   padding: var(--spacing-lg);
@@ -18,6 +19,7 @@
   top: 96px;
 }
 .quote-card blockquote { margin: 0; }
+
 .quote-card .q {
   font-size: 21px;
   font-weight: 800;
@@ -25,14 +27,17 @@
   line-height: 1.35;
   margin-bottom: var(--spacing-md);
 }
+
 .quote-card .follow {
   margin: 0;
   font-size: 15px;
 }
+
 /* dark card inside the white band: force white on every paragraph in the card
    (the pipeline wraps cell text in a nested <p>, which .band-light p would grey) */
 .band-light .quote-card p { color: #fff; }
-@media (max-width: 1080px) {
+
+@media (width <= 1080px) {
   .pos-split { grid-template-columns: 1fr; gap: var(--spacing-xl); }
   .quote-card { position: static; }
 }

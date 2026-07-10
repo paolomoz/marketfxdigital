@@ -83,7 +83,7 @@ section[data-section='contact-form'] {
 [data-section='contact-form'] .cf-control:focus-visible {
   outline: none;
   border-color: var(--signal);
-  box-shadow: 0 0 0 3px rgba(0, 178, 236, .35);
+  box-shadow: 0 0 0 3px rgb(0 178 236 / 35%);
 }
 
 [data-section='contact-form'] .cf-control[aria-invalid='true'] {
@@ -126,8 +126,9 @@ section[data-section='contact-form'] {
   min-height: 48px;
 }
 
-@media (max-width: 600px) {
+@media (width <= 600px) {
   [data-section='contact-form'] .cf-card { padding: var(--spacing-lg); }
+
   [data-section='contact-form'] .cf-submit,
   [data-section='contact-form'] .cf-scheduler { width: 100%; }
 }
