@@ -151,12 +151,28 @@ function validate(fields) {
 export default function decorate(block) {
   const fields = parseAuthoredFields(block) || DEFAULT_FIELDS;
 
-  // authored content in the same section: heading before the block, contact
-  // fallback links after it — both reabsorbed into the white form band.
+  // authored content in the same section, before the block: an optional testimonial
+  // quote, a "Pick a time" callout, and the form heading/subcopy; after the block:
+  // the phone/email fallback links. All reabsorbed into the white form band.
   const prev = block.parentElement?.previousElementSibling;
   const next = block.parentElement?.nextElementSibling;
-  const head = prev && prev.classList.contains('default-content-wrapper') ? prev : null;
+  const lead = prev && prev.classList.contains('default-content-wrapper') ? prev : null;
   const contacts = next && next.classList.contains('default-content-wrapper') ? next : null;
+
+  let quoteEl = null;
+  let pickBits = [];
+  let headingEl = null;
+  let subEl = null;
+  if (lead) {
+    const kids = [...lead.children];
+    const hIdx = kids.findIndex((k) => /^H[1-4]$/.test(k.tagName));
+    const before = hIdx >= 0 ? kids.slice(0, hIdx) : kids;
+    const after = hIdx >= 0 ? kids.slice(hIdx + 1) : [];
+    quoteEl = before.find((k) => k.tagName === 'BLOCKQUOTE') || null;
+    pickBits = before.filter((k) => k !== quoteEl);
+    headingEl = hIdx >= 0 ? kids[hIdx] : null;
+    subEl = after.find((k) => k.tagName === 'P') || null;
+  }
 
   block.replaceChildren();
   block.classList.remove(NAME);
@@ -170,17 +186,41 @@ export default function decorate(block) {
   const wrap = document.createElement('div');
   wrap.className = 'wrap';
 
-  if (head) {
-    const h = document.createElement('div');
-    h.className = 'cf-head';
-    while (head.firstChild) h.appendChild(head.firstChild);
-    wrap.append(h);
-    head.remove();
+  // testimonial quote card
+  if (quoteEl) {
+    const fig = document.createElement('figure');
+    fig.className = 'cf-quote';
+    const ps = [...quoteEl.querySelectorAll('p')];
+    const bq = document.createElement('blockquote');
+    bq.textContent = (ps[0] || quoteEl).textContent.trim();
+    fig.append(bq);
+    if (ps[1]) {
+      const cap = document.createElement('figcaption');
+      cap.textContent = ps[1].textContent.trim();
+      fig.append(cap);
+    }
+    wrap.append(fig);
+  }
+
+  // "Ready to book now? Pick a time directly." callout with the Calendly button
+  if (pickBits.length) {
+    const pick = document.createElement('div');
+    pick.className = 'cf-pick';
+    pickBits.forEach((el) => pick.append(el));
+    const a = pick.querySelector('a');
+    if (a) {
+      a.className = 'btn btn-primary cf-pick-btn';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    }
+    wrap.append(pick);
   }
 
   const card = document.createElement('div');
   card.className = 'cf-card';
   card.setAttribute('data-reveal', '');
+  if (headingEl) card.append(headingEl);
+  if (subEl) { subEl.className = 'cf-sub'; card.append(subEl); }
 
   const form = document.createElement('form');
   form.className = 'cf-form';
@@ -257,6 +297,8 @@ export default function decorate(block) {
     wrap.append(c);
     contacts.remove();
   }
+
+  if (lead) lead.remove();
 
   section.append(wrap);
   block.append(section);
