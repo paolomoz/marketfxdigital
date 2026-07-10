@@ -30,17 +30,16 @@ const DEFAULT_FIELDS = [
     name: 'phone', label: 'Phone', type: 'tel', required: false,
   },
   {
-    name: 'help',
+    name: 'need',
     label: 'What do you need help with?',
     type: 'select',
     required: false,
     options: [
-      'General inquiry',
-      'Paid media',
-      'SEO & AI visibility',
-      'Analytics',
-      'Full-funnel strategy',
-      'Other',
+      'Paid Media',
+      'SEO and AI Visibility',
+      'Full-Funnel Strategy',
+      'Multi-Location Marketing',
+      'Not sure yet',
     ],
   },
 ];
@@ -84,6 +83,11 @@ function buildField(field) {
     req.setAttribute('aria-hidden', 'true');
     req.textContent = '*';
     label.append(req);
+  } else {
+    const opt = document.createElement('span');
+    opt.className = 'cf-opt';
+    opt.textContent = 'Optional';
+    label.append(opt);
   }
 
   let control;
@@ -91,7 +95,7 @@ function buildField(field) {
     control = document.createElement('select');
     const ph = document.createElement('option');
     ph.value = '';
-    ph.textContent = 'Select an option';
+    ph.textContent = 'Select one';
     control.append(ph);
     (field.options || []).forEach((opt) => {
       const o = document.createElement('option');
@@ -147,10 +151,34 @@ function validate(fields) {
 export default function decorate(block) {
   const fields = parseAuthoredFields(block) || DEFAULT_FIELDS;
 
+  // authored content in the same section, before the block: an optional testimonial
+  // quote, a "Pick a time" callout, and the form heading/subcopy; after the block:
+  // the phone/email fallback links. All reabsorbed into the white form band.
+  const prev = block.parentElement?.previousElementSibling;
+  const next = block.parentElement?.nextElementSibling;
+  const lead = prev && prev.classList.contains('default-content-wrapper') ? prev : null;
+  const contacts = next && next.classList.contains('default-content-wrapper') ? next : null;
+
+  let quoteEl = null;
+  let pickBits = [];
+  let headingEl = null;
+  let subEl = null;
+  if (lead) {
+    const kids = [...lead.children];
+    const hIdx = kids.findIndex((k) => /^H[1-4]$/.test(k.tagName));
+    const before = hIdx >= 0 ? kids.slice(0, hIdx) : kids;
+    const after = hIdx >= 0 ? kids.slice(hIdx + 1) : [];
+    quoteEl = before.find((k) => k.tagName === 'BLOCKQUOTE') || null;
+    pickBits = before.filter((k) => k !== quoteEl);
+    headingEl = hIdx >= 0 ? kids[hIdx] : null;
+    subEl = after.find((k) => k.tagName === 'P') || null;
+  }
+
   block.replaceChildren();
   block.classList.remove(NAME);
 
   const section = document.createElement('section');
+  section.className = 'band-light contact-form';
   section.setAttribute('data-section', NAME);
   section.setAttribute('data-intent', 'conversion');
   section.setAttribute('data-layout', 'lead-form');
@@ -158,9 +186,41 @@ export default function decorate(block) {
   const wrap = document.createElement('div');
   wrap.className = 'wrap';
 
+  // testimonial quote card
+  if (quoteEl) {
+    const fig = document.createElement('figure');
+    fig.className = 'cf-quote';
+    const ps = [...quoteEl.querySelectorAll('p')];
+    const bq = document.createElement('blockquote');
+    bq.textContent = (ps[0] || quoteEl).textContent.trim();
+    fig.append(bq);
+    if (ps[1]) {
+      const cap = document.createElement('figcaption');
+      cap.textContent = ps[1].textContent.trim();
+      fig.append(cap);
+    }
+    wrap.append(fig);
+  }
+
+  // "Ready to book now? Pick a time directly." callout with the Calendly button
+  if (pickBits.length) {
+    const pick = document.createElement('div');
+    pick.className = 'cf-pick';
+    pickBits.forEach((el) => pick.append(el));
+    const a = pick.querySelector('a');
+    if (a) {
+      a.className = 'btn btn-primary cf-pick-btn';
+      a.target = '_blank';
+      a.rel = 'noopener noreferrer';
+    }
+    wrap.append(pick);
+  }
+
   const card = document.createElement('div');
   card.className = 'cf-card';
   card.setAttribute('data-reveal', '');
+  if (headingEl) card.append(headingEl);
+  if (subEl) { subEl.className = 'cf-sub'; card.append(subEl); }
 
   const form = document.createElement('form');
   form.className = 'cf-form';
@@ -229,6 +289,17 @@ export default function decorate(block) {
 
   card.append(form, success);
   wrap.append(card);
+
+  if (contacts) {
+    const c = document.createElement('div');
+    c.className = 'cf-contacts';
+    while (contacts.firstChild) c.appendChild(contacts.firstChild);
+    wrap.append(c);
+    contacts.remove();
+  }
+
+  if (lead) lead.remove();
+
   section.append(wrap);
   block.append(section);
 }

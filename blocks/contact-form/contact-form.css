@@ -1,9 +1,10 @@
-/* contact-form — dark card, cyan focus rings, AA labels, 44px inputs.
-   Reuses foundation tokens/classes (.btn, --signal, --field, --ink…).
-   Scoped to the rebuilt section (decorate() removes the .contact-form class). */
+/* contact-form — WHITE lead-form band (reuses foundation .band-light + tokens).
+   Cyan focus rings, AA labels on light, 48px controls. The decorate() step emits
+   <section class="band-light contact-form"> and reabsorbs the authored head +
+   contact links, so .band-light already themes headings/prose/links for light. */
 
-section[data-section='contact-form'] {
-  background: var(--field);
+[data-section='contact-form'] .wrap {
+  max-width: 640px;
 }
 
 /* the [hidden] attr must win over the display rules below (form<->success toggle) */
@@ -11,13 +12,69 @@ section[data-section='contact-form'] {
   display: none !important;
 }
 
+/* testimonial quote card */
+[data-section='contact-form'] .cf-quote {
+  margin: 0 0 var(--spacing-md);
+  padding: 14px 18px;
+  border: 1px solid var(--hairline-light);
+  border-radius: var(--radius-nested);
+  background: var(--paper-dim);
+}
+
+[data-section='contact-form'] .cf-quote blockquote {
+  margin: 0;
+  font-style: italic;
+  font-size: 15px;
+  color: var(--text-on-light);
+}
+
+[data-section='contact-form'] .cf-quote figcaption {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--text-muted-light);
+}
+
+/* "Ready to book now? Pick a time" callout */
+[data-section='contact-form'] .cf-pick {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spacing-md);
+  margin: 0 0 var(--spacing-lg);
+  padding: 16px 18px;
+  border: 1px solid rgb(0 178 236 / 30%);
+  border-radius: var(--radius-nested);
+  background: rgb(0 178 236 / 5%);
+}
+
+[data-section='contact-form'] .cf-pick p {
+  margin: 0;
+  font-weight: 600;
+  color: var(--text-on-light);
+}
+
+[data-section='contact-form'] .cf-pick .cf-pick-btn {
+  flex: 0 0 auto;
+  min-height: 40px;
+}
+
+/* form-card heading (matches the live in-card heading) */
+[data-section='contact-form'] .cf-card h2 {
+  font-size: clamp(22px, 2.4vw, 26px);
+  margin: 0 0 var(--spacing-sm);
+}
+
+[data-section='contact-form'] .cf-sub {
+  margin: 0 0 var(--spacing-lg);
+  color: var(--text-muted-light);
+}
+
 [data-section='contact-form'] .cf-card {
-  max-width: 640px;
-  margin-inline: auto;
-  background: var(--card-grad);
-  border: 1px solid var(--hairline-dark);
+  background: var(--paper);
+  border: 1px solid var(--hairline-light);
   border-radius: var(--radius-card);
-  box-shadow: var(--shadow-card-dark);
+  box-shadow: var(--shadow-card-light);
   padding: var(--spacing-2xl);
 }
 
@@ -36,14 +93,21 @@ section[data-section='contact-form'] {
 [data-section='contact-form'] .cf-label {
   font-size: var(--body-sm);
   font-weight: 700;
-  letter-spacing: .04em;
-  text-transform: uppercase;
-  color: var(--text-on-dark);
+  letter-spacing: .02em;
+  color: var(--text-on-light);
 }
 
 [data-section='contact-form'] .cf-req {
-  color: var(--signal);
+  color: var(--signal-deep);
   margin-left: 4px;
+}
+
+[data-section='contact-form'] .cf-opt {
+  margin-left: 8px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--text-muted-light);
 }
 
 [data-section='contact-form'] .cf-control {
@@ -51,9 +115,9 @@ section[data-section='contact-form'] {
   min-height: 48px;
   padding: 12px 14px;
   font: 400 16px/1.4 var(--body-font-family);
-  color: var(--text-on-dark);
-  background: var(--field);
-  border: 1px solid var(--hairline-dark);
+  color: var(--text-on-light);
+  background: var(--paper);
+  border: 1px solid var(--hairline-light);
   border-radius: var(--radius);
   transition: border-color .18s ease, box-shadow .18s ease;
 }
@@ -67,8 +131,8 @@ section[data-section='contact-form'] {
   appearance: none;
   cursor: pointer;
   background-image:
-    linear-gradient(45deg, transparent 50%, var(--signal) 50%),
-    linear-gradient(135deg, var(--signal) 50%, transparent 50%);
+    linear-gradient(45deg, transparent 50%, var(--signal-deep) 50%),
+    linear-gradient(135deg, var(--signal-deep) 50%, transparent 50%);
   background-position:
     calc(100% - 20px) center,
     calc(100% - 15px) center;
@@ -77,24 +141,24 @@ section[data-section='contact-form'] {
   padding-right: 40px;
 }
 
-[data-section='contact-form'] .cf-control::placeholder { color: var(--text-muted-dark); }
+[data-section='contact-form'] .cf-control::placeholder { color: var(--text-muted-light); }
 
 [data-section='contact-form'] .cf-control:focus,
 [data-section='contact-form'] .cf-control:focus-visible {
   outline: none;
-  border-color: var(--signal);
-  box-shadow: 0 0 0 3px rgb(0 178 236 / 35%);
+  border-color: var(--signal-deep);
+  box-shadow: 0 0 0 3px rgb(0 178 236 / 25%);
 }
 
 [data-section='contact-form'] .cf-control[aria-invalid='true'] {
-  border-color: var(--ember);
+  border-color: var(--ember-deep);
 }
 
 [data-section='contact-form'] .cf-error {
   margin: 0;
   min-height: 1em;
   font-size: var(--body-sm);
-  color: var(--ember);
+  color: var(--ember-deep);
 }
 
 [data-section='contact-form'] .cf-error:empty {
@@ -112,18 +176,28 @@ section[data-section='contact-form'] {
 }
 
 [data-section='contact-form'] .cf-success h3 {
-  color: var(--text-on-dark);
+  color: var(--text-on-light);
   font-size: var(--heading-md);
   margin: 0 0 var(--spacing-sm);
 }
 
 [data-section='contact-form'] .cf-success p {
-  color: var(--text-muted-dark);
+  color: var(--text-muted-light);
   margin: 0 0 var(--spacing-lg);
 }
 
 [data-section='contact-form'] .cf-scheduler {
   min-height: 48px;
+}
+
+/* call / email fallbacks below the card */
+[data-section='contact-form'] .cf-contacts {
+  margin-top: var(--spacing-lg);
+  text-align: center;
+}
+
+[data-section='contact-form'] .cf-contacts p {
+  margin: 4px 0;
 }
 
 @media (width <= 600px) {
