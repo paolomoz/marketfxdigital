@@ -30,17 +30,16 @@ const DEFAULT_FIELDS = [
     name: 'phone', label: 'Phone', type: 'tel', required: false,
   },
   {
-    name: 'help',
+    name: 'need',
     label: 'What do you need help with?',
     type: 'select',
     required: false,
     options: [
-      'General inquiry',
-      'Paid media',
-      'SEO & AI visibility',
-      'Analytics',
-      'Full-funnel strategy',
-      'Other',
+      'Paid Media',
+      'SEO and AI Visibility',
+      'Full-Funnel Strategy',
+      'Multi-Location Marketing',
+      'Not sure yet',
     ],
   },
 ];
@@ -84,6 +83,11 @@ function buildField(field) {
     req.setAttribute('aria-hidden', 'true');
     req.textContent = '*';
     label.append(req);
+  } else {
+    const opt = document.createElement('span');
+    opt.className = 'cf-opt';
+    opt.textContent = 'Optional';
+    label.append(opt);
   }
 
   let control;
@@ -91,7 +95,7 @@ function buildField(field) {
     control = document.createElement('select');
     const ph = document.createElement('option');
     ph.value = '';
-    ph.textContent = 'Select an option';
+    ph.textContent = 'Select one';
     control.append(ph);
     (field.options || []).forEach((opt) => {
       const o = document.createElement('option');
@@ -147,16 +151,32 @@ function validate(fields) {
 export default function decorate(block) {
   const fields = parseAuthoredFields(block) || DEFAULT_FIELDS;
 
+  // authored content in the same section: heading before the block, contact
+  // fallback links after it — both reabsorbed into the white form band.
+  const prev = block.parentElement?.previousElementSibling;
+  const next = block.parentElement?.nextElementSibling;
+  const head = prev && prev.classList.contains('default-content-wrapper') ? prev : null;
+  const contacts = next && next.classList.contains('default-content-wrapper') ? next : null;
+
   block.replaceChildren();
   block.classList.remove(NAME);
 
   const section = document.createElement('section');
+  section.className = 'band-light contact-form';
   section.setAttribute('data-section', NAME);
   section.setAttribute('data-intent', 'conversion');
   section.setAttribute('data-layout', 'lead-form');
 
   const wrap = document.createElement('div');
   wrap.className = 'wrap';
+
+  if (head) {
+    const h = document.createElement('div');
+    h.className = 'cf-head';
+    while (head.firstChild) h.appendChild(head.firstChild);
+    wrap.append(h);
+    head.remove();
+  }
 
   const card = document.createElement('div');
   card.className = 'cf-card';
@@ -229,6 +249,15 @@ export default function decorate(block) {
 
   card.append(form, success);
   wrap.append(card);
+
+  if (contacts) {
+    const c = document.createElement('div');
+    c.className = 'cf-contacts';
+    while (contacts.firstChild) c.appendChild(contacts.firstChild);
+    wrap.append(c);
+    contacts.remove();
+  }
+
   section.append(wrap);
   block.append(section);
 }
