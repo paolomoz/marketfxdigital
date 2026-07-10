@@ -1,4 +1,5 @@
-/* full-stack-partner — decodes authored content (DA / David's Model) and rebuilds the prototype section. */
+/* full-stack-partner — decodes authored content (DA / David's Model) and
+   rebuilds the prototype section. */
 export default function decorate(block) {
   const head = block.closest('.full-stack-partner-wrapper')?.previousElementSibling;
   const h2Text = head?.querySelector('h2')?.textContent.trim() || '';

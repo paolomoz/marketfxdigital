@@ -1,9 +1,9 @@
 /* contact-form — a working lead form that posts to a PLACEHOLDER endpoint.
    =====================================================================
-   BRAND TEAM: two placeholders must be replaced before go-live —
+   BRAND TEAM: one placeholder remains before go-live —
      1. data-endpoint  -> your form handler URL  (search: REPLACE_WITH_FORM_ENDPOINT)
-     2. data-scheduler -> your scheduler/booking URL (search: REPLACE_WITH_SCHEDULER_URL)
-   Both are also surfaced as visible-in-DOM data attributes on the <form> and the
+   The scheduler/booking URL is wired to the live marketFX Calendly link.
+   Both are surfaced as visible-in-DOM data attributes on the <form> and the
    success panel so they are easy to grep/audit in the rendered page.
    =====================================================================
    Authoring (optional): one row per field -> [label, type, options, required]
@@ -14,13 +14,21 @@
 
 const NAME = 'contact-form';
 const FORM_ENDPOINT = 'REPLACE_WITH_FORM_ENDPOINT';
-const SCHEDULER_URL = 'REPLACE_WITH_SCHEDULER_URL';
+const SCHEDULER_URL = 'https://calendly.com/justin-marketfxdigital/30min';
 
 const DEFAULT_FIELDS = [
-  { name: 'name', label: 'Name', type: 'text', required: true },
-  { name: 'email', label: 'Work email', type: 'email', required: true },
-  { name: 'company', label: 'Company', type: 'text', required: false },
-  { name: 'phone', label: 'Phone', type: 'tel', required: false },
+  {
+    name: 'name', label: 'Name', type: 'text', required: true,
+  },
+  {
+    name: 'email', label: 'Work email', type: 'email', required: true,
+  },
+  {
+    name: 'company', label: 'Company', type: 'text', required: false,
+  },
+  {
+    name: 'phone', label: 'Phone', type: 'tel', required: false,
+  },
   {
     name: 'help',
     label: 'What do you need help with?',
@@ -195,7 +203,6 @@ export default function decorate(block) {
   success.hidden = true;
   success.setAttribute('role', 'status');
   success.setAttribute('data-scheduler', SCHEDULER_URL);
-  success.setAttribute('data-scheduler-todo', 'REPLACE_WITH_SCHEDULER_URL');
   const sh = document.createElement('h3');
   sh.textContent = "Thanks — we'll reply within 24 hours.";
   const sp = document.createElement('p');

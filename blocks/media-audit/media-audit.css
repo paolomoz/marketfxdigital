@@ -12,6 +12,6 @@
 .audit-rail .exhibit { margin-top: var(--spacing-md); }
 .audit-rail .cap-card h3 { margin-bottom: var(--spacing-md); }
 
-@media (max-width: 1080px) {
+@media (width <= 1080px) {
   .audit-split { grid-template-columns: 1fr; gap: var(--spacing-xl); }
 }

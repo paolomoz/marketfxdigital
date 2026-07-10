@@ -16,10 +16,10 @@
 .hero-trust .trust-row { justify-content: flex-start; }
 .hero-trust .trust-row li { min-width: 0; flex: 1 1 40%; }
 
-@media (max-width: 1080px) {
+@media (width <= 1080px) {
   .hero-split { grid-template-columns: 1fr; gap: var(--spacing-xl); }
 }
 
-@media (max-width: 640px) {
+@media (width <= 640px) {
   .hero-trust .trust-row li { min-width: 132px; flex: 1 1 40%; }
 }

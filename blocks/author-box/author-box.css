@@ -1,15 +1,17 @@
 /* author-box — dark hairline author card. Tokens (--card-grad, --hairline-dark,
    --signal, --text-*, spacing, radius) come from styles/styles.css. */
 [data-section="author-box"]{padding-block:var(--section-padding)}
+
 .author-card{
   display:grid;grid-template-columns:64px 1fr;gap:var(--spacing-md);
   border:1px solid var(--hairline-dark);border-radius:var(--radius-card);
   background:var(--card-grad);box-shadow:var(--shadow-card-dark);
   padding:var(--spacing-lg);max-width:820px;
 }
+
 .author-avatar{
   width:64px;height:64px;border-radius:50%;
-  border:1px solid rgba(0,178,236,.4);background:rgba(0,178,236,.12);
+  border:1px solid rgb(0 178 236 / 40%);background:rgb(0 178 236 / 12%);
   color:var(--signal);display:flex;align-items:center;justify-content:center;
   font-weight:800;font-size:21px;
 }

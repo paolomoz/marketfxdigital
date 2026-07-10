@@ -5,6 +5,7 @@
 .related-rows{margin-top:var(--spacing-md);list-style:none;padding:0}
 .related-rows li{border-top:1px solid var(--hairline-dark)}
 .related-rows li:last-child{border-bottom:1px solid var(--hairline-dark)}
+
 .related-rows a{
   display:flex;align-items:center;justify-content:space-between;gap:var(--spacing-md);
   min-height:64px;padding:14px 4px;color:var(--text-on-dark);font-weight:600;font-size:17px;

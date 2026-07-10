@@ -1,5 +1,6 @@
-/* embedded-strategy — decodes authored content (DA / David's Model) and rebuilds the prototype section.
-   Ordinals (01–04) are generated here; authors only supply title + prose per row. */
+/* embedded-strategy — decodes authored content (DA / David's Model) and rebuilds
+   the prototype section. Ordinals (01–04) are generated here; authors only supply
+   title + prose per row. */
 export default function decorate(block) {
   const head = block.closest('.embedded-strategy-wrapper')?.previousElementSibling;
   const h2Text = head?.querySelector('h2')?.textContent.trim() || '';

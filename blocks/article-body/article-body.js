@@ -58,7 +58,6 @@ export default function decorate(block) {
     // any non-`tr` token closes an open table
     if (token !== 'tr' && table) closeTable();
     // any token that is not part of the current group flushes it
-    const groupTokens = ['fact', 'def', 'ref', 'opt', 'chip'];
     if (group && token !== group.type) flushGroup();
 
     switch (token) {

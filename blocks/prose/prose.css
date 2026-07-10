@@ -9,9 +9,10 @@
 .prose-body ol { list-style: decimal; }
 .prose-body li { margin-bottom: 6px; }
 .prose-body a { color: var(--signal-deep); }
-.prose-body blockquote { margin: var(--spacing-lg) 0; padding: var(--spacing-md) var(--spacing-lg); border-left: 3px solid var(--signal); background: rgba(0,178,236,.06); border-radius: 0 10px 10px 0; font-size: 19px; color: var(--text-on-light); max-width: none; }
+.prose-body blockquote { margin: var(--spacing-lg) 0; padding: var(--spacing-md) var(--spacing-lg); border-left: 3px solid var(--signal); background: rgb(0 178 236 / 6%); border-radius: 0 10px 10px 0; font-size: 19px; color: var(--text-on-light); max-width: none; }
 .prose-body img { border-radius: var(--radius-card); margin: var(--spacing-lg) 0; max-width: 100%; }
 .prose-body table { width: 100%; max-width: none; border-collapse: collapse; margin: var(--spacing-lg) 0; font-size: 15px; font-variant-numeric: tabular-nums; }
 .prose-body th, .prose-body td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--hairline-light); color: var(--text-on-light); }
 .prose-body th { font-weight: 700; }
-@media (max-width: 640px) { .prose-body table, .prose-body thead, .prose-body tbody, .prose-body tr, .prose-body th, .prose-body td { display: block; } .prose-body thead { display: none; } .prose-body tr { margin-bottom: var(--spacing-md); border: 1px solid var(--hairline-light); border-radius: 8px; padding: 8px; } }
+
+@media (width <= 640px) { .prose-body table, .prose-body thead, .prose-body tbody, .prose-body tr, .prose-body th, .prose-body td { display: block; } .prose-body thead { display: none; } .prose-body tr { margin-bottom: var(--spacing-md); border: 1px solid var(--hairline-light); border-radius: 8px; padding: 8px; } }

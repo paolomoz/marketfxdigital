@@ -224,22 +224,39 @@ loadPage();
   // This adds BreadcrumbList + the page-type entity (Article / Service / FAQPage).
   try {
     const ORIGIN = 'https://marketfxdigital.com';
-    const path = location.pathname.replace(/\/$/, '') || '/';
+    const path = window.location.pathname.replace(/\/$/, '') || '/';
     const graph = [];
     // BreadcrumbList
     if (path !== '/') {
       const segs = path.split('/').filter(Boolean);
-      const items = [{ '@type': 'ListItem', position: 1, name: 'Home', item: ORIGIN + '/' }];
+      const items = [{
+        '@type': 'ListItem', position: 1, name: 'Home', item: `${ORIGIN}/`,
+      }];
       let acc = '';
-      segs.forEach((s, i) => { acc += '/' + s; items.push({ '@type': 'ListItem', position: i + 2, name: (i === segs.length - 1 ? (d.querySelector('h1')?.textContent.trim() || s) : s.replace(/-/g, ' ')), item: ORIGIN + acc }); });
+      segs.forEach((s, i) => {
+        acc += `/${s}`; items.push({
+          '@type': 'ListItem', position: i + 2, name: (i === segs.length - 1 ? (d.querySelector('h1')?.textContent.trim() || s) : s.replace(/-/g, ' ')), item: ORIGIN + acc,
+        });
+      });
       graph.push({ '@type': 'BreadcrumbList', itemListElement: items });
     }
     // Article on /blog/*
     if (path.startsWith('/blog/')) {
-      graph.push({ '@type': 'Article', headline: d.querySelector('h1')?.textContent.trim() || d.title, description: d.querySelector('meta[name=description]')?.content || '', author: { '@type': 'Person', name: 'Abby Di Niro', url: ORIGIN + '/about-us', jobTitle: 'Founder & Lead Strategist' }, publisher: { '@id': ORIGIN + '/#organization' }, mainEntityOfPage: { '@type': 'WebPage', '@id': ORIGIN + path } });
+      graph.push({
+        '@type': 'Article',
+        headline: d.querySelector('h1')?.textContent.trim() || d.title,
+        description: d.querySelector('meta[name=description]')?.content || '',
+        author: {
+          '@type': 'Person', name: 'Abby Di Niro', url: `${ORIGIN}/about-us`, jobTitle: 'Founder & Lead Strategist',
+        },
+        publisher: { '@id': `${ORIGIN}/#organization` },
+        mainEntityOfPage: { '@type': 'WebPage', '@id': ORIGIN + path },
+      });
     } else if (path !== '/' && !['/about-us', '/contact-us', '/faqs', '/privacy-policy', '/terms', '/blog', '/resources', '/glossary', '/testimonials', '/services'].includes(path)) {
       // service/solution detail pages
-      graph.push({ '@type': 'Service', name: d.querySelector('h1')?.textContent.trim() || d.title, description: d.querySelector('meta[name=description]')?.content || '', provider: { '@id': ORIGIN + '/#organization' }, areaServed: ['United States', 'Canada'], serviceType: 'Digital Marketing', url: ORIGIN + path });
+      graph.push({
+        '@type': 'Service', name: d.querySelector('h1')?.textContent.trim() || d.title, description: d.querySelector('meta[name=description]')?.content || '', provider: { '@id': `${ORIGIN}/#organization` }, areaServed: ['United States', 'Canada'], serviceType: 'Digital Marketing', url: ORIGIN + path,
+      });
     }
     // FAQPage when the page renders an accordion
     const dets = [...d.querySelectorAll('main details')];
@@ -262,11 +279,18 @@ loadPage();
       if (!e.isIntersecting) return; co.unobserve(e.target); if (reduce) return;
       const el = e.target; const fin = el.textContent; const m = fin.match(/^([^0-9]*)([0-9.]+)(.*)$/); if (!m) return;
       const num = parseFloat(m[2]); const dec = (m[2].split('.')[1] || '').length; let t0 = null;
-      const step = (t) => { if (!t0) t0 = t; const p = Math.min((t - t0) / 1200, 1); const ease = 1 - (1 - p) ** 3; el.textContent = m[1] + (num * ease).toFixed(dec) + m[3]; if (p < 1) requestAnimationFrame(step); else el.textContent = fin; };
+      const step = (t) => {
+        if (!t0) t0 = t;
+        const p = Math.min((t - t0) / 1200, 1);
+        const ease = 1 - (1 - p) ** 3;
+        el.textContent = m[1] + (num * ease).toFixed(dec) + m[3];
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = fin;
+      };
       requestAnimationFrame(step);
     }), { threshold: 0.6 });
     d.querySelectorAll('[data-countup]').forEach((el) => co.observe(el));
   }
   if (d.readyState === 'complete') setTimeout(enhance, 400);
-  else addEventListener('load', () => setTimeout(enhance, 400));
-})();
+  else window.addEventListener('load', () => setTimeout(enhance, 400));
+}());

@@ -15,7 +15,7 @@
 .plabel{display:block;font-size:var(--body-sm);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted-light);margin:var(--spacing-xl) 0 var(--spacing-sm)}
 .plabel-signal{color:var(--signal-deep)}
 
-.takeaway-card{border:1px solid rgba(0,178,236,.4);background:rgba(0,178,236,.06);border-radius:var(--radius-card);padding:var(--spacing-lg);margin:var(--spacing-lg) 0}
+.takeaway-card{border:1px solid rgb(0 178 236 / 40%);background:rgb(0 178 236 / 6%);border-radius:var(--radius-card);padding:var(--spacing-lg);margin:var(--spacing-lg) 0}
 .takeaway-card .k{display:block;font-size:var(--body-sm);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--signal-deep);margin:0 0 var(--spacing-sm)}
 .takeaway-card p:last-child,.takeaway-card ul:last-child{margin-bottom:0}
 
@@ -40,7 +40,8 @@
 .data-table tbody th{font-weight:600;color:var(--text-on-light)}
 .data-table td{color:var(--text-muted-light);font-variant-numeric:tabular-nums}
 .data-table tbody tr:last-child th,.data-table tbody tr:last-child td{border-bottom:1px solid var(--hairline-light)}
-@media (max-width:640px){
+
+@media (width <=640px){
   .data-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%)}
   .data-table tr{display:block;border-top:1px solid var(--hairline-light);padding-block:12px}
   .data-table tbody tr:last-child{border-bottom:1px solid var(--hairline-light)}
@@ -73,11 +74,12 @@
 
 .inline-cta-row{display:flex;flex-wrap:wrap;align-items:center;gap:var(--spacing-sm) var(--spacing-lg)}
 
-@media (max-width:640px){
+@media (width <=640px){
   .fact-grid{grid-template-columns:1fr 1fr}
   .tool-opts{grid-template-columns:1fr}
   .cost-layer{grid-template-columns:44px 1fr}
 }
-@media (max-width:480px){
+
+@media (width <=480px){
   .fact-grid{grid-template-columns:1fr}
 }

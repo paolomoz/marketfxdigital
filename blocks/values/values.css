@@ -7,12 +7,14 @@
   text-align: center;
 }
 .center-measure p { margin-inline: auto; }
+
 .value-row {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: var(--spacing-md);
   margin-top: var(--spacing-xl);
 }
+
 .value-chip {
   border: 1px solid var(--hairline-light);
   border-radius: var(--radius-card);
@@ -23,12 +25,15 @@
 }
 .value-chip h3 { font-size: 17px; margin-bottom: 8px; }
 .value-chip p { margin: 0; font-size: 14px; }
-@media (max-width: 1080px) {
+
+@media (width <= 1080px) {
   .value-row { grid-template-columns: repeat(3, 1fr); }
 }
-@media (max-width: 640px) {
+
+@media (width <= 640px) {
   .value-row { grid-template-columns: 1fr 1fr; }
 }
-@media (max-width: 480px) {
+
+@media (width <= 480px) {
   .value-row { grid-template-columns: 1fr; }
 }

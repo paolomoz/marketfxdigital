@@ -1,6 +1,7 @@
-/* embedded-partner — decodes authored content (DA / David's Model) and rebuilds the prototype section.
-   Everything here is non-repeating prose, so it is authored as DEFAULT CONTENT (bare siblings before
-   the block): heading, lede, "What You Get" subhead, a native <ul>, the creed quote, and its follow-up.
+/* embedded-partner — decodes authored content (DA / David's Model) and rebuilds
+   the prototype section. Everything here is non-repeating prose, so it is authored
+   as DEFAULT CONTENT (bare siblings before the block): heading, lede, "What You Get"
+   subhead, a native <ul>, the creed quote, and its follow-up.
    Decorative tick glyphs and the blockquote wrapper are baked here. */
 const TICK = '✓';
 
