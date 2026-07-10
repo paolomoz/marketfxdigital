@@ -197,7 +197,7 @@ section{padding-block:var(--section-padding)}
 .site-nav a[aria-current="page"]{color:var(--text-on-dark)}
 
 /* ---- multi-level dropdown menus ---- */
-.site-nav .has-submenu{position:relative}
+.site-nav .has-submenu{position:relative;display:flex;align-items:center}
 
 .site-nav .has-submenu > .submenu-toggle{
   display:inline-flex;align-items:center;justify-content:center;
@@ -791,6 +791,7 @@ section{padding-block:var(--section-padding)}
   .site-nav a{min-height:48px;font-size:16px}
 
   /* dropdowns collapse to inline accordions on mobile */
+  .site-nav .has-submenu{display:block}
   .site-nav .has-submenu > .submenu-toggle{position:absolute;top:0;right:0;width:48px;min-height:48px;margin:0}
 
   .site-nav .has-submenu > ul{
