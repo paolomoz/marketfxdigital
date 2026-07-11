@@ -216,69 +216,6 @@ function loadDelayed() {
   // load anything that can be postponed to the latest here
 }
 
-/* Per-page-type JSON-LD (Organization + WebSite are server-rendered in head.html).
-   Adds BreadcrumbList + the page-type entity (Article / Service / FAQPage / AboutPage).
-   Called from loadPage() after loadLazy so decorated blocks (faq <details>) exist. */
-function injectPageJsonLd() {
-  const d = document;
-  try {
-    const ORIGIN = 'https://marketfxdigital.com';
-    const path = window.location.pathname.replace(/\/$/, '') || '/';
-    const graph = [];
-    // BreadcrumbList
-    if (path !== '/') {
-      const segs = path.split('/').filter(Boolean);
-      const items = [{
-        '@type': 'ListItem', position: 1, name: 'Home', item: `${ORIGIN}/`,
-      }];
-      let acc = '';
-      segs.forEach((s, i) => {
-        acc += `/${s}`; items.push({
-          '@type': 'ListItem', position: i + 2, name: (i === segs.length - 1 ? (d.querySelector('h1')?.textContent.trim() || s) : s.replace(/-/g, ' ')), item: ORIGIN + acc,
-        });
-      });
-      graph.push({ '@type': 'BreadcrumbList', itemListElement: items });
-    }
-    // Article on /blog/*
-    if (path.startsWith('/blog/')) {
-      graph.push({
-        '@type': 'Article',
-        headline: d.querySelector('h1')?.textContent.trim() || d.title,
-        description: d.querySelector('meta[name=description]')?.content || '',
-        author: {
-          '@type': 'Person', name: 'Abby Di Niro', url: `${ORIGIN}/about-us`, jobTitle: 'Founder & Lead Strategist',
-        },
-        publisher: { '@id': `${ORIGIN}/#organization` },
-        mainEntityOfPage: { '@type': 'WebPage', '@id': ORIGIN + path },
-      });
-    } else if (path !== '/' && !['/about-us', '/contact-us', '/faqs', '/privacy-policy', '/terms', '/blog', '/resources', '/glossary', '/testimonials', '/services'].includes(path)) {
-      // service/solution detail pages
-      graph.push({
-        '@type': 'Service', name: d.querySelector('h1')?.textContent.trim() || d.title, description: d.querySelector('meta[name=description]')?.content || '', provider: { '@id': `${ORIGIN}/#organization` }, areaServed: ['United States', 'Canada'], serviceType: 'Digital Marketing', url: ORIGIN + path,
-      });
-    }
-    // AboutPage + founder Person on /about-us (audit F-009)
-    if (path === '/about-us') {
-      graph.push({
-        '@type': 'AboutPage', '@id': ORIGIN + path, name: d.title, mainEntity: { '@id': `${ORIGIN}/#organization` },
-      });
-      graph.push({
-        '@type': 'Person', name: 'Abby Di Niro', jobTitle: 'Founder & Lead Strategist', worksFor: { '@id': `${ORIGIN}/#organization` }, url: ORIGIN + path,
-      });
-    }
-    // FAQPage when the page renders an accordion
-    const dets = [...d.querySelectorAll('main details')];
-    if (dets.length >= 2) {
-      graph.push({ '@type': 'FAQPage', mainEntity: dets.map((x) => ({ '@type': 'Question', name: (x.querySelector('summary')?.textContent || '').replace(/\s*\+\s*$/, '').trim(), acceptedAnswer: { '@type': 'Answer', text: (x.querySelector('p, div:not(:has(summary))')?.textContent || '').trim() } })).filter((q) => q.name) });
-    }
-    if (graph.length) {
-      const ld = d.createElement('script'); ld.type = 'application/ld+json';
-      ld.textContent = JSON.stringify({ '@context': 'https://schema.org', '@graph': graph });
-      d.head.appendChild(ld);
-    }
-  } catch (e) { /* noop */ }
-}
-
 /* a11y: screen readers announce a trailing "right arrow" on headings/links;
    move the decorative glyph into an aria-hidden span (audit F-015) */
 function wrapTrailingArrows() {
@@ -297,9 +234,8 @@ function wrapTrailingArrows() {
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
-  // page-type JSON-LD must run AFTER block decoration: the FAQPage branch
-  // reads the <details> the faq block creates (audit F-009 timing bug)
-  injectPageJsonLd();
+  // page-type JSON-LD is now server-rendered via the json-ld metadata
+  // property in each DA doc (audit F-009 closed); no client injection needed
   wrapTrailingArrows();
   loadDelayed();
 }
