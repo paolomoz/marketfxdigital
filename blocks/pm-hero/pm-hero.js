@@ -17,6 +17,14 @@ function heightFor(src) {
   return hit ? hit[1] : null;
 }
 
+// logo cards render small: request a compact webply rendition instead of the
+// full-size PNG the content bus serves by default (audit F-008 residual)
+function renditionFor(src) {
+  if (!src.includes('media_')) return src;
+  const [base] = src.split('?');
+  return `${base}?width=400&format=webply&optimize=medium`;
+}
+
 // read the primary CTA: authored as <strong><a> (buttonized to a.primary by scripts.js)
 function readPrimary(scope) {
   const a = scope.querySelector('strong a') || scope.querySelector('a.button.primary') || scope.querySelector('a.primary');
@@ -47,7 +55,7 @@ export default function decorate(block) {
   });
 
   const logoItems = logos.map((img) => {
-    const src = img.getAttribute('src') || '';
+    const src = renditionFor(img.getAttribute('src') || '');
     const alt = img.getAttribute('alt') || '';
     const w = img.getAttribute('width');
     const h = img.getAttribute('height');
