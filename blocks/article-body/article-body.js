@@ -237,6 +237,34 @@ export default function decorate(block) {
     }
   });
 
+  // "What You Will Learn" list -> in-page anchors (audit F-012): match each item
+  // to the closest h2/h3 by significant-word overlap; unmatched items stay plain text
+  const learnLabel = [...article.querySelectorAll('.plabel')]
+    .find((s) => /^what you will learn/i.test(s.textContent.trim()));
+  if (learnLabel) {
+    let list = learnLabel.nextElementSibling;
+    while (list && list.tagName !== 'UL') list = list.nextElementSibling;
+    if (list) {
+      const heads = [...article.querySelectorAll('h2[id], h3[id]')]
+        .map((h) => ({ id: h.id, words: new Set(h.textContent.toLowerCase().match(/[a-z]{4,}/g) || []) }));
+      [...list.children].forEach((li) => {
+        const words = (li.textContent.toLowerCase().match(/[a-z]{4,}/g) || []);
+        let best = null; let bestScore = 1; // require >=2 overlapping words
+        heads.forEach((h) => {
+          const score = words.filter((w) => h.words.has(w)).length;
+          if (score > bestScore) { best = h; bestScore = score; }
+        });
+        if (best) {
+          const a = document.createElement('a');
+          a.href = `#${best.id}`;
+          while (li.firstChild) a.append(li.firstChild);
+          li.append(a);
+        }
+      });
+      list.classList.add('learn-toc');
+    }
+  }
+
   wrap.append(article);
   section.append(wrap);
   block.replaceChildren(section);

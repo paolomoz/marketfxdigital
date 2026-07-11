@@ -162,8 +162,15 @@ export function decorateMain(main) {
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
+  // a11y: skip link as the first focusable element (audit F-006)
+  const skip = document.createElement('a');
+  skip.className = 'skip-link';
+  skip.href = '#main';
+  skip.textContent = 'Skip to main content';
+  document.body.prepend(skip);
   const main = doc.querySelector('main');
   if (main) {
+    main.id = main.id || 'main';
     decorateMain(main);
     document.body.classList.add('appear');
     await loadSection(main.querySelector('.section'), waitForFirstImage);
@@ -209,19 +216,11 @@ function loadDelayed() {
   // load anything that can be postponed to the latest here
 }
 
-async function loadPage() {
-  await loadEager(document);
-  await loadLazy(document);
-  loadDelayed();
-}
-
-loadPage();
-
-/* stardust-behavior */
-(function stardustBehavior() {
+/* Per-page-type JSON-LD (Organization + WebSite are server-rendered in head.html).
+   Adds BreadcrumbList + the page-type entity (Article / Service / FAQPage / AboutPage).
+   Called from loadPage() after loadLazy so decorated blocks (faq <details>) exist. */
+function injectPageJsonLd() {
   const d = document;
-  // Per-page-type JSON-LD (Organization + WebSite are server-rendered in head.html).
-  // This adds BreadcrumbList + the page-type entity (Article / Service / FAQPage).
   try {
     const ORIGIN = 'https://marketfxdigital.com';
     const path = window.location.pathname.replace(/\/$/, '') || '/';
@@ -258,6 +257,15 @@ loadPage();
         '@type': 'Service', name: d.querySelector('h1')?.textContent.trim() || d.title, description: d.querySelector('meta[name=description]')?.content || '', provider: { '@id': `${ORIGIN}/#organization` }, areaServed: ['United States', 'Canada'], serviceType: 'Digital Marketing', url: ORIGIN + path,
       });
     }
+    // AboutPage + founder Person on /about-us (audit F-009)
+    if (path === '/about-us') {
+      graph.push({
+        '@type': 'AboutPage', '@id': ORIGIN + path, name: d.title, mainEntity: { '@id': `${ORIGIN}/#organization` },
+      });
+      graph.push({
+        '@type': 'Person', name: 'Abby Di Niro', jobTitle: 'Founder & Lead Strategist', worksFor: { '@id': `${ORIGIN}/#organization` }, url: ORIGIN + path,
+      });
+    }
     // FAQPage when the page renders an accordion
     const dets = [...d.querySelectorAll('main details')];
     if (dets.length >= 2) {
@@ -269,6 +277,38 @@ loadPage();
       d.head.appendChild(ld);
     }
   } catch (e) { /* noop */ }
+}
+
+/* a11y: screen readers announce a trailing "right arrow" on headings/links;
+   move the decorative glyph into an aria-hidden span (audit F-015) */
+function wrapTrailingArrows() {
+  document.querySelectorAll('main h1, main h2, main h3, main h4, main a').forEach((node) => {
+    const last = node.lastChild;
+    if (last && last.nodeType === Node.TEXT_NODE && /\u2192\s*$/.test(last.textContent)) {
+      last.textContent = `${last.textContent.replace(/\s*\u2192\s*$/, '')} `;
+      const arrow = document.createElement('span');
+      arrow.setAttribute('aria-hidden', 'true');
+      arrow.textContent = '\u2192';
+      node.append(arrow);
+    }
+  });
+}
+
+async function loadPage() {
+  await loadEager(document);
+  await loadLazy(document);
+  // page-type JSON-LD must run AFTER block decoration: the FAQPage branch
+  // reads the <details> the faq block creates (audit F-009 timing bug)
+  injectPageJsonLd();
+  wrapTrailingArrows();
+  loadDelayed();
+}
+
+loadPage();
+
+/* stardust-behavior */
+(function stardustBehavior() {
+  const d = document;
   function enhance() {
     d.documentElement.classList.add('js-anim');
     if (!('IntersectionObserver' in window)) return;
