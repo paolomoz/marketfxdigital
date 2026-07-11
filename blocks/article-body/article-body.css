@@ -28,7 +28,7 @@
 .cost-layer:last-of-type{border-bottom:1px solid var(--hairline-light)}
 .cost-layer .ord{font-size:31px;font-weight:800;color:var(--ember-deep);font-variant-numeric:tabular-nums;line-height:1.1}
 .cost-layer .lt{display:flex;flex-wrap:wrap;align-items:center;gap:10px;font-weight:700;font-size:18px;color:var(--text-on-light);margin:0 0 6px}
-.cost-layer .tag{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--hairline-light);border-radius:999px;padding:3px 10px;color:var(--text-muted-light)}
+.cost-layer .tag{font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--hairline-light);border-radius:999px;padding:3px 10px;color:var(--text-muted-light)}
 .cost-layer p{margin-bottom:8px}
 .cost-layer .range{font-size:14px;font-weight:600;color:var(--text-on-light);font-variant-numeric:tabular-nums}
 
@@ -46,7 +46,7 @@
   .data-table tr{display:block;border-top:1px solid var(--hairline-light);padding-block:12px}
   .data-table tbody tr:last-child{border-bottom:1px solid var(--hairline-light)}
   .data-table th,.data-table td{display:block;border:none !important;padding:6px 0}
-  .data-table td::before,.data-table tbody th::before{content:attr(data-label);display:block;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted-light);margin-bottom:2px}
+  .data-table td::before,.data-table tbody th::before{content:attr(data-label);display:block;font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--text-muted-light);margin-bottom:2px}
 }
 
 .tool-card{border:1px solid var(--hairline-light);border-radius:var(--radius-card);background:var(--paper-dim);padding:var(--spacing-lg);margin:var(--spacing-lg) 0}

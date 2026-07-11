@@ -23,4 +23,10 @@ export default async function decorate(block) {
   ${certs ? `<div class="footer-certs"><h3>${certs.title}</h3>${certs.body ? certs.body.outerHTML : ''}</div>` : ''}
   ${legal ? `<div class="footer-legal">${legal.innerHTML}</div>` : ''}`;
   host.innerHTML = `<div class="wrap">${grid}</div>`;
+  // footer marks render at <=40px: swap content-bus media to small webply renditions (audit F-008)
+  host.querySelectorAll('img[src*="media_"]').forEach((img) => {
+    const [base] = img.src.split('?');
+    img.src = `${base}?width=200&format=webply&optimize=medium`;
+    img.loading = 'lazy';
+  });
 }

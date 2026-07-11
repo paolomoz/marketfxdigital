@@ -44,10 +44,23 @@ main .section > .default-content-wrapper th, main .section > .default-content-wr
   font-display:swap;
 }
 
+/* metric-matched fallback: hero text paints on system Arial without shift while Inter loads */
+@font-face{
+  font-family:'Inter Fallback';
+  src:local('Arial');
+  size-adjust:107%;
+  ascent-override:90.2%;
+  descent-override:22.48%;
+  line-gap-override:0%;
+}
+
+.skip-link{position:absolute;left:-9999px;top:0;z-index:100;padding:10px 18px;background:var(--signal,#00b2ec);color:#0e1216;font-weight:600;border-radius:0 0 4px}
+.skip-link:focus{left:0;outline:2px solid #0e1216;outline-offset:2px}
+
 :root{
   /* type */
-  --heading-font-family:'Inter',ui-sans-serif,system-ui,sans-serif;
-  --body-font-family:'Inter',ui-sans-serif,system-ui,sans-serif;
+  --heading-font-family:'Inter','Inter Fallback',ui-sans-serif,system-ui,sans-serif;
+  --body-font-family:'Inter','Inter Fallback',ui-sans-serif,system-ui,sans-serif;
   --heading-xxl:61px;
   --heading-xl:49px;
   --heading-lg:39px;
@@ -87,7 +100,7 @@ main .section > .default-content-wrapper th, main .section > .default-content-wr
   --max-width:1200px;
   --radius:4px;
   --radius-card:14px;
-  --radius-nested:10px;
+  --radius-nested:var(--radius); /* consolidated: controls 4px / surfaces 14px (audit F-010) */
   --hairline-dark:rgb(255 255 255 / 14%);
   --hairline-light:rgb(14 18 22 / 12%);
   --shadow-card-dark:rgb(8 10 12 / 50%) 0 4px 24px -4px;
@@ -219,7 +232,7 @@ section{padding-block:var(--section-padding)}
   background:#0b1018;border:1px solid var(--hairline-dark);border-radius:var(--radius-nested);
   box-shadow:rgb(3 6 15 / 55%) 0 16px 40px -12px;
   opacity:0;visibility:hidden;transform:translateY(6px);
-  transition:opacity .16s ease,transform .16s ease,visibility .16s;
+  transition:opacity .16s ease,transform .16s ease;
 }
 
 .site-nav .has-submenu:hover > ul,
@@ -394,7 +407,7 @@ section{padding-block:var(--section-padding)}
   box-shadow:rgb(26 148 230 / 25%) 0 0 64px -8px;
   text-align:center;
 }
-.hub-core .k{font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
+.hub-core .k{font-size:12px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--signal)}
 .hub-core .t{font-size:21px;font-weight:800;color:var(--text-on-dark);letter-spacing:-0.01em}
 
 /* ---- §8 capabilities split rail ---- */
@@ -444,20 +457,20 @@ section{padding-block:var(--section-padding)}
 @keyframes ge-ping{75%,100%{opacity:0;transform:scale(2)}}
 
 @media (prefers-reduced-motion: no-preference){.ge-ping{animation:ge-ping 3s cubic-bezier(0,0,.2,1) infinite}}
-.ge-hub-text .k{display:block;font-size:10px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;opacity:.8}
+.ge-hub-text .k{display:block;font-size:12px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;opacity:.8}
 .ge-hub-text .t{display:block;font-size:18px;font-weight:700;line-height:1.2;padding-inline:8px}
 .ge-nodes{list-style:none;margin:0;padding:0}
 .ge-node{position:absolute;transform:translate(-50%,-50%);width:18%}
-.ge-node > div{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:12px;border:1px solid var(--hairline-light);background:var(--paper);padding:16px 12px;box-shadow:0 1px 2px rgb(0 0 0 / 6%);transition:border-color .3s ease,box-shadow .3s ease}
+.ge-node > div{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;border-radius:var(--radius-card);border:1px solid var(--hairline-light);background:var(--paper);padding:16px 12px;box-shadow:0 1px 2px rgb(0 0 0 / 6%);transition:border-color .3s ease,box-shadow .3s ease}
 .ge-node > div:hover{border-color:rgb(0 178 236 / 60%);box-shadow:0 8px 24px -8px rgb(0 178 236 / 40%)}
 .ge-node svg{width:20px;height:20px;color:var(--signal-deep)}
 .ge-node span{font-size:14px;font-weight:500;color:var(--text-on-light);text-align:center}
 .ge-mobile{display:none}
 .ge-hub-badge{margin:0 auto;width:128px;height:128px;display:flex;flex-direction:column;align-items:center;justify-content:center;border-radius:50%;background:var(--signal);color:var(--ink);box-shadow:0 10px 40px -10px rgb(0 178 236 / 60%);text-align:center}
-.ge-hub-badge .k{font-size:10px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;opacity:.8}
+.ge-hub-badge .k{font-size:12px;font-weight:800;letter-spacing:.18em;text-transform:uppercase;opacity:.8}
 .ge-hub-badge .t{font-size:15px;font-weight:700}
 .ge-mgrid{list-style:none;margin:var(--spacing-lg) 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:var(--spacing-md)}
-.ge-mgrid li{display:flex;flex-direction:column;align-items:center;gap:8px;border-radius:12px;border:1px solid var(--hairline-light);background:var(--paper);padding:20px 16px}
+.ge-mgrid li{display:flex;flex-direction:column;align-items:center;gap:8px;border-radius:var(--radius-card);border:1px solid var(--hairline-light);background:var(--paper);padding:20px 16px}
 .ge-mgrid svg{width:20px;height:20px;color:var(--signal-deep)}
 .ge-mgrid span{font-size:14px;font-weight:500;color:var(--text-on-light)}
 

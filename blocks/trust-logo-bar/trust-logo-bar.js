@@ -14,20 +14,28 @@ function heightFor(src) {
   return hit ? hit[1] : null;
 }
 
+// logos render at <=40px height: request a small webply rendition instead of the
+// full-size PNG the content bus serves by default (audit F-008, up to 20x oversize)
+function renditionFor(src) {
+  if (!src.includes('media_')) return src;
+  const [base] = src.split('?');
+  return `${base}?width=200&format=webply&optimize=medium`;
+}
+
 export default function decorate(block) {
   const head = block.closest('.trust-logo-bar-wrapper')?.previousElementSibling;
   const label = head?.querySelector('p')?.textContent.trim() || '';
 
   const imgs = [...block.querySelectorAll('img')];
   const items = imgs.map((img) => {
-    const src = img.getAttribute('src') || '';
+    const src = renditionFor(img.getAttribute('src') || '');
     const alt = img.getAttribute('alt') || '';
     const w = img.getAttribute('width');
     const h = img.getAttribute('height');
     const mh = heightFor(src);
     const dims = `${w ? ` width="${w}"` : ''}${h ? ` height="${h}"` : ''}`;
     const style = mh ? ` style="max-height:${mh}px"` : '';
-    return `<li><img src="${src}" alt="${alt}"${dims} loading="lazy"${style}></li>`;
+    return `<li><img src="${src}" alt="${alt}"${dims} loading="eager"${style}></li>`;
   }).join('\n        ');
 
   const section = document.createElement('section');
