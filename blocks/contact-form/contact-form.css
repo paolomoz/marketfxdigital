@@ -206,3 +206,6 @@
   [data-section='contact-form'] .cf-submit,
   [data-section='contact-form'] .cf-scheduler { width: 100%; }
 }
+
+/* reviewer-facing placeholder note (auto-removed when the real endpoint is wired) */
+.cf-placeholder-note{margin-top:16px;padding:10px 14px;font-size:13px;line-height:1.55;color:var(--text-muted-light,#50565a);background:rgb(242 125 90 / 8%);border:1px dashed rgb(242 125 90 / 45%);border-radius:4px}

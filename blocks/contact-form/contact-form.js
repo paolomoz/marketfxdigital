@@ -272,6 +272,13 @@ export default function decorate(block) {
   sa.href = SCHEDULER_URL;
   sa.textContent = 'Book a strategy call';
   success.append(sh, sp, sa);
+  // reviewer-facing note, removed automatically once the real endpoint is wired
+  if (FORM_ENDPOINT === 'REPLACE_WITH_FORM_ENDPOINT') {
+    const note = document.createElement('p');
+    note.className = 'cf-placeholder-note';
+    note.textContent = 'Review note: this form is a placeholder — no message was sent. The submission endpoint is wired at launch; use the scheduler above or email us in the meantime.';
+    success.append(note);
+  }
 
   form.addEventListener('submit', (ev) => {
     ev.preventDefault();
