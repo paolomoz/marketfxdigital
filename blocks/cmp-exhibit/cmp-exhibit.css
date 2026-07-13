@@ -1,0 +1,51 @@
+/* cmp-exhibit — cyan proof exhibit: TL;DR band + cta variant. */
+
+.cmp-exhibit-wrapper .tldr {
+  border-bottom: 1px solid var(--hairline-dark);
+  padding-block: var(--spacing-xl);
+}
+
+.cmp-exhibit-wrapper .tldr-card {
+  border: 1px solid rgb(0 178 236 / 40%);
+  background: rgb(0 178 236 / 6%);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-lg);
+}
+
+.cmp-exhibit-wrapper .tldr-card .kicker {
+  margin-bottom: 10px;
+}
+
+.cmp-exhibit-wrapper .tldr-card p {
+  margin: 0;
+  max-width: none;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--text-on-dark);
+  font-weight: 500;
+}
+
+.cmp-exhibit-wrapper .tldr-card p + p {
+  margin-top: var(--spacing-md);
+}
+
+.cmp-exhibit-wrapper .cmpx-cta-band {
+  padding-block: var(--spacing-xl) var(--section-padding);
+}
+
+.cmp-exhibit-wrapper .diag-exhibit {
+  border: 1px solid rgb(0 178 236 / 40%);
+  background: rgb(0 178 236 / 6%);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-lg);
+  max-width: 640px;
+}
+
+.cmp-exhibit-wrapper .diag-exhibit h3 {
+  margin-bottom: 10px;
+}
+
+.cmp-exhibit-wrapper .diag-exhibit p {
+  margin-bottom: var(--spacing-lg);
+  color: var(--text-muted-dark);
+}

@@ -1,0 +1,20 @@
+/* lml-office — dark split: engagement prose + office address card */
+.office-split{display:grid;grid-template-columns:7fr 5fr;gap:var(--spacing-2xl);align-items:start}
+.office-split .measure{max-width:68ch}
+.office-split .measure p:last-child{margin-bottom:0}
+
+.office-card{
+  background:var(--card-grad);
+  border:1px solid var(--hairline-dark);
+  border-radius:var(--radius-card);
+  box-shadow:var(--shadow-card-dark);
+  padding:var(--spacing-lg);
+}
+.office-card .name{display:block;font-size:20px;font-weight:700;letter-spacing:-0.01em;color:var(--text-on-dark);margin-bottom:4px}
+.office-card .role{display:block;font-size:15px;color:var(--text-muted-dark)}
+.office-card .addr{display:block;font-size:15px;color:var(--text-muted-dark);margin-bottom:var(--spacing-sm)}
+.office-card .text-link{margin-top:var(--spacing-sm)}
+
+@media (width <=1080px){
+  .office-split{grid-template-columns:1fr;gap:var(--spacing-xl)}
+}

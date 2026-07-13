@@ -1,0 +1,120 @@
+/* cmp-list — ruled editorial lists: honest-take (paper), checklist/ordered (dark). */
+
+.cmp-list-wrapper .cl-head {
+  max-width: 820px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.cmp-list-wrapper .band-light .kicker {
+  color: var(--signal-deep);
+}
+
+.cmp-list-wrapper .cl-list {
+  max-width: 860px;
+  margin: 0 0 var(--spacing-lg);
+  padding: 0;
+  list-style: none;
+}
+
+.cmp-list-wrapper .cl-list li {
+  border-top: 1px solid var(--hairline-dark);
+  padding-block: 20px;
+  font-size: 16px;
+  color: var(--text-muted-dark);
+  max-width: 78ch;
+}
+
+.cmp-list-wrapper .cl-list li:last-child {
+  border-bottom: 1px solid var(--hairline-dark);
+}
+
+.cmp-list-wrapper .cl-list strong {
+  color: var(--text-on-dark);
+  font-weight: 700;
+}
+
+.cmp-list-wrapper .band-light .cl-list li {
+  border-color: var(--hairline-light);
+  color: var(--text-muted-light);
+}
+
+.cmp-list-wrapper .band-light .cl-list strong {
+  color: var(--text-on-light);
+}
+
+.cmp-list-wrapper .cl-close {
+  font-weight: 600;
+  font-size: 18px;
+  color: var(--text-on-dark);
+  max-width: 64ch;
+  margin-bottom: var(--spacing-md);
+}
+
+.cmp-list-wrapper .cl-close:last-child {
+  margin-bottom: 0;
+}
+
+.cmp-list-wrapper .band-light .cl-close {
+  color: var(--text-on-light);
+}
+
+/* two-column registers (checklist / columns) */
+.cmp-list-wrapper .cl-cols {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 var(--spacing-2xl);
+  max-width: none;
+}
+
+.cmp-list-wrapper .cl-cols li {
+  font-size: 15.5px;
+  padding-block: 16px;
+  max-width: none;
+}
+
+.cmp-list-wrapper .cl-cols li:last-child {
+  border-bottom: none;
+}
+
+.cmp-list-wrapper .cl-check li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 10px;
+}
+
+.cmp-list-wrapper .cl-check .tick {
+  color: var(--signal);
+  font-weight: 700;
+}
+
+/* ordered register — baked counters, ruled rows */
+.cmp-list-wrapper .cl-num {
+  counter-reset: cmp-list;
+}
+
+.cmp-list-wrapper .cl-num li {
+  counter-increment: cmp-list;
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  gap: 12px;
+}
+
+.cmp-list-wrapper .cl-num li::before {
+  content: counter(cmp-list, decimal-leading-zero);
+  font-size: var(--body-sm);
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: var(--signal);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.9;
+}
+
+.cmp-list-wrapper .band-light .cl-num li::before {
+  color: var(--signal-deep);
+}
+
+@media (width <= 900px) {
+  .cmp-list-wrapper .cl-cols {
+    grid-template-columns: 1fr;
+  }
+}

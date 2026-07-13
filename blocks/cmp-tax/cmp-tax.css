@@ -1,0 +1,109 @@
+/* cmp-tax — Fragmentation Tax ledger: ruled rows, tabular figures, ember exhibit. */
+
+.cmp-tax-wrapper .tax-head {
+  max-width: 820px;
+  margin-bottom: var(--spacing-xl);
+}
+
+.cmp-tax-wrapper .band-light .kicker {
+  color: var(--signal-deep);
+}
+
+.cmp-tax-wrapper .tax-ledger {
+  max-width: 820px;
+  margin-bottom: var(--spacing-xl);
+}
+
+.cmp-tax-wrapper .tax-cap {
+  font-size: var(--body-sm);
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-muted-light);
+  margin-bottom: var(--spacing-sm);
+}
+
+.cmp-tax-wrapper .tax-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: baseline;
+  border-top: 1px solid var(--hairline-light);
+  padding-block: 16px 18px;
+}
+
+.cmp-tax-wrapper .tax-row .lbl {
+  font-size: 17px;
+  font-weight: 600;
+  color: var(--text-on-light);
+}
+
+.cmp-tax-wrapper .tax-row .pct {
+  font-size: clamp(25px, 2.6vw, 31px);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  color: var(--signal-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.cmp-tax-wrapper .tax-bar {
+  grid-column: 1 / -1;
+  height: 4px;
+  border-radius: 2px;
+  background: rgb(14 18 22 / 8%);
+  margin-top: 12px;
+  overflow: hidden;
+  display: block;
+}
+
+.cmp-tax-wrapper .tax-bar i {
+  display: block;
+  height: 100%;
+  background: var(--signal-deep);
+}
+
+.cmp-tax-wrapper .tax-total {
+  border-top: 2px solid var(--text-on-light);
+  padding-block: 18px;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--text-on-light);
+  margin: 0;
+  max-width: none;
+}
+
+.cmp-tax-wrapper .tax-total strong {
+  color: var(--ember-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.cmp-tax-wrapper .exhibit-ember-light {
+  border: 1px solid rgb(184 72 31 / 35%);
+  background: rgb(242 125 90 / 8%);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-lg);
+  max-width: 820px;
+  margin-bottom: var(--spacing-xl);
+}
+
+.cmp-tax-wrapper .exhibit-ember-light p {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--text-on-light);
+  max-width: none;
+}
+
+.cmp-tax-wrapper .exhibit-ember-light strong {
+  color: var(--ember-deep);
+  font-weight: 800;
+}
+
+.cmp-tax-wrapper .tax-prose {
+  max-width: 72ch;
+}
+
+.cmp-tax-wrapper .tax-prose p:last-child {
+  margin-bottom: 0;
+}

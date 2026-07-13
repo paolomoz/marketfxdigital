@@ -1,0 +1,7 @@
+/* lml-faq — light-band single-column accordion register (overrides the
+   dark faq foundation treatment where the band is paper) */
+.faq-head{max-width:760px;margin-bottom:var(--spacing-lg)}
+.band-light.faq details{border-top-color:var(--hairline-light)}
+.band-light.faq details:last-child{border-bottom-color:var(--hairline-light)}
+.band-light.faq summary{color:var(--text-on-light)}
+.band-light.faq summary .ind{border-color:var(--hairline-light);color:var(--signal-deep)}

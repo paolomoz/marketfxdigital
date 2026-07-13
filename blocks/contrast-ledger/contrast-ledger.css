@@ -1,0 +1,62 @@
+/* contrast-ledger — two-column contrast table on the dark ground (template
+   band 5, Signal vs Noise). The signal column carries the cyan wash. */
+
+.contrast-ledger .sn-head { max-width: 820px; margin-bottom: var(--spacing-xl); }
+.contrast-ledger .sn-head p:last-child { margin-bottom: 0; }
+
+.contrast-ledger .sn-table {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: 1px solid var(--hairline-dark);
+  border-radius: var(--radius-card);
+  overflow: hidden;
+}
+
+.contrast-ledger .sn-col { padding: var(--spacing-lg); }
+.contrast-ledger .sn-col + .sn-col { border-left: 1px solid var(--hairline-dark); }
+.contrast-ledger .sn-col h3 { margin-bottom: var(--spacing-md); }
+.contrast-ledger .sn-col.sn-signal { background: rgb(0 178 236 / 5%); }
+.contrast-ledger .sn-col.sn-signal h3 { color: var(--signal); }
+
+.contrast-ledger .sn-eyebrow {
+  font-size: var(--body-sm);
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-muted-dark);
+  margin-bottom: var(--spacing-sm);
+}
+
+.contrast-ledger .sn-list li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 10px;
+  padding-block: 8px;
+  font-size: 15px;
+  color: var(--text-muted-dark);
+  border-top: 1px solid var(--hairline-dark);
+}
+
+.contrast-ledger .sn-list.sn-plain li { grid-template-columns: 1fr; }
+.contrast-ledger .sn-list li:first-child { border-top: none; }
+
+.contrast-ledger .sn-list .tick {
+  color: var(--signal);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.contrast-ledger .sn-list .dash {
+  color: var(--text-muted-dark);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+@media (width <= 900px) {
+  .contrast-ledger .sn-table { grid-template-columns: 1fr; }
+
+  .contrast-ledger .sn-col + .sn-col {
+    border-left: none;
+    border-top: 1px solid var(--hairline-dark);
+  }
+}
