@@ -232,12 +232,23 @@ section{padding-block:var(--section-padding)}
   background:#0b1018;border:1px solid var(--hairline-dark);border-radius:var(--radius-nested);
   box-shadow:rgb(3 6 15 / 55%) 0 16px 40px -12px;
   opacity:0;visibility:hidden;transform:translateY(6px);
-  transition:opacity .16s ease,transform .16s ease;
+
+  /* close direction only: short grace so the pointer can cross the 4px gap
+     (and small diagonal excursions) without the panel vanishing. Opening is
+     instant (delay 0 below), so keyboard entry stays deterministic. */
+  transition:opacity .16s ease .12s,transform .16s ease .12s,visibility 0s linear .28s;
 }
 
 .site-nav .has-submenu:hover > ul,
 .site-nav .has-submenu:focus-within > ul,
-.site-nav .has-submenu.open > ul{opacity:1;visibility:visible;transform:none}
+.site-nav .has-submenu.open > ul{opacity:1;visibility:visible;transform:none;transition-delay:0s}
+
+/* hover bridge: extends the open panel's hit area over the 4px offset so the
+   pointer never leaves the hover chain between trigger and panel (desktop only —
+   the mobile accordion positions submenus statically) */
+@media (width >= 901px){
+  .site-nav .has-submenu > ul::before{content:'';position:absolute;top:-14px;left:0;right:0;height:14px}
+}
 
 .site-nav .has-submenu:hover > .submenu-toggle .chev,
 .site-nav .has-submenu:focus-within > .submenu-toggle .chev,
