@@ -79,6 +79,9 @@ export default function decorate(block) {
     groups.get(letter).forEach(({ term, def }) => {
       const dt = document.createElement('dt');
       dt.textContent = term;
+      // slug id so cross-page links can target a term (/glossary#fragmentation-tax)
+      const slug = term.toLowerCase().replace(/[^0-9a-z]+/g, '-').replace(/^-+|-+$/g, '');
+      if (slug && !document.getElementById(slug)) dt.id = slug;
       const dd = document.createElement('dd');
       if (def) {
         dd.append(...def.childNodes);

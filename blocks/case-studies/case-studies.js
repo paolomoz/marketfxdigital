@@ -6,6 +6,7 @@ export default function decorate(block) {
   const section = document.createElement('section');
   section.className = 'band-light case-studies';
   section.setAttribute('data-section', 'case-studies');
+  section.id = 'case-studies'; // authored in-page links target #case-studies
   const wrap = document.createElement('div');
   wrap.className = 'wrap';
   // Reabsorb the authored section head (default content in the same section, before
