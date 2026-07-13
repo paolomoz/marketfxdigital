@@ -481,8 +481,10 @@ section{padding-block:var(--section-padding)}
 .band-light a:not(.btn){color:var(--signal-deep)} /* .btn keeps its own fg — this rule out-specified .btn-primary and rendered 2.08:1 teal-on-cyan */
 .band-light .text-link{color:var(--signal-deep)}
 
-/* in-copy links: color alone can't reach 3:1 against body text (WCAG 1.4.1) — underline them; buttons/nav/text-links unaffected */
-main p a:not(.btn){text-decoration:underline;text-underline-offset:2px}
+/* in-copy links: color alone can't reach 3:1 against body text (WCAG 1.4.1) — underline them.
+   Scope: prose containers only; buttons, text-links, and all-link lists (TOC, A–Z nav) stay clean. */
+main :is(p, li, dd, td) a:not(.btn, .text-link){text-decoration:underline;text-underline-offset:2px}
+main :is(.learn-toc, .gl-nav) a{text-decoration:none}
 .platforms{background:var(--paper-dim);border-bottom:1px solid var(--hairline-light)}
 .platforms .head{max-width:760px;margin-bottom:var(--spacing-xl)}
 .logo-group{margin-top:var(--spacing-lg)}
@@ -596,6 +598,7 @@ main p a:not(.btn){text-decoration:underline;text-underline-offset:2px}
   padding:var(--spacing-xl);
 }
 .compare-card h2{color:var(--text-on-light)}
+.compare-card .kicker{color:var(--signal-deep)} /* white card: bright --signal is 2.51:1 here */
 .compare-card .lede{color:var(--text-muted-light);max-width:66ch;margin-bottom:var(--spacing-lg)}
 .table-scroll{overflow-x:auto}
 .compare{width:100%;border-collapse:collapse;min-width:640px}
