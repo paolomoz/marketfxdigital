@@ -478,8 +478,11 @@ section{padding-block:var(--section-padding)}
 .band-light{background:var(--paper);color:var(--text-muted-light)}
 .band-light h2,.band-light h3{color:var(--text-on-light)}
 .band-light p{color:var(--text-muted-light)}
-.band-light a{color:var(--signal-deep)}
+.band-light a:not(.btn){color:var(--signal-deep)} /* .btn keeps its own fg — this rule out-specified .btn-primary and rendered 2.08:1 teal-on-cyan */
 .band-light .text-link{color:var(--signal-deep)}
+
+/* in-copy links: color alone can't reach 3:1 against body text (WCAG 1.4.1) — underline them; buttons/nav/text-links unaffected */
+main p a:not(.btn){text-decoration:underline;text-underline-offset:2px}
 .platforms{background:var(--paper-dim);border-bottom:1px solid var(--hairline-light)}
 .platforms .head{max-width:760px;margin-bottom:var(--spacing-xl)}
 .logo-group{margin-top:var(--spacing-lg)}
