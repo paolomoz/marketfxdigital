@@ -1,0 +1,75 @@
+/* intro-band — recurring kicker/heading/prose band on the solution-audit-lander
+   template. Dark ground by default; `light` variant sits on paper. */
+
+.intro-band .ib-head { max-width: 820px; }
+.intro-band .ib-head p { margin-bottom: var(--spacing-md); }
+.intro-band .ib-head p:last-child { margin-bottom: 0; }
+
+.intro-band .ib-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 var(--spacing-2xl);
+  max-width: 980px;
+  margin-top: var(--spacing-lg);
+}
+
+.intro-band .ib-list li {
+  display: grid;
+  grid-template-columns: 20px 1fr;
+  gap: 10px;
+  border-top: 1px solid var(--hairline-dark);
+  padding-block: 12px;
+  font-size: 15px;
+  color: var(--text-muted-dark);
+}
+
+.intro-band .ib-list li.ib-bare { grid-template-columns: 1fr; }
+
+.intro-band .ib-list .tick {
+  color: var(--signal);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.intro-band.band-light .ib-list li {
+  border-top-color: var(--hairline-light);
+  color: var(--text-muted-light);
+}
+
+.intro-band.band-light .ib-list .tick { color: var(--signal-deep); }
+
+.intro-band .ib-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: var(--spacing-lg);
+}
+
+.intro-band .ib-chips li {
+  border: 1px solid var(--hairline-dark);
+  border-radius: 999px;
+  padding: 7px 16px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-on-dark);
+  background: var(--card-grad);
+}
+
+.intro-band.band-light .ib-chips li {
+  border-color: var(--hairline-light);
+  color: var(--text-on-light);
+  background: var(--paper);
+  box-shadow: var(--shadow-card-light);
+}
+
+.intro-band .ib-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-md) var(--spacing-lg);
+  margin-top: var(--spacing-lg);
+}
+
+@media (width <= 640px) {
+  .intro-band .ib-list { grid-template-columns: 1fr; }
+}

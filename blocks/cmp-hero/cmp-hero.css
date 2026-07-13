@@ -1,0 +1,96 @@
+/* cmp-hero — comparison-editorial hero register: breadcrumb, guide chip + note,
+   CTA pair. Field/dot-grid/glow inherit from styles.css .hero. */
+
+.hero[data-layout="comparison"] {
+  padding-block: calc(var(--section-padding) * 1.2) calc(var(--section-padding) * 1.1);
+}
+
+.hero[data-layout="comparison"] h1 {
+  font-size: clamp(39px, 5.4vw, var(--heading-xxl));
+  max-width: 20ch;
+}
+
+.hero[data-layout="comparison"] .hero-lede {
+  font-size: 21px;
+  line-height: 1.5;
+  max-width: 56ch;
+  color: var(--text-muted-dark);
+  margin-bottom: var(--spacing-lg);
+}
+
+.hero[data-layout="comparison"] .breadcrumb ol {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 14px;
+  margin: 0 0 var(--spacing-lg);
+  padding: 0;
+  list-style: none;
+}
+
+.hero[data-layout="comparison"] .breadcrumb li {
+  display: inline-flex;
+  align-items: center;
+  color: var(--text-muted-dark);
+}
+
+.hero[data-layout="comparison"] .breadcrumb li + li::before {
+  content: "/";
+  margin-inline: 10px;
+  opacity: .55;
+}
+
+.hero[data-layout="comparison"] .breadcrumb a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  color: var(--text-muted-dark);
+  font-weight: 500;
+}
+
+.hero[data-layout="comparison"] .breadcrumb a:hover {
+  color: var(--text-on-dark);
+  text-decoration: none;
+}
+
+.hero[data-layout="comparison"] .breadcrumb [aria-current="page"] {
+  color: var(--text-on-dark);
+}
+
+.hero[data-layout="comparison"] .guide-note {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--spacing-md);
+  align-items: start;
+  border-top: 1px solid var(--hairline-dark);
+  padding-top: var(--spacing-lg);
+  max-width: 760px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.hero[data-layout="comparison"] .guide-chip {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid rgb(0 178 236 / 40%);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--signal);
+  white-space: nowrap;
+  margin-top: 2px;
+}
+
+.hero[data-layout="comparison"] .guide-note p {
+  margin: 0;
+  max-width: 58ch;
+}
+
+@media (width <= 640px) {
+  .hero[data-layout="comparison"] .guide-note {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
+}

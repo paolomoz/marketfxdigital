@@ -1,0 +1,33 @@
+/* audit-ledger — numbered 2-col ledger + deliverable exhibit.
+   .ledger-head / .ledger-grid / .ledger-row / .ord come from styles/styles.css
+   (home §6 numbered ledger); only the deliverable exhibit is block-owned. */
+
+.audit-ledger .ledger-row p { margin-bottom: var(--spacing-sm); }
+.audit-ledger .ledger-row p:last-child { margin-bottom: 0; }
+
+.audit-ledger .deliverable {
+  border: 1px solid rgb(0 178 236 / 40%);
+  background: rgb(0 178 236 / 6%);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-lg);
+  align-self: center;
+}
+
+.audit-ledger .deliverable .tag {
+  display: inline-block;
+  margin-bottom: 10px;
+  border: 1px solid rgb(0 178 236 / 40%);
+  border-radius: 999px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--signal);
+}
+
+.audit-ledger .deliverable p {
+  color: var(--text-on-dark);
+  font-weight: 500;
+  margin-bottom: var(--spacing-md);
+}

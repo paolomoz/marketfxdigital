@@ -1,0 +1,38 @@
+/* cmp-approach — editorial split with diagnostic exhibit on paper. */
+
+.cmp-approach-wrapper .approach-cols {
+  display: grid;
+  grid-template-columns: 7fr 5fr;
+  gap: var(--spacing-2xl);
+  align-items: start;
+}
+
+.cmp-approach-wrapper .approach-cols h2 {
+  max-width: 20ch;
+}
+
+.cmp-approach-wrapper .band-light .kicker {
+  color: var(--signal-deep);
+}
+
+.cmp-approach-wrapper .diag-exhibit {
+  border: 1px solid rgb(0 178 236 / 40%);
+  background: rgb(0 178 236 / 6%);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-lg);
+}
+
+.cmp-approach-wrapper .diag-exhibit h3 {
+  margin-bottom: 10px;
+}
+
+.cmp-approach-wrapper .diag-exhibit p {
+  margin-bottom: var(--spacing-lg);
+}
+
+@media (width <= 1080px) {
+  .cmp-approach-wrapper .approach-cols {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+}

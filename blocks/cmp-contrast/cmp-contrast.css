@@ -1,0 +1,78 @@
+/* cmp-contrast — facing definition panels: fragmented shards vs integrated panel. */
+
+.cmp-contrast-wrapper .contrast-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--spacing-2xl) var(--spacing-xl);
+  align-items: start;
+}
+
+.cmp-contrast-wrapper .contrast-col h2 {
+  font-size: clamp(25px, 2.6vw, 31px);
+  max-width: 22ch;
+}
+
+.cmp-contrast-wrapper .band-light .kicker {
+  color: var(--signal-deep);
+}
+
+.cmp-contrast-wrapper .panel-frag .shard {
+  border: 1px dashed rgb(14 18 22 / 30%);
+  border-radius: var(--radius-nested);
+  background: var(--paper-dim);
+  padding: 20px 22px;
+}
+
+.cmp-contrast-wrapper .panel-frag .shard p {
+  margin: 0;
+  font-size: 15.5px;
+}
+
+.cmp-contrast-wrapper .panel-frag .shard + .shard {
+  margin-top: 14px;
+}
+
+.cmp-contrast-wrapper .panel-frag .shard:nth-of-type(2) {
+  margin-left: 28px;
+}
+
+.cmp-contrast-wrapper .panel-frag .shard:nth-of-type(3) {
+  margin-right: 28px;
+}
+
+.cmp-contrast-wrapper .panel-int {
+  border: 1px solid rgb(0 178 236 / 45%);
+  background: rgb(0 178 236 / 5%);
+  border-radius: var(--radius-card);
+  padding: var(--spacing-lg);
+}
+
+.cmp-contrast-wrapper .panel-int p {
+  margin-bottom: var(--spacing-md);
+}
+
+.cmp-contrast-wrapper .panel-int p:last-child {
+  margin-bottom: 0;
+}
+
+.cmp-contrast-wrapper .panel-int .lead {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-on-light);
+}
+
+@media (width <= 900px) {
+  .cmp-contrast-wrapper .contrast-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (width <= 640px) {
+  .cmp-contrast-wrapper .panel-frag .shard:nth-of-type(2) {
+    margin-left: 0;
+  }
+
+  .cmp-contrast-wrapper .panel-frag .shard:nth-of-type(3) {
+    margin-right: 0;
+  }
+}

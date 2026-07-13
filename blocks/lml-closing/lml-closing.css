@@ -1,0 +1,5 @@
+/* lml-closing — single-column closing band (no exhibit column) */
+.closing[data-layout="cta-band-local"] .wrap{display:block;max-width:900px}
+.closing[data-layout="cta-band-local"] .lede{max-width:56ch}
+.closing[data-layout="cta-band-local"] .closing-notes li{display:inline-flex;align-items:center}
+.closing-meta{margin-top:var(--spacing-md);border-top:1px solid var(--hairline-dark);padding-top:var(--spacing-md)}

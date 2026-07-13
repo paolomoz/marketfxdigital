@@ -1,0 +1,74 @@
+/* cmp-quadrants — quadrant table head, cell kickers, brand strip and foot.
+   Cell grid geometry (.quad-table/.quad) comes from styles.css. */
+
+.cmp-quadrants-wrapper .gap-head {
+  max-width: 860px;
+  margin-bottom: var(--spacing-xl);
+}
+
+.cmp-quadrants-wrapper .gap-head h2 {
+  max-width: 30ch;
+}
+
+.cmp-quadrants-wrapper .quad h3 {
+  font-size: var(--heading-md);
+  margin-bottom: 10px;
+}
+
+.cmp-quadrants-wrapper .quad p {
+  margin: 0;
+}
+
+.cmp-quadrants-wrapper .quad p + p {
+  margin-top: var(--spacing-md);
+}
+
+.cmp-quadrants-wrapper .quad-kicker {
+  font-size: var(--body-sm);
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--signal);
+  margin-bottom: var(--spacing-sm);
+}
+
+.cmp-quadrants-wrapper .quad p.quad-kicker + h3 {
+  margin-top: var(--spacing-sm);
+}
+
+.cmp-quadrants-wrapper .quad-brand {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px var(--spacing-md);
+  border: 1px solid rgb(0 178 236 / 40%);
+  border-radius: 999px;
+  width: fit-content;
+  padding: 8px 20px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.cmp-quadrants-wrapper .quad-brand p {
+  margin: 0;
+  font-size: var(--body-sm);
+  font-weight: 700;
+  color: var(--text-on-dark);
+}
+
+.cmp-quadrants-wrapper .quad-brand p + p {
+  color: var(--text-muted-dark);
+  font-weight: 500;
+}
+
+.cmp-quadrants-wrapper .quad-foot {
+  margin-top: var(--spacing-lg);
+}
+
+.cmp-quadrants-wrapper .quad-foot p {
+  margin: 0 0 var(--spacing-md);
+  max-width: 72ch;
+}
+
+.cmp-quadrants-wrapper .quad-foot p:last-child {
+  margin-bottom: 0;
+}

@@ -1,0 +1,129 @@
+/* cmp-ranked — agency evaluation ledger: ruled entries, label/value fields. */
+
+.cmp-ranked-wrapper .rk-head {
+  max-width: 820px;
+  margin-bottom: var(--spacing-xl);
+}
+
+.cmp-ranked-wrapper .band-light .kicker {
+  color: var(--signal-deep);
+}
+
+.cmp-ranked-wrapper .rk-ledger {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  max-width: 980px;
+}
+
+.cmp-ranked-wrapper .rk-entry {
+  border-top: 1px solid var(--hairline-light);
+  padding-block: var(--spacing-lg);
+}
+
+.cmp-ranked-wrapper .rk-entry:last-child {
+  border-bottom: 1px solid var(--hairline-light);
+}
+
+.cmp-ranked-wrapper .rk-entry-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.cmp-ranked-wrapper .rk-ord {
+  font-size: var(--body-sm);
+  font-weight: 800;
+  letter-spacing: .04em;
+  color: var(--signal-deep);
+  font-variant-numeric: tabular-nums;
+  flex-shrink: 0;
+}
+
+.cmp-ranked-wrapper .rk-entry-head h3 {
+  margin: 0;
+  font-size: var(--heading-md);
+}
+
+.cmp-ranked-wrapper .rk-fields {
+  display: grid;
+  gap: var(--spacing-md);
+}
+
+.cmp-ranked-wrapper .rk-field {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--spacing-md) var(--spacing-lg);
+  align-items: start;
+}
+
+.cmp-ranked-wrapper .rk-label {
+  font-size: var(--body-sm);
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--text-muted-light);
+  padding-top: 2px;
+}
+
+.cmp-ranked-wrapper .rk-value p {
+  margin: 0 0 var(--spacing-sm);
+  max-width: 70ch;
+}
+
+.cmp-ranked-wrapper .rk-value p:last-child {
+  margin-bottom: 0;
+}
+
+.cmp-ranked-wrapper .rk-value ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.cmp-ranked-wrapper .rk-value li {
+  position: relative;
+  padding-left: 18px;
+  margin-bottom: var(--spacing-sm);
+  max-width: 70ch;
+}
+
+.cmp-ranked-wrapper .rk-value li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: .62em;
+  width: 8px;
+  height: 2px;
+  background: var(--signal-deep);
+}
+
+.cmp-ranked-wrapper .rk-value li:last-child {
+  margin-bottom: 0;
+}
+
+.cmp-ranked-wrapper .rk-reserved {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-md);
+  padding-block: var(--spacing-md);
+}
+
+.cmp-ranked-wrapper .rk-reserved .rk-ord {
+  color: var(--text-muted-light);
+}
+
+.cmp-ranked-wrapper .rk-note {
+  margin: 0;
+  font-size: var(--body-sm);
+  color: var(--text-muted-light);
+  max-width: 78ch;
+}
+
+@media (width <= 640px) {
+  .cmp-ranked-wrapper .rk-field {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}

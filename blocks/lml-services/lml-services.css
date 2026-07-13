@@ -1,0 +1,16 @@
+/* lml-services — two-column hairline services ledger on the dim paper band */
+.band-dim{background:var(--paper-dim)}
+.svc-head{max-width:820px;margin-bottom:var(--spacing-xl)}
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 var(--spacing-2xl);margin-bottom:var(--spacing-2xl)}
+
+.svc-grid li{
+  border-top:1px solid var(--hairline-light);
+  padding-block:18px;
+  font-size:15px;line-height:1.55;color:var(--text-muted-light);
+}
+.resources{border-top:1px solid var(--hairline-light);padding-top:var(--spacing-lg)}
+.resources p{margin:0;max-width:78ch}
+
+@media (width <=900px){
+  .svc-grid{grid-template-columns:1fr;margin-bottom:var(--spacing-xl)}
+}

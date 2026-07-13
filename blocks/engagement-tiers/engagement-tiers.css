@@ -1,0 +1,42 @@
+/* engagement-tiers — ruled pricing tiers on paper-dim (template band 6). */
+
+.engagement-tiers.band-dim {
+  background: var(--paper-dim);
+  border-block: 1px solid var(--hairline-light);
+}
+
+.engagement-tiers .tiers-head { max-width: 820px; margin-bottom: var(--spacing-xl); }
+.engagement-tiers .tiers-head p:last-child { margin-bottom: 0; }
+
+.engagement-tiers .tiers {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-xl) var(--spacing-lg);
+}
+
+.engagement-tiers .tier {
+  border-top: 2px solid var(--text-on-light);
+  padding-top: var(--spacing-md);
+}
+
+.engagement-tiers .tier h3 {
+  font-size: var(--heading-md);
+  margin-bottom: 6px;
+}
+
+.engagement-tiers .tier .price {
+  display: block;
+  font-size: var(--body-sm);
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--signal-deep);
+  margin-bottom: var(--spacing-md);
+}
+
+.engagement-tiers .tier p { margin-bottom: var(--spacing-sm); }
+.engagement-tiers .tier p:last-child { margin-bottom: 0; }
+
+@media (width <= 900px) {
+  .engagement-tiers .tiers { grid-template-columns: 1fr; }
+}

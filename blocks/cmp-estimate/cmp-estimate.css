@@ -1,0 +1,19 @@
+/* cmp-estimate — centered CTA on paper. */
+
+.cmp-estimate-wrapper .estimate {
+  text-align: center;
+}
+
+.cmp-estimate-wrapper .estimate .inner {
+  max-width: 640px;
+  margin-inline: auto;
+}
+
+.cmp-estimate-wrapper .estimate h2 {
+  margin-bottom: var(--spacing-md);
+}
+
+.cmp-estimate-wrapper .estimate p {
+  margin-inline: auto;
+  margin-bottom: var(--spacing-lg);
+}

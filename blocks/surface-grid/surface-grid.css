@@ -1,0 +1,110 @@
+/* surface-grid — ruled editorial columns on paper (template band 4).
+   Dark and paper-dim variants keep the same ruled grammar on other grounds. */
+
+.surface-grid .surface-head { max-width: 820px; margin-bottom: var(--spacing-xl); }
+.surface-grid .surface-head p:last-child { margin-bottom: 0; }
+
+.surface-grid .surface-cols {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-xl) var(--spacing-lg);
+}
+
+.surface-grid.sg-cols-2 .surface-cols { grid-template-columns: repeat(2, 1fr); }
+.surface-grid.sg-cols-4 .surface-cols { grid-template-columns: repeat(4, 1fr); }
+
+.surface-grid .surface-cols > div {
+  border-top: 1px solid var(--hairline-light);
+  padding-top: var(--spacing-md);
+}
+
+.surface-grid .surface-cols h3 {
+  font-size: var(--heading-md);
+  margin-bottom: 10px;
+}
+
+.surface-grid .sg-eyebrow {
+  font-size: var(--body-sm);
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--signal-deep);
+  margin-bottom: var(--spacing-sm);
+}
+
+.surface-grid .sg-body p { margin-bottom: var(--spacing-sm); }
+.surface-grid .sg-body p:last-child { margin-bottom: 0; }
+
+.surface-grid .sg-body ul,
+.surface-grid .sg-body ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.surface-grid .sg-body li {
+  border-top: 1px solid var(--hairline-light);
+  padding-block: 8px;
+  font-size: 15px;
+}
+
+.surface-grid .sg-body li:first-child { border-top: none; }
+
+/* dark variant — same ruled grammar on the dark field */
+.surface-grid.sg-dark .surface-cols > div { border-top-color: var(--hairline-dark); }
+.surface-grid.sg-dark .sg-eyebrow { color: var(--signal); }
+.surface-grid.sg-dark .sg-body li { border-top-color: var(--hairline-dark); }
+
+/* paper-dim variant */
+.surface-grid.band-dim {
+  background: var(--paper-dim);
+  border-block: 1px solid var(--hairline-light);
+}
+
+/* cross-block decode: the template's closing-cta is authored with the
+   `no-exhibit` variant (these pages carry no closing evidence stat) —
+   suppress the empty exhibit panel and let the copy take the full measure.
+   Lives here because surface-grid is on every solution-audit-lander page. */
+.no-exhibit .exhibit-ember { display: none; }
+.no-exhibit .closing .wrap { grid-template-columns: 1fr; }
+
+/* these closings are authored [h2, lede] with no eyebrow: the single prose <p>
+   lands in the kicker slot — restyle it as the lede, reflow it below the h2,
+   and drop the empty lede */
+.no-exhibit .closing [data-reveal]:not(.exhibit-ember) {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.no-exhibit .closing .exhibit-ember { display: none; }
+
+.no-exhibit .closing h2 { order: 1; }
+.no-exhibit .closing .kicker { order: 2; }
+.no-exhibit .closing .closing-actions { order: 3; }
+.no-exhibit .closing .closing-notes { order: 4; }
+
+.no-exhibit .closing .kicker {
+  font-size: 20px;
+  font-weight: 400;
+  font-family: var(--body-font-family);
+  letter-spacing: normal;
+  text-transform: none;
+  line-height: 1.55;
+  color: var(--text-muted-dark);
+  max-width: 72ch;
+  margin-bottom: var(--spacing-lg);
+}
+
+.no-exhibit .closing .lede:empty { display: none; }
+
+@media (width <= 900px) {
+  .surface-grid .surface-cols,
+  .surface-grid.sg-cols-4 .surface-cols { grid-template-columns: 1fr 1fr; }
+}
+
+@media (width <= 640px) {
+  .surface-grid .surface-cols,
+  .surface-grid.sg-cols-2 .surface-cols,
+  .surface-grid.sg-cols-4 .surface-cols { grid-template-columns: 1fr; }
+}
