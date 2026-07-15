@@ -1,0 +1,3 @@
+.defs{margin:var(--spacing-lg) 0}
+.defs dt{font-weight:700;color:var(--text-on-light);border-top:1px solid var(--hairline-light);padding-top:var(--spacing-md)}
+.defs dd{margin:6px 0 var(--spacing-md);color:var(--text-muted-light)}
