@@ -234,7 +234,7 @@ function wrapTrailingArrows() {
 /* article flow: link the "What You'll Learn" list items to their matching
    h2/h3 anchors (moved from the retired article-body DSL decode; audit F-012) */
 function decorateLearnToc() {
-  document.querySelectorAll('main .section.article').forEach((section) => {
+  document.querySelectorAll('main .section.article-flow').forEach((section) => {
     const label = [...section.querySelectorAll('p > em:only-child, p > strong:only-child')]
       .find((s) => /^what you.?ll learn|^what you will learn/i.test(s.textContent.trim()));
     if (!label) return;
