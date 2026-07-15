@@ -142,6 +142,19 @@ function decorateButtons(main) {
   });
 }
 
+/* article flow: classify eyebrow labels — a default-content paragraph whose
+   entire text is one <em> (muted) or <strong> (signal) line. Text equality
+   keeps bold-lead paragraphs (<strong>Term:</strong> rest…) out. */
+function decorateArticleLabels(main) {
+  main.querySelectorAll('.section.article-flow > .default-content-wrapper p').forEach((p) => {
+    const only = p.children.length === 1 ? p.firstElementChild : null;
+    if (!only || (only.tagName !== 'STRONG' && only.tagName !== 'EM')) return;
+    if (p.textContent.trim() !== only.textContent.trim()) return;
+    p.classList.add('plabel');
+    if (only.tagName === 'STRONG') p.classList.add('plabel-signal');
+  });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -153,6 +166,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateArticleLabels(main);
 }
 
 /**
@@ -231,12 +245,43 @@ function wrapTrailingArrows() {
   });
 }
 
+/* article flow: link the "What You'll Learn" list items to their matching
+   h2/h3 anchors (moved from the retired article-body DSL decode; audit F-012) */
+function decorateLearnToc() {
+  document.querySelectorAll('main .section.article-flow').forEach((section) => {
+    const label = [...section.querySelectorAll('p > em:only-child, p > strong:only-child')]
+      .find((s) => /^what you.?ll learn|^what you will learn/i.test(s.textContent.trim()));
+    if (!label) return;
+    let list = label.closest('p').nextElementSibling;
+    while (list && list.tagName !== 'UL') list = list.nextElementSibling;
+    if (!list) return;
+    const heads = [...section.querySelectorAll('h2[id], h3[id]')]
+      .map((h) => ({ id: h.id, words: new Set(h.textContent.toLowerCase().match(/[a-z]{4,}/g) || []) }));
+    [...list.children].forEach((li) => {
+      const words = (li.textContent.toLowerCase().match(/[a-z]{4,}/g) || []);
+      let best = null; let bestScore = 1; // require >=2 overlapping words
+      heads.forEach((h) => {
+        const score = words.filter((w) => h.words.has(w)).length;
+        if (score > bestScore) { best = h; bestScore = score; }
+      });
+      if (best) {
+        const a = document.createElement('a');
+        a.href = `#${best.id}`;
+        while (li.firstChild) a.append(li.firstChild);
+        li.append(a);
+      }
+    });
+    list.classList.add('learn-toc');
+  });
+}
+
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   // page-type JSON-LD is now server-rendered via the json-ld metadata
   // property in each DA doc (audit F-009 closed); no client injection needed
   wrapTrailingArrows();
+  decorateLearnToc();
   loadDelayed();
 }
 
