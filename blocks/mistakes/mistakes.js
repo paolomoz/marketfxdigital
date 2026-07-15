@@ -1,13 +1,15 @@
 /* mistakes — numbered pitfall list in the article flow. Rows: [h3 title][p body].
-   Ordinals (01, 02, …) are presentation, generated here. */
+   Ordinals are presentation, generated here: zero-padded (01, 02, …) by default,
+   bare (1, 2, …) with the `plain` variant. */
 export default function decorate(block) {
+  const plain = block.classList.contains('plain');
   const out = document.createDocumentFragment();
   [...block.children].forEach((row, i) => {
     const [title, body] = [...row.children];
     const ord = document.createElement('span');
     ord.className = 'mist-ord';
     ord.setAttribute('aria-hidden', 'true');
-    ord.textContent = String(i + 1).padStart(2, '0');
+    ord.textContent = plain ? String(i + 1) : String(i + 1).padStart(2, '0');
     out.append(ord);
     const h = title?.querySelector('h1, h2, h3, h4');
     if (h) {
