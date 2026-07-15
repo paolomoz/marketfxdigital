@@ -1,19 +1,38 @@
-/* tool-card — bordered utility card in the article flow. Single-cell rows in
-   order: bold-line kicker, h3 title, intro p, chip list (ul), fine-print p.
-   Shape-based: the ul becomes the chip row; the p after the ul is fine print. */
+/* tool-card — bordered utility card in the article flow. Single-cell rows:
+   bold-line = step/kicker label, plain p = intro/question copy, list = chip row
+   (plain items) or scored options (items with an <em> level tag), italic-line =
+   fine print. Shape-based; all copy authored. */
 export default function decorate(block) {
   const card = document.createElement('div');
   card.className = 'tool-card';
-  let seenList = false;
   [...block.children].forEach((row) => {
     const cell = row.firstElementChild;
     if (!cell) return;
     [...cell.childNodes].forEach((n) => {
       if (n.tagName === 'UL' || n.tagName === 'OL') {
-        n.classList.add('chip-row');
-        seenList = true;
-      } else if (n.tagName === 'P' && seenList) {
-        n.classList.add('fine');
+        const isOpts = [...n.children].some((li) => li.querySelector('em'));
+        if (isOpts) {
+          n.classList.add('tool-opts');
+          [...n.children].forEach((li) => {
+            const em = li.querySelector('em');
+            const d = document.createElement('span');
+            d.className = 'd';
+            d.textContent = em ? em.textContent.trim() : '';
+            if (em) em.remove();
+            const o = document.createElement('span');
+            o.className = 'o';
+            o.textContent = li.textContent.trim();
+            li.replaceChildren(o, d);
+          });
+        } else {
+          n.classList.add('chip-row');
+        }
+      } else if (n.tagName === 'P') {
+        const em = n.querySelector(':scope > em:only-child');
+        if (em) {
+          n.classList.add('fine');
+          n.replaceChildren(...em.childNodes);
+        }
       }
       card.append(n);
     });

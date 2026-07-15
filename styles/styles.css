@@ -40,12 +40,11 @@ main .section.article > div { max-width: 72ch; margin-inline: auto; padding-inli
 main .section.article > .default-content-wrapper { max-width: 72ch; padding: 0 24px; }
 main .section.article > .default-content-wrapper h2,
 main .section.article > .default-content-wrapper h3 { color: var(--text-on-light); }
-main .section.article h2 { font-size: clamp(27px, 3vw, 33px); margin-top: var(--spacing-2xl); scroll-margin-top: 96px; }
-main .section.article h3 { font-size: 21px; margin-top: var(--spacing-xl); scroll-margin-top: 96px; }
-main .section.article p { margin: 0 0 var(--spacing-md); }
-main .section.article > .default-content-wrapper ul,
-main .section.article > .default-content-wrapper ol { list-style: disc; padding-left: 22px; margin: 0 0 var(--spacing-md); color: var(--text-muted-light); }
-main .section.article > .default-content-wrapper li { margin-bottom: 8px; padding-left: 2px; }
+/* typography at (0,0,2): beats bare element defaults, loses to any unit-block class rule */
+main :where(.section.article) h2 { font-size: clamp(27px, 3vw, 33px); margin-top: var(--spacing-2xl); scroll-margin-top: 96px; }
+main :where(.section.article) h3 { font-size: 21px; margin-top: var(--spacing-xl); scroll-margin-top: 96px; }
+main :where(.section.article) ul, main :where(.section.article) ol { list-style: disc; padding-left: 22px; margin: 0 0 var(--spacing-md); color: var(--text-muted-light); }
+main :where(.section.article) :where(ul, ol) > li { margin-bottom: 8px; padding-left: 2px; }
 
 /* labels: an italic-only line is a muted eyebrow, a bold-only line is a signal
    eyebrow (Word-authorable; link-only lines still become buttons, not labels) */
