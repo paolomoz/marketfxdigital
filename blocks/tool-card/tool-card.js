@@ -28,10 +28,13 @@ export default function decorate(block) {
           n.classList.add('chip-row');
         }
       } else if (n.tagName === 'P') {
-        const em = n.querySelector(':scope > em:only-child');
-        if (em) {
+        const only = n.children.length === 1 ? n.firstElementChild : null;
+        const fullLine = only && n.textContent.trim() === only.textContent.trim();
+        if (fullLine && only.tagName === 'EM') {
           n.classList.add('fine');
-          n.replaceChildren(...em.childNodes);
+          n.replaceChildren(...only.childNodes);
+        } else if (fullLine && only.tagName === 'STRONG') {
+          n.classList.add('plabel', 'plabel-signal');
         }
       }
       card.append(n);

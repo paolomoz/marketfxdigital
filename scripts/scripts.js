@@ -142,6 +142,19 @@ function decorateButtons(main) {
   });
 }
 
+/* article flow: classify eyebrow labels — a default-content paragraph whose
+   entire text is one <em> (muted) or <strong> (signal) line. Text equality
+   keeps bold-lead paragraphs (<strong>Term:</strong> rest…) out. */
+function decorateArticleLabels(main) {
+  main.querySelectorAll('.section.article-flow > .default-content-wrapper p').forEach((p) => {
+    const only = p.children.length === 1 ? p.firstElementChild : null;
+    if (!only || (only.tagName !== 'STRONG' && only.tagName !== 'EM')) return;
+    if (p.textContent.trim() !== only.textContent.trim()) return;
+    p.classList.add('plabel');
+    if (only.tagName === 'STRONG') p.classList.add('plabel-signal');
+  });
+}
+
 /**
  * Decorates the main element.
  * @param {Element} main The main element
@@ -153,6 +166,7 @@ export function decorateMain(main) {
   decorateSections(main);
   decorateBlocks(main);
   decorateButtons(main);
+  decorateArticleLabels(main);
 }
 
 /**
