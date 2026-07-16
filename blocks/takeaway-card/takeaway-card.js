@@ -7,10 +7,12 @@ export default function decorate(block) {
   [...block.children].forEach((row) => {
     const [kicker, body] = [...row.children];
     if (kicker && kicker.textContent.trim()) {
-      const h = kicker.querySelector('h1, h2, h3, h4') || kicker;
-      const k = document.createElement('h3');
+      const h = kicker.querySelector('h1, h2, h3, h4');
+      // keep the authored heading level (lead cards use h2 so the outline
+      // never jumps h1 -> h3; mid-article cards use h3)
+      const k = document.createElement(h ? h.tagName.toLowerCase() : 'h3');
       k.className = 'k';
-      k.textContent = h.textContent.trim();
+      k.textContent = (h || kicker).textContent.trim();
       card.append(k);
     }
     if (body) [...body.childNodes].forEach((n) => card.append(n));

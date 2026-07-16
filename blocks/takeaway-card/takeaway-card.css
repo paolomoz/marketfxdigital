@@ -1,4 +1,4 @@
 .takeaway-card{border:1px solid rgb(0 178 236 / 40%);background:rgb(0 178 236 / 6%);border-radius:var(--radius-card);padding:var(--spacing-lg);margin:var(--spacing-lg) 0}
-.takeaway-card h3.k{display:block;font-size:var(--body-sm);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--signal-deep);margin:0 0 var(--spacing-sm)}
-.takeaway-card h3.k + *{margin-top:0}
+.takeaway-card .k{display:block;font-size:var(--body-sm);font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--signal-deep);margin:0 0 var(--spacing-sm)}
+.takeaway-card .k + *{margin-top:0}
 .takeaway-card p:last-child,.takeaway-card ul:last-child{margin-bottom:0}
