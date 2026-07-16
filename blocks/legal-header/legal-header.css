@@ -40,6 +40,7 @@
 .legal-meta .dot{width:6px;height:6px;border-radius:50%;background:var(--signal);flex-shrink:0}
 
 /* ---- document body — white ground, TOC rail + ~70ch column ---- */
+main .section.legal-doc-body{padding-block:var(--section-padding)}
 .legal-doc-body .doc-grid{display:grid;grid-template-columns:264px minmax(0,1fr);gap:var(--spacing-2xl);align-items:start}
 
 /* TOC — legal docs are lookup documents */
