@@ -92,8 +92,21 @@ function buildCard(entry) {
 }
 
 export default async function decorate(block) {
+  // authored rows ([link, description] per article) make the list visible in
+  // the raw HTML for crawlers; the index still enriches image/date/category
+  const authored = [...block.querySelectorAll(':scope > div')].map((row) => {
+    const a = row.querySelector('a');
+    if (!a) return null;
+    const cells = [...row.children];
+    return {
+      path: new URL(a.href, window.location.href).pathname,
+      title: a.textContent.trim(),
+      description: cells[1] ? cells[1].textContent.trim() : '',
+    };
+  }).filter(Boolean);
+
   // author may drop a plain number in the block to cap the list (e.g. home = 3)
-  const limitMatch = block.textContent.match(/\d+/);
+  const limitMatch = authored.length ? null : block.textContent.match(/\d+/);
   const limit = limitMatch ? parseInt(limitMatch[0], 10) : null;
 
   block.replaceChildren();
@@ -102,16 +115,24 @@ export default async function decorate(block) {
   let entries = [];
   try {
     const resp = await fetch(INDEX);
-    if (!resp.ok) return;
+    if (!resp.ok) throw new Error('index unavailable');
     const json = await resp.json();
     entries = Array.isArray(json?.data) ? json.data : [];
   } catch (e) {
-    return; // graceful: render nothing
+    if (!authored.length) return; // graceful: render nothing
   }
 
-  const posts = entries
-    .filter((e) => typeof e.path === 'string' && e.path.startsWith('/blog/'))
-    .sort((a, b) => dateKey(b) - dateKey(a));
+  let posts;
+  if (authored.length) {
+    const byPath = new Map(entries.map((e) => [e.path, e]));
+    posts = authored
+      .map((e) => ({ ...(byPath.get(e.path) || {}), ...e }))
+      .sort((a, b) => dateKey(b) - dateKey(a));
+  } else {
+    posts = entries
+      .filter((e) => typeof e.path === 'string' && e.path.startsWith('/blog/'))
+      .sort((a, b) => dateKey(b) - dateKey(a));
+  }
 
   const list = limit ? posts.slice(0, limit) : posts;
   if (!list.length) return; // graceful: nothing to show
