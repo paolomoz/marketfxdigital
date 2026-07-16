@@ -275,6 +275,82 @@ function decorateLearnToc() {
   });
 }
 
+/* legal pages: build the document register (TOC rail, numbered clauses,
+   scrollspy) from the default-content clauses of a `style: legal-body` section
+   (moved from the retired legal-doc DSL decode; CSS ships with legal-header) */
+function decorateLegalDoc() {
+  document.querySelectorAll('main .section.legal-body').forEach((section) => {
+    section.classList.add('legal-doc-body', 'band-light');
+    const flow = [];
+    [...section.children].forEach((w) => { flow.push(...w.children); w.remove(); });
+
+    const wrap = document.createElement('div');
+    wrap.className = 'wrap doc-grid';
+    const toc = document.createElement('nav');
+    toc.className = 'toc';
+    toc.setAttribute('aria-labelledby', 'toc-label');
+    const tocLabel = document.createElement('p');
+    tocLabel.className = 'toc-label';
+    tocLabel.id = 'toc-label';
+    tocLabel.textContent = 'On this page';
+    const tocList = document.createElement('ol');
+    toc.append(tocLabel, tocList);
+    const doc = document.createElement('div');
+    doc.className = 'doc';
+    wrap.append(toc, doc);
+
+    let clause = null;
+    let n = 0;
+    flow.forEach((elm) => {
+      if (elm.tagName === 'H2') {
+        n += 1;
+        clause = document.createElement('section');
+        clause.className = 'clause';
+        clause.setAttribute('data-section', `clause-${n}`);
+        const sn = document.createElement('span');
+        sn.className = 'sn';
+        sn.textContent = `${n}.`;
+        const txt = document.createElement('span');
+        txt.textContent = elm.textContent.trim();
+        const a = document.createElement('a');
+        a.href = `#${elm.id}`;
+        a.textContent = elm.textContent.trim();
+        const li = document.createElement('li');
+        li.append(a);
+        tocList.append(li);
+        elm.replaceChildren(sn, txt);
+        clause.append(elm);
+        doc.append(clause);
+      } else {
+        if (!clause && elm.tagName === 'P') elm.classList.add('doc-intro');
+        (clause || doc).append(elm);
+      }
+    });
+    section.append(wrap);
+
+    /* TOC scrollspy — additive wayfinding only; TOC fully functional without JS */
+    if ('IntersectionObserver' in window) {
+      const map = {};
+      tocList.querySelectorAll('a').forEach((a) => {
+        map[a.getAttribute('href').slice(1)] = a;
+      });
+      let current = null;
+      const spy = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          if (current) current.removeAttribute('aria-current');
+          current = map[e.target.id];
+          if (current) current.setAttribute('aria-current', 'true');
+        });
+      }, { rootMargin: '-20% 0px -70% 0px' });
+      Object.keys(map).forEach((id) => {
+        const t = doc.querySelector(`#${CSS.escape(id)}`);
+        if (t) spy.observe(t);
+      });
+    }
+  });
+}
+
 async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
@@ -282,6 +358,7 @@ async function loadPage() {
   // property in each DA doc (audit F-009 closed); no client injection needed
   wrapTrailingArrows();
   decorateLearnToc();
+  decorateLegalDoc();
   loadDelayed();
 }
 
